@@ -1,0 +1,2806 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚽ 牧童足球手册 — 11岁就能懂的阵型世界</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(15,23,42,0.94); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 0.5rem 1rem;
+    display: flex; align-items: center; gap: 12px;
+    font-size: 0.82rem;
+  }
+  .nav a { color: #fbbf24; text-decoration: none; font-weight: 600; }
+  .nav a:hover { text-decoration: underline; }
+  .nav .sep { color: #475569; }
+  .nav .cur { color: #94a3b8; }
+  /* ─── FAB TOC Button ─── */
+  .fab-toc {
+    position: fixed; bottom: 24px; right: 24px; z-index: 200;
+    width: 52px; height: 52px; border-radius: 50%;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 20px rgba(251,191,36,.35);
+    transition: transform .2s, box-shadow .2s;
+    user-select: none; -webkit-tap-highlight-color: transparent;
+  }
+  .fab-toc:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(251,191,36,.4); }
+  .fab-toc:active { transform: scale(0.95); }
+
+  /* ─── TOC Overlay ─── */
+  .toc-overlay {
+    position: fixed; inset: 0; z-index: 199;
+    background: rgba(15,23,42,.92); backdrop-filter: blur(12px);
+    display: none; flex-direction: column;
+    padding: 60px 24px 80px;
+    overflow-y: auto;
+    animation: fadeUp .3s ease;
+  }
+  .toc-overlay.open { display: flex; }
+  .toc-overlay .close-btn {
+    position: absolute; top: 16px; right: 16px;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(148,163,184,.1); border: none;
+    color: #94a3b8; font-size: 1.2rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .2s;
+  }
+  .toc-overlay .close-btn:hover { background: rgba(148,163,184,.2); }
+  .toc-overlay h3 {
+    color: #fbbf24; font-size: 1rem; font-weight: 700;
+    margin-bottom: 14px; text-align: center;
+  }
+  .toc-overlay .toc-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    max-width: 500px; margin: 0 auto; width: 100%;
+  }
+  .toc-overlay .toc-grid a {
+    color: #94a3b8; text-decoration: none;
+    padding: 12px 10px; border-radius: 10px;
+    font-size: .85rem; font-weight: 500;
+    background: rgba(148,163,184,.04);
+    border: 1px solid rgba(148,163,184,.06);
+    transition: all .15s;
+    text-align: center;
+  }
+  .toc-overlay .toc-grid a:hover, .toc-overlay .toc-grid a:active {
+    background: rgba(251,191,36,.1);
+    border-color: rgba(251,191,36,.2);
+    color: #fbbf24;
+  }
+
+  /* ─── Section-nav ─── */
+
+
+  @media (max-width: 400px) {
+    .fab-toc { width: 44px; height: 44px; font-size: 1.2rem; bottom: 16px; right: 16px; }
+    .toc-overlay { padding: 48px 16px 70px; }
+    .toc-overlay .toc-grid { gap: 6px; }
+    .toc-overlay .toc-grid a { padding: 10px 8px; font-size: .78rem; }
+  }
+  body {
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+    min-height: 100vh;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 16px; padding-top: 82px; }
+
+  /* ─── Animations ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideInL {
+    from { opacity: 0; transform: translateX(-40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes slideInR {
+    from { opacity: 0; transform: translateX(40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes pulseGlow {
+    0%, 100% { transform: scale(1); opacity: .6; }
+    50% { transform: scale(1.08); opacity: 1; }
+  }
+  @keyframes bounceDot {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes floatAnim {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-8px) rotate(2deg); }
+    75% { transform: translateY(4px) rotate(-1deg); }
+  }
+  @keyframes shakeCard {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-4deg); }
+    75% { transform: rotate(4deg); }
+  }
+  @keyframes cardReveal {
+    from { transform: rotateY(180deg) scale(0.8); opacity: 0; }
+    to { transform: rotateY(0deg) scale(1); opacity: 1; }
+  }
+  @keyframes subBoardSlide {
+    from { transform: translateX(120px) scale(0.5); opacity: 0; }
+    to { transform: translateX(0) scale(1); opacity: 1; }
+  }
+  @keyframes runningMan {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(15px); }
+    100% { transform: translateX(0); }
+  }
+  @keyframes goalNet {
+    0% { transform: scaleX(1); }
+    50% { transform: scaleX(0.3); }
+    100% { transform: scaleX(1); }
+  }
+
+  .card { animation: fadeUp 0.6s ease forwards; }
+  .card:nth-child(2) { animation-delay: 0.1s; }
+  .card:nth-child(3) { animation-delay: 0.2s; }
+
+  /* ─── Hero ─── */
+  .hero {
+    text-align: center;
+    padding: 32px 16px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(ellipse at center, rgba(59,130,246,.12) 0%, transparent 60%);
+    animation: pulseGlow 4s ease-in-out infinite;
+  }
+  .hero h1 {
+    font-size: clamp(1.8rem,5vw,3rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    position: relative;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b, #f97316);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero .sub {
+    position: relative;
+    margin-top: 8px;
+    font-size: 0.95rem;
+    color: #94a3b8;
+  }
+  .toc-body.toc-open { max-height: 350px !important; padding: 8px !important; }
+  .toc-item { display: inline-block; }
+  .hero .mascot {
+    position: relative;
+    display: inline-block;
+    font-size: 3.2rem;
+    animation: floatAnim 3s ease-in-out infinite;
+    margin-top: 4px;
+    filter: drop-shadow(0 4px 12px rgba(251,191,36,.3));
+  }
+
+  /* ─── Card ─── */
+  .card {
+    background: linear-gradient(145deg, #1e293b, #172033);
+    border-radius: 20px;
+    padding: 22px 18px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(148,163,184,.08);
+    box-shadow: 0 4px 24px rgba(0,0,0,.3);
+    transition: transform .2s, box-shadow .2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,.4); }
+  .card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #fbbf24, transparent);
+    opacity: 0;
+    transition: opacity .3s;
+  }
+  .card:hover::after { opacity: .5; }
+
+  .card h2 {
+    font-size: clamp(1.1rem,3vw,1.4rem);
+    font-weight: 700;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: -0.01em;
+  }
+  .card h2 .icon { font-size: 1.4rem; }
+
+  /* ─── Mini Pitch ─── */
+  .pitch-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin: 10px 0;
+  }
+  @media (min-width: 600px) {
+    .pitch-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (min-width: 900px) {
+    .pitch-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+  }
+
+  .mini-pitch {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 68/100;
+    background: linear-gradient(135deg, #166534, #15803d);
+    border-radius: 10px;
+    border: 2px solid rgba(255,255,255,.12);
+    overflow: hidden;
+  }
+  .mini-pitch .mline {
+    position: absolute;
+    top: 50%; left: 0; right: 0;
+    height: 1.5px; background: rgba(255,255,255,.12);
+  }
+  .mini-pitch .mcircle {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 26%; height: 24%;
+    transform: translate(-50%, -50%);
+    border: 1.5px solid rgba(255,255,255,.1);
+    border-radius: 50%;
+  }
+  .mini-pitch .mpen-box {
+    position: absolute;
+    left: 20%; right: 20%;
+    border: 1.5px solid rgba(255,255,255,.08);
+  }
+  .mini-pitch .mpen-big.a { top: 3%; height: 30%; border-top: none; }
+  .mini-pitch .mpen-big.b { bottom: 3%; height: 30%; border-bottom: none; }
+  .mini-pitch .mpen-small.a { top: 8%; left: 32%; right: 32%; height: 12%; border-top: none; }
+  .mini-pitch .mpen-small.b { bottom: 8%; left: 32%; right: 32%; height: 12%; border-bottom: none; }
+
+  .mini-pitch .pl {
+    position: absolute;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: .5rem; font-weight: 700;
+    color: #0f172a;
+    box-shadow: 0 2px 6px rgba(0,0,0,.4);
+    transition: transform .3s, box-shadow .3s;
+    cursor: default;
+  }
+  .mini-pitch .pl { z-index: 1; }
+  .mini-pitch .pl:hover {
+    transform: translate(-50%, -50%) scale(1.25);
+    z-index: 10;
+    box-shadow: 0 4px 14px rgba(0,0,0,.5);
+  }
+  .pl.gk { background: #fbbf24; width: 24px; height: 24px; }
+  .pl.df { background: #3b82f6; }
+  .pl.md { background: #10b981; }
+  .pl.fw { background: #ef4444; }
+  .pl.pl-dm { background: #f59e0b; }
+
+  .pitch-label {
+    text-align: center;
+    font-size: .82rem;
+    font-weight: 700;
+    color: #fbbf24;
+    margin-top: 4px;
+  }
+  .pitch-label small { color: #94a3b8; font-weight: 400; font-size: .7rem; }
+
+  /* ─── Term Grid ─── */
+  .term-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  @media (min-width: 600px) { .term-grid { grid-template-columns: 1fr 1fr; } }
+
+  .term-item {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding: 10px 12px;
+    background: rgba(148,163,184,.04);
+    border-radius: 10px;
+    border-left: 3px solid;
+    transition: background .15s, transform .2s;
+    animation: slideInL 0.4s ease forwards;
+    opacity: 0;
+  }
+  .term-item:hover { background: rgba(148,163,184,.08); transform: translateX(4px); }
+  .term-item .en {
+    font-weight: 700;
+    font-size: .85rem;
+    min-width: 100px;
+  }
+  .term-item .cn { color: #94a3b8; font-size: .8rem; min-width: 45px; }
+  .term-item .exp { color: #cbd5e1; font-size: .78rem; }
+
+  /* ─── Famous ─── */
+  .famous {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    margin: 6px 0;
+    background: rgba(148,163,184,.04);
+    border-radius: 12px;
+    animation: slideInR 0.5s ease forwards;
+    opacity: 0;
+    transition: background .2s;
+  }
+  .famous:hover { background: rgba(148,163,184,.08); }
+  .famous .avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  .famous .info { font-size: .84rem; line-height: 1.5; }
+  .famous .info strong { color: #fbbf24; }
+  .famous .info .pos { color: #94a3b8; font-size: .74rem; }
+
+  /* ─── Formation Label ─── */
+  .form-chip {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: .82rem;
+    font-weight: 700;
+    margin: 3px;
+  }
+  .form-chip.c-433 { background: rgba(59,130,246,.2); border: 1px solid rgba(59,130,246,.3); color: #60a5fa; }
+  .form-chip.c-442 { background: rgba(16,185,129,.2); border: 1px solid rgba(16,185,129,.3); color: #34d399; }
+  .form-chip.c-4231 { background: rgba(239,68,68,.2); border: 1px solid rgba(239,68,68,.3); color: #f87171; }
+  .form-chip.c-343 { background: rgba(168,85,247,.2); border: 1px solid rgba(168,85,247,.3); color: #a78bfa; }
+  .form-chip.c-4123 { background: rgba(251,191,36,.2); border: 1px solid rgba(251,191,36,.3); color: #fbbf24; }
+
+  /* ─── Substitution Board ─── */
+  .sub-board {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 18px 18px 22px;
+    background: #1a1a2e;
+    border-radius: 12px;
+    border: 2px solid #fbbf24;
+    max-width: 380px;
+    margin: 16px auto 30px;
+    position: relative;
+    animation: subBoardSlide 0.8s ease forwards;
+  }
+  .sub-board .num-out {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: #ef4444;
+    text-shadow: 0 0 20px rgba(239,68,68,.3);
+    animation: shakeCard 0.5s ease infinite;
+  }
+  .sub-board .arrow {
+    font-size: 2rem;
+    color: #fbbf24;
+    animation: runningMan 0.8s ease infinite;
+  }
+  .sub-board .num-in {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: #10b981;
+    text-shadow: 0 0 20px rgba(16,185,129,.3);
+  }
+  .sub-board .board-label {
+    position: absolute;
+    bottom: 4px;
+    right: 14px;
+    font-size: .68rem;
+    color: #94a3b8;
+    white-space: nowrap;
+  }
+
+  /* ─── Card Showcase ─── */
+  .card-show {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    padding: 16px;
+    flex-wrap: wrap;
+  }
+  .card-item {
+    width: 80px; height: 110px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: .8rem;
+    transform-style: preserve-3d;
+    animation: cardReveal 0.8s ease forwards;
+    box-shadow: 0 6px 20px rgba(0,0,0,.3);
+  }
+  .card-item.yellow {
+    background: linear-gradient(145deg, #fbbf24, #f59e0b);
+    color: #0f172a;
+    animation-delay: 0.2s;
+  }
+  .card-item.red {
+    background: linear-gradient(145deg, #ef4444, #dc2626);
+    color: #fff;
+    animation-delay: 0.5s;
+  }
+  .card-item .card-icon { font-size: 2rem; margin-bottom: 6px; }
+  .card-item .card-desc { text-align: center; font-size: .65rem; font-weight: 600; }
+
+  /* ─── Tactical Flow ─── */
+  .tact-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin: 12px 0;
+  }
+  @media (min-width: 600px) { .tact-row { grid-template-columns: 1fr 1fr 1fr; } }
+
+  .tact-box {
+    text-align: center;
+    padding: 16px 10px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,.06);
+    transition: transform .2s;
+    cursor: default;
+  }
+  .tact-box:hover { transform: translateY(-4px); }
+  .tact-box .t-icon { font-size: 2.4rem; margin-bottom: 6px; }
+  .tact-box .t-title { font-size: .9rem; font-weight: 700; margin-bottom: 4px; }
+  .tact-box .t-desc { font-size: .75rem; color: #94a3b8; line-height: 1.5; }
+  .tact-box.t-press { background: rgba(239,68,68,.08); }
+  .tact-box.t-low { background: rgba(59,130,246,.08); }
+  .tact-box.t-counter { background: rgba(16,185,129,.08); }
+
+  /* ─── Formula ─── */
+  .formula {
+    background: rgba(251,191,36,.08);
+    border: 1px solid rgba(251,191,36,.2);
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin: 10px 0;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  .formula span { color: #fbbf24; }
+
+  /* ─── Timeline ─── */
+  .timeline { position: relative; padding: 6px 0; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 12px; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, #3b82f6, #10b981, #fbbf24, #ef4444);
+    border-radius: 2px;
+  }
+  .tl-item {
+    position: relative;
+    padding: 6px 0 6px 34px;
+    font-size: .82rem;
+    animation: slideInL 0.4s ease forwards;
+    opacity: 0;
+  }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: 6px; top: 12px;
+    width: 14px; height: 14px;
+    background: #fbbf24;
+    border-radius: 50%;
+    border: 3px solid #0f172a;
+  }
+  .tl-item .time { color: #94a3b8; font-weight: 600; }
+  .tl-item .desc { color: #e2e8f0; }
+
+  /* ─── Trivia ─── */
+  .trivia-block {
+    background: linear-gradient(135deg, rgba(251,191,36,.06), rgba(255,255,255,.02));
+    border-radius: 14px;
+    padding: 16px;
+    border: 1px solid rgba(251,191,36,.08);
+    margin: 10px 0;
+    animation: fadeUp 0.6s ease forwards;
+  }
+  .trivia-block h3 {
+    color: #fbbf24;
+    font-size: .85rem;
+    margin-bottom: 6px;
+  }
+  .trivia-block p { font-size: .85rem; color: #cbd5e1; }
+
+  /* ─── Player Stats ─── */
+  .stat-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 4px 0;
+    font-size: .78rem;
+  }
+  .stat-bar .bar {
+    flex: 1;
+    height: 8px;
+    background: rgba(148,163,184,.1);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .stat-bar .bar .fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 1s ease;
+    animation: fadeUp 0.8s ease forwards;
+  }
+  .fill.gk-f { background: linear-gradient(90deg, #fbbf24, #f59e0b); width: 85%; }
+  .fill.cb-f { background: linear-gradient(90deg, #3b82f6, #2563eb); width: 92%; }
+  .fill.cdm-f { background: linear-gradient(90deg, #f59e0b, #d97706); width: 88%; }
+  .fill.cm-f { background: linear-gradient(90deg, #10b981, #059669); width: 78%; }
+  .fill.wing-f { background: linear-gradient(90deg, #ef4444, #dc2626); width: 96%; }
+  .fill.st-f { background: linear-gradient(90deg, #ef4444, #b91c1c); width: 99%; }
+
+  /* ─── Responsive ─── */
+  @media (min-width: 600px) {
+    .container { padding: 24px; padding-top: 56px; }
+    .card { padding: 28px 24px; }
+    .hero h1 { font-size: 2.8rem; }
+    .hero { padding: 40px 20px 32px; }
+    .term-item { animation: slideInL 0.4s ease forwards; }
+  }
+  @media (min-width: 900px) {
+    .container { padding: 32px; padding-top: 60px; }
+    .card { padding: 32px 28px; }
+    .hero h1 { font-size: 3.2rem; }
+  }
+  @media (max-width: 400px) {
+    .mini-pitch { max-height: 220px; }
+    .mini-pitch .pl { width: 18px; height: 18px; font-size: .35rem; }
+    .pl.gk { width: 16px; height: 16px; }
+    .pitch-grid { gap: 8px; }
+    .card-show { gap: 10px; }
+    .card-item { width: 56px; height: 78px; font-size: .6rem; }
+    .card-item .card-icon { font-size: 1.2rem; }
+    .sub-board { max-width: 260px; padding: 12px; gap: 10px; }
+    .sub-board .num-out, .sub-board .num-in { font-size: 1.6rem; }
+    .hero h1 { font-size: 1.6rem; }
+    .hero .sub { font-size: .8rem; }
+    .form-chip { font-size: .7rem; padding: 4px 10px; }
+    .tact-row { gap: 6px; }
+    .tact-box { padding: 12px 8px; }
+    .tact-box .t-icon { font-size: 1.8rem; }
+    .term-item { padding: 8px 10px; }
+    .term-item .en { font-size: .78rem; min-width: 80px; }
+  }
+
+  /* Flip Cards */
+  .flip-grid {
+    display: grid; gap: 10px; grid-template-columns: 1fr 1fr;
+    margin: 12px 0;
+  }
+  @media (max-width: 480px) {
+    .flip-grid { grid-template-columns: 1fr; }
+  }
+  .flip-card {
+    perspective: 1000px; cursor: pointer; height: 100px;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+  .flip-inner {
+    position: relative; width: 100%; height: 100%;
+    transition: transform .5s ease;
+    transform-style: preserve-3d;
+    border-radius: 10px;
+  }
+  .flip-card.flipped .flip-inner {
+    transform: rotateY(180deg);
+  }
+  .flip-front, .flip-back {
+    position: absolute; inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 10px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 8px 10px;
+    overflow: hidden;
+  }
+  .flip-front {
+    background: linear-gradient(145deg, rgba(59,130,246,.08), rgba(59,130,246,.02));
+    border: 1px solid rgba(59,130,246,.15);
+  }
+  .flip-front .flip-en {
+    font-size: .9rem; font-weight: 700; color: #fbbf24;
+    text-align: center; line-height: 1.3;
+  }
+  .flip-front .flip-hint {
+    font-size: .65rem; color: #64748b; margin-top: 4px;
+  }
+  .flip-back {
+    background: linear-gradient(145deg, rgba(251,191,36,.08), rgba(16,185,129,.04));
+    border: 1px solid rgba(251,191,36,.12);
+    transform: rotateY(180deg);
+    gap: 3px;
+  }
+  .flip-back .flip-cn {
+    font-size: .85rem; font-weight: 700; color: #cbd5e1;
+  }
+  .flip-back .flip-exp {
+    font-size: .72rem; color: #94a3b8; text-align: center;
+    line-height: 1.4;
+  }
+  .flip-back .flip-eg {
+    font-size: .65rem; color: #34d399; text-align: center;
+    margin-top: 2px;
+  }
+
+
+  /* Wheel + Drawer for 阵型密码 */
+  .form-wheel-wrap {
+    display: flex; flex-direction: column; align-items: center;
+    margin: 6px 0 0;
+  }
+  .form-wheel {
+    width: 280px; height: 280px; border-radius: 50%;
+    position: relative; flex-shrink: 0;
+  }
+  .form-seg {
+    position: absolute; width: 76px; height: 76px;
+    border-radius: 12px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    font-size: 1rem; font-weight: 700;
+    cursor: pointer; transition: all .2s;
+    text-align: center; line-height: 1.2;
+    border: 1.5px solid transparent;
+  }
+  .form-seg small { font-size: .55rem; font-weight: 400; display: block; margin-top: 1px; }
+  .form-seg:hover { transform: scale(1.08); z-index: 2; }
+  .form-seg.active { border-color: #fbbf24; box-shadow: 0 0 12px rgba(251,191,36,.3); }
+  .seg-433 { top: 8px; left: 50%; transform: translateX(-50%); background: rgba(59,130,246,.15); }
+  .seg-433 small { color: #60a5fa; }
+  .seg-442 { top: 50%; right: 4px; transform: translateY(-50%); background: rgba(16,185,129,.15); }
+  .seg-442 small { color: #34d399; }
+  .seg-4231 { bottom: 8px; right: 28px; background: rgba(239,68,68,.15); }
+  .seg-4231 small { color: #f87171; }
+  .seg-343 { bottom: 8px; left: 28px; background: rgba(168,85,247,.15); }
+  .seg-343 small { color: #a78bfa; }
+  .seg-4123 { top: 50%; left: 4px; transform: translateY(-50%); background: rgba(251,191,36,.15); }
+  .seg-4123 small { color: #fbbf24; }
+  .seg-433:hover, .seg-433.active { border-color: #60a5fa; }
+  .seg-442:hover, .seg-442.active { border-color: #34d399; }
+  .seg-4231:hover, .seg-4231.active { border-color: #f87171; }
+  .seg-343:hover, .seg-343.active { border-color: #a78bfa; }
+  .seg-4123:hover, .seg-4123.active { border-color: #fbbf24; }
+
+  .form-center {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 112px; height: 112px; border-radius: 50%;
+    background: rgba(251,191,36,.06);
+    border: 2px solid rgba(251,191,36,.15);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 6px; cursor: pointer;
+    transition: all .2s;
+  }
+  .form-center:active { transform: translate(-50%,-50%) scale(.95); }
+  .form-center .fc-num { font-size: 1.2rem; font-weight: 800; color: #fbbf24; }
+  .form-center .fc-label { font-size: .58rem; color: #94a3b8; margin-top: 2px; }
+  .form-center .fc-strength { font-size: .55rem; color: #34d399; margin-top: 3px; }
+  .form-center .fc-hint { font-size: .5rem; color: #475569; margin-top: 3px; }
+
+  /* Drawer */
+  .form-drawer-overlay {
+    position: fixed; inset: 0; z-index: 190;
+    background: rgba(0,0,0,.4); display: none;
+    animation: fadeIn .2s ease;
+  }
+  .form-drawer-overlay.open { display: block; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .form-drawer {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 191;
+    background: #1e293b; border-radius: 16px 16px 0 0;
+    padding: 16px; max-height: 80vh; overflow-y: auto;
+    transform: translateY(100%); transition: transform .35s cubic-bezier(.22,.61,.36,1);
+    border-top: 1px solid rgba(255,255,255,.06);
+    box-shadow: 0 -8px 30px rgba(0,0,0,.3);
+  }
+  .form-drawer.open { transform: translateY(0); }
+  .drawer-handle {
+    width: 36px; height: 4px; background: #475569; border-radius: 2px;
+    margin: 0 auto 12px;
+  }
+  .drawer-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .drawer-header h3 { font-size: 1rem; color: #fbbf24; font-weight: 700; }
+  .drawer-close {
+    width: 32px; height: 32px; border-radius: 50%; border: none;
+    background: rgba(148,163,184,.1); color: #94a3b8; cursor: pointer;
+    font-size: .9rem; display: flex; align-items: center; justify-content: center;
+  }
+  .drawer-close:active { background: rgba(148,163,184,.2); }
+
+  .dpitch-wrap {
+    display: flex; gap: 14px; align-items: flex-start; margin-bottom: 10px;
+  }
+  .dmini-pitch {
+    width: 200px; height: 150px; background: #166534;
+    border: 2px solid rgba(255,255,255,.5); border-radius: 6px;
+    position: relative; flex-shrink: 0;
+  }
+  .dmini-pitch:before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0;
+    width: 2px; background: rgba(255,255,255,.2); }
+  .dmini-pitch:after { content: ''; position: absolute; left: 50%; top: 50%;
+    width: 30px; height: 30px; border: 2px solid rgba(255,255,255,.2);
+    border-radius: 50%; transform: translate(-50%,-50%); }
+  .dplayer {
+    position: absolute; width: 22px; height: 22px; border-radius: 50%;
+    font-size: .5rem; font-weight: 700; color: #0f172a;
+    display: flex; align-items: center; justify-content: center;
+    transform: translate(-50%,-50%);
+  }
+  .dpl-gk { background: #f59e0b; }
+  .dpl-def { background: #3b82f6; }
+  .dpl-mid { background: #10b981; }
+  .dpl-fwd { background: #ef4444; }
+
+  .drawer-details { font-size: .75rem; color: #94a3b8; line-height: 1.7; }
+  .drawer-details strong { color: #cbd5e1; }
+  .drawer-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px; }
+  .drawer-tags span {
+    padding: 2px 8px; border-radius: 10px; font-size: .65rem;
+    background: rgba(251,191,36,.08); color: #fbbf24;
+  }
+
+  @media (max-width: 400px) {
+    .form-wheel { width: 220px; height: 220px; }
+    .form-seg { width: 60px; height: 60px; font-size: .82rem; }
+    .form-center { width: 90px; height: 90px; }
+    .form-center .fc-num { font-size: 1rem; }
+    .seg-4231 { right: 16px; bottom: 6px; }
+    .seg-343 { left: 16px; bottom: 6px; }
+    .dpitch-wrap { flex-direction: column; }
+    .dmini-pitch { width: 100%; height: 140px; }
+  }
+
+  /* Horizontal scroll-snap position cards */
+  .pos-scroll {
+    display: flex; gap: 12px; overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 4px 0 12px; margin: 0 -4px;
+    scrollbar-width: none;
+  }
+  .pos-scroll::-webkit-scrollbar { display: none; }
+  .pos-card {
+    scroll-snap-align: start;
+    flex: 0 0 260px; min-height: 180px;
+    background: rgba(148,163,184,.04);
+    border: 1px solid rgba(148,163,184,.08);
+    border-radius: 14px; padding: 16px;
+    transition: all .15s;
+  }
+  .pos-card:active { background: rgba(148,163,184,.08); }
+  .pos-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; margin-bottom: 8px;
+  }
+  .pos-en { font-size: .9rem; font-weight: 700; color: #fbbf24; }
+  .pos-cn { font-size: .72rem; color: #94a3b8; margin: 2px 0 6px; }
+  .pos-desc { font-size: .75rem; color: #cbd5e1; line-height: 1.5; }
+  .pos-players { font-size: .68rem; color: #64748b; margin-top: 6px; }
+
+  .pos-indicators {
+    display: flex; justify-content: center; gap: 6px; padding: 4px 0 2px;
+  }
+  .tdot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #334155; transition: all .2s;
+  }
+  .tdot.active { background: #fbbf24; width: 20px; border-radius: 4px; }
+
+  .team-scroll {
+    display: flex; gap: 12px; overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 4px 2px 8px;
+    scrollbar-width: none; margin: 0 -2px;
+  }
+  .team-scroll::-webkit-scrollbar { display: none; }
+  .team-card {
+    scroll-snap-align: start;
+    flex: 0 0 270px; min-height: 280px;
+    background: rgba(148,163,184,.04);
+    border: 1px solid rgba(148,163,184,.08);
+    border-radius: 14px; padding: 14px;
+    display: flex; flex-direction: column;
+  }
+  .team-card:active { background: rgba(148,163,184,.08); }
+  .team-flag { font-size: 2rem; text-align: center; margin-bottom: 6px; }
+  .team-name { font-size: .9rem; font-weight: 700; color: #fbbf24; text-align: center; }
+  .team-sub { font-size: .68rem; color: #64748b; text-align: center; margin: 2px 0 8px; }
+  .team-body { font-size: .73rem; color: #94a3b8; line-height: 1.55; flex: 1; }
+  .team-pitch {
+    width: 100%; height: 130px; margin: 2px auto 6px; border-radius: 6px;
+  }
+  .team-pitch .pl {
+    width: 18px; height: 18px; font-size: .4rem;
+  }
+  .team-pitch .pl.gk { width: 16px; height: 16px; }
+  .team-tags { margin-top: auto; padding-top: 6px; }
+  .team-tags span {
+    display: inline-block; padding: 2px 10px; border-radius: 10px;
+    font-size: .65rem; background: rgba(251,191,36,.08); color: #fbbf24;
+  }
+  .team-indicators {
+    display: flex; justify-content: center; gap: 6px; padding: 6px 0 2px;
+  }
+
+  .pos-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #334155; transition: all .2s;
+  }
+  .pos-dot.active { background: #fbbf24; width: 20px; border-radius: 4px; }
+
+
+  /* Generic scroll-snap system */
+  .gen-scroll {
+    display: flex; gap: 12px; overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 4px 2px 10px;
+    scrollbar-width: none; margin: 0 -2px;
+  }
+  .gen-scroll::-webkit-scrollbar { display: none; }
+  .gen-card {
+    scroll-snap-align: start;
+    flex: 0 0 240px; min-height: 200px;
+    background: rgba(148,163,184,.04);
+    border: 1px solid rgba(148,163,184,.08);
+    border-radius: 14px; padding: 14px;
+    display: flex; flex-direction: column;
+  }
+  .gen-card:active { background: rgba(148,163,184,.08); }
+  .gc-name { font-size: .88rem; font-weight: 700; color: #fbbf24; }
+  .gc-sub { font-size: .65rem; color: #64748b; margin: 1px 0 6px; }
+  .gc-body { font-size: .73rem; color: #94a3b8; line-height: 1.55; flex: 1; }
+  .gc-icon { font-size: 1.8rem; text-align: center; margin-bottom: 4px; }
+  .gc-meta { font-size: .68rem; color: #94a3b8; margin-top: 6px; }
+  .gc-meta span { display: inline-block; padding: 2px 8px; border-radius: 8px; background: rgba(251,191,36,.08); color: #fbbf24; }
+  .gc-progress { display: flex; align-items: center; gap: 6px; margin: 2px 0; font-size: .6rem; }
+  .gc-bar { height: 5px; border-radius: 3px; flex: 1; }
+  .gb-atk { background: #ef4444; }
+  .gb-def { background: #3b82f6; }
+  .gb-ctl { background: #10b981; }
+  .gc-lbl { color: #64748b; width: 28px; text-align: right; }
+  .gc-pitch { height: 110px; width: 100%; border-radius: 6px; margin: 4px auto; }
+
+  .tact-card { flex: 0 0 250px; }
+  .fun-card { flex: 0 0 220px; min-height: 170px; }
+
+  /* Cards in flip-grid get card treatment */
+  .flip-scroll .flip-card { flex: 0 0 160px; min-height: 140px; }
+
+  .gen-dots {
+    display: flex; justify-content: center; gap: 6px; padding: 4px 0 2px;
+  }
+  .gdot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #334155; transition: all .2s;
+  }
+  .gdot.active { background: #fbbf24; width: 20px; border-radius: 4px; }
+
+  @media (max-width: 400px) {
+    .gen-card { flex: 0 0 200px; }
+    .flip-scroll .flip-card { flex: 0 0 140px; min-height: 120px; }
+    .tact-card { flex: 0 0 220px; }
+    .fun-card { flex: 0 0 190px; }
+  }
+
+
+  /* Quiz scroll cards */
+  .quiz-card {
+    scroll-snap-align: start;
+    flex: 0 0 290px; min-height: 220px;
+    background: rgba(148,163,184,.04);
+    border: 1px solid rgba(148,163,184,.08);
+    border-radius: 16px; padding: 16px;
+    display: flex; flex-direction: column;
+  }
+  .qc-num {
+    display: inline-block; padding: 1px 8px; border-radius: 6px;
+    font-size: .6rem; font-weight: 700; color: #0f172a;
+    background: #fbbf24; align-self: flex-start; margin-bottom: 8px;
+  }
+  .qc-q {
+    font-size: .85rem; font-weight: 700; color: #e2e8f0;
+    margin-bottom: 10px; line-height: 1.4;
+  }
+  .qc-choices { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+  .qc-btn {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 10px; border-radius: 8px; cursor: pointer;
+    font-size: .75rem; color: #94a3b8; line-height: 1.4;
+    background: rgba(148,163,184,.06);
+    border: 1px solid rgba(148,163,184,.1);
+    transition: all .15s; user-select: none;
+  }
+  .qc-btn:active { background: rgba(148,163,184,.12); }
+  .qc-btn.correct {
+    background: rgba(16,185,129,.12); border-color: #10b981; color: #34d399;
+  }
+  .qc-btn.wrong {
+    background: rgba(239,68,68,.12); border-color: #ef4444; color: #f87171;
+  }
+  .qc-btn.reveal {
+    background: rgba(16,185,129,.08); border-color: rgba(16,185,129,.2); color: #6ee7b7;
+  }
+  .qc-letter {
+    width: 22px; height: 22px; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .65rem; font-weight: 700;
+    background: rgba(148,163,184,.1); color: #94a3b8; flex-shrink: 0;
+  }
+  .qc-btn.correct .qc-letter { background: #10b981; color: #0f172a; }
+  .qc-btn.wrong .qc-letter { background: #ef4444; color: #fff; }
+  .qc-btn.reveal .qc-letter { background: #10b981; color: #0f172a; }
+  .qc-feedback {
+    font-size: .65rem; min-height: 16px; margin-top: 6px;
+    padding: 4px 0; border-radius: 6px;
+  }
+  .qc-feedback.good { color: #34d399; }
+  .qc-feedback.bad { color: #f87171; }
+
+  @media (max-width: 400px) {
+    .quiz-card { flex: 0 0 250px; }
+  }
+
+
+  @keyframes breathe {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.08); }
+  }
+  .fc-hint { animation: breathe 2s ease-in-out infinite; }
+
+
+  .bracket-redot {
+    display: inline-block; width: 6px; height: 6px;
+    border-radius: 50%; background: #ef4444;
+    margin-right: 4px; animation: redot-blink 1s ease-in-out infinite;
+  }
+  @keyframes redot-blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../">🏆 世界杯专区</a>
+  <span class="sep">·</span>
+  <a href="../../">🏟️ 英雄殿堂</a>
+  <span class="sep">·</span>
+  <span class="cur">牧童足球手册</span>
+</nav>
+<!-- ─── TV-Style Live Score Bug ─── -->
+<div id="liveBug" class="live-bug" style="
+  position: fixed; top: 48px; right: 12px; z-index: 95;
+  background: rgba(0,0,0,.75); backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 10px;
+  padding: 8px 12px;
+  min-width: 180px;
+  animation: slideInR .5s ease;
+">
+  <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+    <span style="width:6px;height:6px;background:#ef4444;border-radius:50%;display:inline-block;animation:pulseGlow 1.2s ease-in-out infinite;"></span>
+    <span style="color:#ef4444;font-weight:700;font-size:.6rem;letter-spacing:.06em;">LIVE</span>
+    <span style="color:#475569;font-size:.6rem;">·</span>
+    <span style="color:#475569;font-size:.6rem;">R32 · #77</span>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+    <div style="display:flex;align-items:center;gap:5px;">
+      <span style="font-size:.9rem;">🇫🇷</span>
+      <span style="color:#cbd5e1;font-weight:600;font-size:.8rem;">FRA</span>
+    </div>
+    <span style="font-size:1.1rem;font-weight:800;color:#fbbf24;" id="liveScore">0</span>
+    <span style="color:#475569;font-size:.75rem;">-</span>
+    <span style="font-size:1.1rem;font-weight:800;color:#fbbf24;" id="liveScoreA">0</span>
+    <div style="display:flex;align-items:center;gap:5px;">
+      <span style="color:#cbd5e1;font-weight:600;font-size:.8rem;">SWE</span>
+      <span style="font-size:.9rem;">🇸🇪</span>
+    </div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-top:3px;">
+    <span style="color:#34d399;font-size:.6rem;font-weight:600;" id="liveMinute">进行中</span>
+    <span class="live-update" style="color:#475569;font-size:.6rem;cursor:pointer;padding:2px 6px;border-radius:4px;transition:background .15s;" onclick="refreshScore()" onmouseover="this.style.background='rgba(255,255,255,.06)'" onmouseout="this.style.background='transparent'">↻ 刷新</span>
+  </div>
+</div>
+
+<!-- ─── FAB TOC Button ─── -->
+<button class="fab-toc" id="fabToc">📖</button>
+
+<!-- ─── TOC Overlay ─── -->
+<div class="toc-overlay" id="tocOverlay">
+  <button class="close-btn" id="tocCloseBtn">✕</button>
+  <h3>📖 目录</h3>
+  <div class="toc-grid">
+    <a href="#sec-pitch" class="toc-link">🌱 球场</a>
+    <a href="#sec-form" class="toc-link">🧩 阵型</a>
+    <a href="#sec-pos" class="toc-link">📍 位置</a>
+    <a href="#sec-comp" class="toc-link">📐 阵型对比</a>
+    <a href="#sec-tact" class="toc-link">⚔️ 战术</a>
+    <a href="#sec-teams" class="toc-link">🏆 强队</a>
+    <a href="#sec-sub" class="toc-link">🔄 换人</a>
+    <a href="#sec-card" class="toc-link">🟨🟥 红黄牌</a>
+    <a href="#sec-stats" class="toc-link">📊 能力</a>
+    <a href="#sec-tv" class="toc-link">📺 黑话</a>
+    <a href="#sec-more" class="toc-link">📚 战术黑话</a>
+    <a href="#sec-test" class="toc-link">📝 测试</a>
+      <a href="#sec-ot" class="toc-item" style="color:#94a3b8;padding:5px 8px;border-radius:6px;text-decoration:none;font-size:.75rem;transition:all .15s;" onmouseover="this.style.background='rgba(251,191,36,.08)';this.style.color='#fbbf24'" onmouseout="this.style.background='transparent';this.style.color='#94a3b8'">⏱️ 加时</a>
+      <a href="#sec-ot" class="toc-link">⏱️ 加时</a>
+      <a href="#sec-story" class="toc-link">📖 故事</a>
+      <a href="#sec-bracket" class="toc-link">🏆 对阵</a>
+      <a href="#sec-fun" class="toc-link">😲 冷知识</a>
+      <a href="#sec-bet" class="toc-link">💰 投注</a>
+  </div>
+</div>
+<div class="container">
+
+  <!-- ════════════════════════════════════════════════════ -->
+  <!-- HERO -->
+  <!-- ════════════════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="mascot">⚽</div>
+    <h1>牧童足球手册</h1>
+    <p class="sub">用 <em style="color:#fbbf24;font-style:normal;">11岁</em> 就能懂的话，学会看球、懂阵型、聊战术</p>
+  </section>
+  <!-- ════════════════════════════════════════════════════ -->
+  <!-- TOC NAV -->
+  <!-- ════════════════════════════════════════════════════ -->
+    <div class="toc-body" style="
+      max-height: 0; overflow: hidden;
+      transition: max-height .3s ease, padding .3s ease;
+      padding: 0 8px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4px;
+    ">
+      <a href="#sec-pitch" class="toc-item" style="color:#94a3b8;padding:5px 8px;border-radius:6px;text-decoration:none;font-size:.75rem;transition:all .15s;" onmouseover="this.style.background='rgba(251,191,36,.08)';this.style.color='#fbbf24'" onmouseout="this.style.background='transparent';this.style.color='#94a3b8'">🌱 球场</a>
+      <a href="#sec-form" class="toc-item" style="color:#94a3b8;padding:5px 8px;border-radius:6px;text-decoration:none;font-size:.75rem;transition:all .15s;" onmouseover="this.style.background='rgba(251,191,36,.08)';this.style.color='#fbbf24'" onmouseout="this.style.background='transparent';this.style.color='#94a3b8'">🧩 阵型</a>
+      <a href="#sec-pos" class="toc-item" style="color:#94a3b8;padding:5px 8px;border-radius:6px;text-decoration:none;font-size:.75rem;transition:all .15s;" onmouseover="this.style.background='rgba(251,191,36,.08)';this.style.color='#fbbf24'" onmouseout="this.style.background='transparent';this.style.color='#94a3b8'">📍 位置</a>
+      <a href="#sec-comp" class="toc-item" style="color:#94a3b8;padding:5px 8px;border-radius:6px;text-decoration:none;font-size:.75rem;transition:all .15s;" onmouseover="this.style.background='rgba(251,191,36,.08)';this.style.color='#fbbf24'" onmouseout="this.style.background='transparent';this.style.color='#94a3b8'">📐 阵型对比</a>
+      <a href="#sec-tact" class="toc-item" style="color:#94a3b8;padding:5px 8px;border-radius:6px;text-decoration:none;font-size:.75rem;transition:all .15s;" onmouseover="this.style.background='rgba(251,191,36,.08)';this.style.color='#fbbf24'" onmouseout="this.style.background='transparent';this.style.color='#94a3b8'">⚔️ 战术</a>
+      <a href="#sec-teams" class="toc-item" style="color:#94a3b8;padding:5px 8px;border-radius:6px;text-decoration:none;font-size:.75rem;transition:all .15s;" onmouseover="this.style.background='rgba(251,191,36,.08)';this.style.color='#fbbf24'" onmouseout="this.style.background='transparent';this.style.color='#94a3b8'">🏆 强队</a>
+      <a href="#sec-sub" class="toc-item" style="color:#94a3b8;padding:5px 8px;border-radius:6px;text-decoration:none;font-size:.75rem;transition:all .15s;" onmouseover="this.style.background='rgba(251,191,36,.08)';this.style.color='#fbbf24'" onmouseout="this.style.background='transparent';this.style.color='#94a3b8'">🔄 换人</a>
+      <a href="#sec-card" class="toc-item" style="color:#94a3b8;padding:5px 8px;border-radius:6px;text-decoration:none;font-size:.75rem;transition:all .15s;" onmouseover="this.style.background='rgba(251,191,36,.08)';this.style.color='#fbbf24'" onmouseout="this.style.background='transparent';this.style.color='#94a3b8'">🟨🟥 红黄牌</a>
+      <a href="#sec-stats" class="toc-item" style="color:#94a3b8;padding:5px 8px;border-radius:6px;text-decoration:none;font-size:.75rem;transition:all .15s;" onmouseover="this.style.background='rgba(251,191,36,.08)';this.style.color='#fbbf24'" onmouseout="this.style.background='transparent';this.style.color='#94a3b8'">📊 能力</a>
+      <a href="#sec-tv" class="toc-item" style="color:#94a3b8;padding:5px 8px;border-radius:6px;text-decoration:none;font-size:.75rem;transition:all .15s;" onmouseover="this.style.background='rgba(251,191,36,.08)';this.style.color='#fbbf24'" onmouseout="this.style.background='transparent';this.style.color='#94a3b8'">📺 黑话</a>
+      <a href="#sec-more" class="toc-item" style="color:#94a3b8;padding:5px 8px;border-radius:6px;text-decoration:none;font-size:.75rem;transition:all .15s;" onmouseover="this.style.background='rgba(251,191,36,.08)';this.style.color='#fbbf24'" onmouseout="this.style.background='transparent';this.style.color='#94a3b8'">📚 战术黑话</a>
+      <a href="#sec-test" class="toc-item" style="color:#94a3b8;padding:5px 8px;border-radius:6px;text-decoration:none;font-size:.75rem;transition:all .15s;" onmouseover="this.style.background='rgba(251,191,36,.08)';this.style.color='#fbbf24'" onmouseout="this.style.background='transparent';this.style.color='#94a3b8'">📝 测试</a>
+      <a href="#sec-story" class="toc-item" style="color:#94a3b8;padding:5px 8px;border-radius:6px;text-decoration:none;font-size:.75rem;transition:all .15s;" onmouseover="this.style.background='rgba(251,191,36,.08)';this.style.color='#fbbf24'" onmouseout="this.style.background='transparent';this.style.color='#94a3b8'">📖 故事</a>
+      <a href="#sec-bracket" class="toc-item" style="color:#94a3b8;padding:5px 8px;border-radius:6px;text-decoration:none;font-size:.75rem;transition:all .15s;" onmouseover="this.style.background='rgba(251,191,36,.08)';this.style.color='#fbbf24'" onmouseout="this.style.background='transparent';this.style.color='#94a3b8'">🏆 对阵</a>
+      <a href="#sec-fun" class="toc-item" style="color:#94a3b8;padding:5px 8px;border-radius:6px;text-decoration:none;font-size:.75rem;transition:all .15s;" onmouseover="this.style.background='rgba(251,191,36,.08)';this.style.color='#fbbf24'" onmouseout="this.style.background='transparent';this.style.color='#94a3b8'">😲 冷知识</a>
+      <a href="#sec-bet" class="toc-item" style="color:#94a3b8;padding:5px 8px;border-radius:6px;text-decoration:none;font-size:.75rem;transition:all .15s;" onmouseover="this.style.background='rgba(251,191,36,.08)';this.style.color='#fbbf24'" onmouseout="this.style.background='transparent';this.style.color='#94a3b8'">💰 投注</a>
+      <a href="#sec-story" class="toc-link">📖 故事</a>
+      <a href="#sec-bracket" class="toc-link">🏆 对阵</a>
+      <a href="#sec-fun" class="toc-link">😲 冷知识</a>
+      <a href="#sec-bet" class="toc-link">💰 投注</a>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════ -->
+  <!-- 0. THE PITCH -->
+  <!-- ════════════════════════════════════════════════════ -->
+  <div class="card" id="sec-pitch">
+    <h2><span class="icon">🌱</span> 第一步：认识球场</h2>
+    <p style="font-size:.85rem;color:#94a3b8;margin-bottom:10px;">
+      想象一块大饼干，两边各有一个门。22个人在场上跑——<strong style="color:#3b82f6;">10个跑腿的</strong> + <strong style="color:#fbbf24;">1个守门的</strong>。球是圆的，不能用 <span style="color:#ef4444;">手</span>（除了守门员）。
+    </p>
+    <div style="display:flex;justify-content:center;margin:6px 0 10px;">
+      <div class="mini-pitch" id="main-pitch" style="max-width:560px;position:relative;">
+        <canvas id="pass-anim" style="position:absolute;inset:0;z-index:0;pointer-events:none;width:100%;height:100%;"></canvas>
+      </div>
+    </div>
+    <p style="font-size:.78rem;color:#64748b;text-align:center;">
+      👆 把数字加起来：<strong>4+1+2+3 = 10</strong> —— 再加门将就是11人，<strong>4-1-2-3</strong> 阵型！
+    </p>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════ -->
+  <!-- 1. FORMATION SECRET -->
+  <!-- ════════════════════════════════════════════════════ -->
+    <div class="card" id="sec-form">
+    <h2><span class="icon">🧩</span> 阵型密码</h2>
+    <p style="font-size:.85rem;color:#94a3b8;margin-bottom:8px;">
+      阵型数字从后往前数，不数门将：<strong style="color:#3b82f6;">后卫(D)</strong> - <strong style="color:#10b981;">中场(M)</strong> - <strong style="color:#ef4444;">前锋(F)</strong>
+    </p>
+
+    <div class="form-wheel-wrap">
+      <div class="form-wheel" id="formWheel">
+        <div class="form-seg seg-4123" data-form="4123">4-1-2-3<small>巴西</small></div>
+        <div class="form-seg seg-433" data-form="433">4-3-3<small>均衡</small></div>
+        <div class="form-seg seg-442" data-form="442">4-4-2<small>经典</small></div>
+        <div class="form-seg seg-4231" data-form="4231">4-2-3-1<small>双腰</small></div>
+        <div class="form-seg seg-343" data-form="343">3-4-3<small>进攻</small></div>
+
+        <div class="form-center" id="formCenter">
+          <div class="fc-num" id="fcNum">4-3-3</div>
+          <div class="fc-label" id="fcLabel">4后卫·3中场·3前锋</div>
+          <div class="fc-strength" id="fcStrength">🟢 攻守均衡</div>
+          <div class="fc-hint">👆 查看详情</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="famous" style="border-left:3px solid #fbbf24;margin-top:4px;">
+      <div class="avatar" style="background:#fbbf24;font-size:1.4rem;">💡</div>
+      <div class="info">
+        <strong>费曼说</strong>
+                阵型就是教练告诉每个人：<strong>你站哪，别乱跑。</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- Drawer Overlay + Panel -->
+  <div class="form-drawer-overlay" id="formDrawerOverlay" onclick="closeDrawer()"></div>
+  <div class="form-drawer" id="formDrawer">
+    <div class="drawer-handle"></div>
+    <div class="drawer-header">
+      <h3 id="drawerTitle">4-3-3 · 攻守均衡</h3>
+      <button class="drawer-close" onclick="closeDrawer()">✕</button>
+    </div>
+    <div class="dpitch-wrap">
+      <div class="dmini-pitch" id="dPitch"></div>
+      <div class="drawer-details" id="drawerDetails">
+        <div><strong>解码：</strong><span id="dDecode">4后卫·3中场·3前锋</span></div>
+        <div><strong>🟢 强项：</strong><span id="dPro">中场人多控球强，边路进攻丰富</span></div>
+        <div><strong>🔴 弱项：</strong><span id="dCon">单后腰容易被穿透，对边后卫体力要求高</span></div>
+        <div><strong>适合：</strong><span id="dFit">技术型球队·控球打法</span></div>
+        <div class="drawer-tags" id="dTags">
+          <span>✔ 巴萨</span><span>✔ 拜仁</span><span>✔ 英格兰</span>
+        </div>
+      </div>
+    </div>
+  </div>  <div class="card" id="sec-pos">
+    <h2><span class="icon">📍</span> 每个人都有自己的活儿</h2>
+    <div class="pos-indicators" id="posDots">
+      <span class="pos-dot"></span><span class="pos-dot"></span><span class="pos-dot"></span>
+      <span class="pos-dot"></span><span class="pos-dot"></span><span class="pos-dot"></span>
+      <span class="pos-dot"></span><span class="pos-dot"></span>
+    </div>
+
+    <div class="pos-scroll" id="posScroll">
+      <div class="pos-card" data-pos="0">
+        <div class="pos-icon" style="background:rgba(245,158,11,.15);">🧤</div>
+        <div class="pos-en">Goalkeeper (GK)</div>
+        <div class="pos-cn">门将 — 唯一可以用手的人</div>
+        <div class="pos-desc">全队最后一道防线。就像<strong style="color:#fbbf24;">消防员</strong>——平时没事干，但出事了得扑得上去。</div>
+        <div class="pos-players">🏆 Alisson · Courtois · Maignan</div>
+      </div>
+      <div class="pos-card" data-pos="1">
+        <div class="pos-icon" style="background:rgba(59,130,246,.15);">🛡️</div>
+        <div class="pos-en">Centre-Back (CB)</div>
+        <div class="pos-cn">中后卫 — 盾牌</div>
+        <div class="pos-desc">大个子，不怕撞。<strong style="color:#fbbf24;">阻止前锋射门</strong>。像橄榄球的线卫。</div>
+        <div class="pos-players">🏆 van Dijk · Saliba · Marquinhos</div>
+      </div>
+      <div class="pos-card" data-pos="2">
+        <div class="pos-icon" style="background:rgba(37,99,235,.15);">🏃</div>
+        <div class="pos-en">Full-Back LB / RB</div>
+        <div class="pos-cn">边后卫 — 边路快马</div>
+        <div class="pos-desc">既要防守边路，又要冲上去助攻。像<strong style="color:#fbbf24;">外卖骑手</strong>——来回跑。</div>
+        <div class="pos-players">🏆 Digne · Danilo</div>
+      </div>
+      <div class="pos-card" data-pos="3">
+        <div class="pos-icon" style="background:rgba(245,158,11,.15);">🧱</div>
+        <div class="pos-en">CDM (Defensive Midfielder)</div>
+        <div class="pos-cn">后腰 — 中场清道夫</div>
+        <div class="pos-desc">前后场的连接点，<strong style="color:#fbbf24;">专干脏活</strong>——抢球、断球、传球。就像控卫但更会防守。</div>
+        <div class="pos-players">🏆 Casemiro · Rodri</div>
+      </div>
+      <div class="pos-card" data-pos="4">
+        <div class="pos-icon" style="background:rgba(16,185,129,.15);">🎯</div>
+        <div class="pos-en">Central Midfielder (CM)</div>
+        <div class="pos-cn">中前卫 — 跑不死</div>
+        <div class="pos-desc">全队跑动最多的位置。像<strong style="color:#fbbf24;">马拉松选手</strong>但会踢球。</div>
+        <div class="pos-players">🏆 Bruno G · Bellingham</div>
+      </div>
+      <div class="pos-card" data-pos="5">
+        <div class="pos-icon" style="background:rgba(239,68,68,.15);">⚔️</div>
+        <div class="pos-en">Forward (FW)</div>
+        <div class="pos-cn">前锋 — 进攻利器总称</div>
+        <div class="pos-desc">分三种：中锋（ST）顶在最前面进球、边锋（LW/RW）边路突破、影锋（SS）藏在后面。</div>
+        <div class="pos-players">🏆 Messi · Ronaldo · Mbappé</div>
+      </div>
+      <div class="pos-card" data-pos="6">
+        <div class="pos-icon" style="background:rgba(220,38,38,.15);">💨</div>
+        <div class="pos-en">Winger (LW / RW)</div>
+        <div class="pos-cn">边锋 — 最快的人</div>
+        <div class="pos-desc">贴着边线跑，用速度突破。像<strong style="color:#fbbf24;">短跑选手</strong>在踢球。</div>
+        <div class="pos-players">🏆 Vinícius Jr · Mbappé</div>
+      </div>
+      <div class="pos-card" data-pos="7">
+        <div class="pos-icon" style="background:rgba(220,38,38,.15);">⚡</div>
+        <div class="pos-en">Striker (ST) / CF</div>
+        <div class="pos-cn">中锋 — 球队的王牌</div>
+        <div class="pos-desc">最靠近球门的人。任务只有一个：<strong style="color:#fbbf24;">进球</strong>。不进球就不及格。</div>
+        <div class="pos-players">🏆 Haaland · Mbappé · Ronaldo</div>
+      </div>
+    </div>
+  </div><div class="card" id="sec-comp">
+    <h2><span class="icon">📐</span> 四种核心阵型对比</h2>
+    <p style="font-size:.82rem;color:#94a3b8;margin-bottom:10px;">
+      教练像玩积木一样摆放球员。不同的数字组合 = 不同的打法！
+    </p>
+
+    <p style="font-size:.72rem;color:#64748b;margin-bottom:8px;"><strong style="color:#fbbf24;">左右滑动</strong>看四种核心阵型</p>
+    <div class="gen-scroll" id="compScroll">
+      <div class="gen-card">
+        <div class="gc-name">4-3-3</div>
+        <div class="gc-sub">攻守均衡</div>
+        <div class="mini-pitch gc-pitch" id="pp-433"></div>
+        <div class="gc-progress"><span class="gc-bar gb-atk" style="width:75%"></span><span class="gc-lbl">进攻</span></div>
+        <div class="gc-progress"><span class="gc-bar gb-def" style="width:70%"></span><span class="gc-lbl">防守</span></div>
+        <div class="gc-progress"><span class="gc-bar gb-ctl" style="width:80%"></span><span class="gc-lbl">控球</span></div>
+      </div>
+      <div class="gen-card">
+        <div class="gc-name">4-4-2</div>
+        <div class="gc-sub">经典英式</div>
+        <div class="mini-pitch gc-pitch" id="pp-442"></div>
+        <div class="gc-progress"><span class="gc-bar gb-atk" style="width:60%"></span><span class="gc-lbl">进攻</span></div>
+        <div class="gc-progress"><span class="gc-bar gb-def" style="width:85%"></span><span class="gc-lbl">防守</span></div>
+        <div class="gc-progress"><span class="gc-bar gb-ctl" style="width:55%"></span><span class="gc-lbl">控球</span></div>
+      </div>
+      <div class="gen-card">
+        <div class="gc-name">4-2-3-1</div>
+        <div class="gc-sub">双后腰保护</div>
+        <div class="mini-pitch gc-pitch" id="pp-4231"></div>
+        <div class="gc-progress"><span class="gc-bar gb-atk" style="width:55%"></span><span class="gc-lbl">进攻</span></div>
+        <div class="gc-progress"><span class="gc-bar gb-def" style="width:90%"></span><span class="gc-lbl">防守</span></div>
+        <div class="gc-progress"><span class="gc-bar gb-ctl" style="width:65%"></span><span class="gc-lbl">控球</span></div>
+      </div>
+      <div class="gen-card">
+        <div class="gc-name">3-4-3</div>
+        <div class="gc-sub">进攻狂人</div>
+        <div class="mini-pitch gc-pitch" id="pp-343"></div>
+        <div class="gc-progress"><span class="gc-bar gb-atk" style="width:90%"></span><span class="gc-lbl">进攻</span></div>
+        <div class="gc-progress"><span class="gc-bar gb-def" style="width:40%"></span><span class="gc-lbl">防守</span></div>
+        <div class="gc-progress"><span class="gc-bar gb-ctl" style="width:50%"></span><span class="gc-lbl">控球</span></div>
+      </div>
+    </div>
+    <div class="gen-dots" id="compDots"><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span></div>
+
+    <div style="background:rgba(251,191,36,.06);border-radius:10px;padding:12px;margin:12px 0 4px;">
+      <table style="width:100%;font-size:.78rem;border-collapse:collapse;">
+        <tr><td></td><td style="font-weight:700;color:#fbbf24;">🟢 强项</td><td style="font-weight:700;color:#ef4444;">🔴 弱项</td></tr>
+        <tr><td style="font-weight:600;">4-3-3</td><td style="color:#94a3b8;">中场人多，控球强</td><td style="color:#94a3b8;">单后腰容易被打穿</td></tr>
+        <tr><td style="font-weight:600;">4-4-2</td><td style="color:#94a3b8;">简单直接，防守稳</td><td style="color:#94a3b8;">中场可能被以多打少</td></tr>
+        <tr><td style="font-weight:600;">4-2-3-1</td><td style="color:#94a3b8;">双后腰超安全</td><td style="color:#94a3b8;">进攻人数少</td></tr>
+        <tr><td style="font-weight:600;">3-4-3</td><td style="color:#94a3b8;">攻击力爆棚</td><td style="color:#94a3b8;">三后卫容易出漏洞</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════ -->
+  <!-- 4. 三种核心战术 -->
+  <!-- ════════════════════════════════════════════════════ -->
+  <div class="card" id="sec-tact">
+    <h2><span class="icon">⚔️</span> 三种核心战术</h2>
+    <p style="font-size:.82rem;color:#94a3b8;margin-bottom:8px;">教练的三种基本打法 — 看球时对号入座！</p>
+
+    <p style="font-size:.72rem;color:#64748b;margin-bottom:8px;"><strong style="color:#fbbf24;">左右滑动</strong>了解三种核心战术</p>
+    <div class="gen-scroll" id="tactScroll">
+      <div class="gen-card tact-card" style="border-left:3px solid #ef4444;">
+        <div class="gc-name" style="color:#ef4444;">🔥 高位逼抢</div>
+        <div class="gc-sub" style="color:#f87171;">High Press</div>
+        <div class="gc-body">全队冲到对方半场抢球！<br>就像打游戏直接冲对方基地。</div>
+        <div class="gc-meta"><span>💪 年轻、体力好</span></div>
+      </div>
+      <div class="gen-card tact-card" style="border-left:3px solid #3b82f6;">
+        <div class="gc-name" style="color:#60a5fa;">🛡️ 低位防守</div>
+        <div class="gc-sub" style="color:#3b82f6;">Low Block / 摆大巴</div>
+        <div class="gc-body">所有人缩在自家门前堵死所有路。<br>巴拉圭用这招赢了德国！</div>
+        <div class="gc-meta"><span>🔰 以弱打强</span></div>
+      </div>
+      <div class="gen-card tact-card" style="border-left:3px solid #f59e0b;">
+        <div class="gc-name" style="color:#fbbf24;">⚡ 反击</div>
+        <div class="gc-sub" style="color:#f59e0b;">Counter-Attack</div>
+        <div class="gc-body">抢到球后极速冲向对方球门。<br>摩洛哥用这招赢了荷兰！</div>
+        <div class="gc-meta"><span>🏃 有快马前锋</span></div>
+      </div>
+    </div>
+    <div class="gen-dots" id="tactDots"><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span></div>
+
+    <div class="trivia-block" style="margin-top:8px;">
+      <h3>📖 2026世界杯实战案例</h3>
+      <p><strong>巴拉圭 vs 德国：</strong>巴拉圭用 <strong>Low Block</strong> 防了德国120分钟，1-1 → 点球赢了！全世界傻子都没想到弱队能赢。<br>
+      <strong>摩洛哥 vs 荷兰：</strong>摩洛哥用 <strong>Counter-Attack</strong> 先破门，然后蹲坑守到点球获胜。<br>
+      <strong>佛得角 vs 阿根廷：</strong>55万人口的岛国，90分钟1-1逼平梅西！加时赛103分钟再次扳平，最后输在乌龙球。站着死的。<br>
+      足球就是这么好看——<strong>不一定要控球才能赢。55万人也可以让世界冠军流汗。</strong></p>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════ -->
+  <!-- ════════════════════════════════════════════════════ -->
+  <!-- 4b. 淘汰赛强队阵型分析 -->
+  <!-- ════════════════════════════════════════════════════ -->
+    <div class="card" id="sec-teams">
+    <h2><span class="icon">🏆</span> 淘汰赛强队阵型分析</h2>
+    <p style="font-size:.82rem;color:#94a3b8;margin-bottom:8px;">
+      2026世界杯1/8决赛进行中——<strong style="color:#fbbf24;">左右滑动</strong>看各强队
+    </p>
+
+    <div class="team-scroll" id="teamScroll">
+      <div class="team-card">
+        <div class="team-flag" style="background:rgba(59,130,246,.12);">🇫🇷</div>
+        <div class="team-name">法国 · 4-2-3-1</div>
+        <div class="team-sub">双后腰保护 · 姆巴佩突前</div>
+        <div class="mini-pitch team-pitch" id="fr-pitch"></div>
+        <div class="team-tags"><span style="background:rgba(16,185,129,.15);color:#34d399;">✅ 法国 3-0 晋级</span></div>
+      </div>
+      <div class="team-card">
+        <div class="team-flag" style="background:rgba(16,185,129,.12);">🇧🇷</div>
+        <div class="team-name">巴西 · 4-1-2-3</div>
+        <div class="team-sub">安切洛蒂冠军配方</div>
+        <div class="mini-pitch team-pitch" id="br-pitch"></div>
+        <div class="team-tags"><span style="background:rgba(16,185,129,.15);color:#34d399;">✅ 晋级16强</span></div>
+      </div>
+      <div class="team-card">
+        <div class="team-flag" style="background:rgba(251,191,36,.12);">🇳🇴</div>
+        <div class="team-name">挪威 · 4-2-1-3</div>
+        <div class="team-sub">哈兰德+厄德高双核</div>
+        <div class="mini-pitch team-pitch" id="no-pitch"></div>
+        <div class="team-tags"><span style="background:rgba(16,185,129,.15);color:#34d399;">✅ 晋级16强</span></div>
+      </div>
+      <div class="team-card">
+        <div class="team-flag" style="background:rgba(168,85,247,.12);">🇦🇷</div>
+        <div class="team-name">阿根廷 · 4-3-3</div>
+        <div class="team-sub">梅西最后一届世界杯</div>
+        <div class="team-body">斯卡洛尼延续2022夺冠4-3-3。梅西小组赛5球状态火热！<br>加时赛3-2险胜佛得角，阿根廷活着。</div>
+        <div class="team-tags"><span>✅ 阿根廷 3-2 晋级（加时）</span></div>
+      </div>
+      <div class="team-card">
+        <div class="team-flag" style="background:rgba(59,130,246,.12);">🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+        <div class="team-name">英格兰 · 4-3-3</div>
+        <div class="team-sub">凯恩领衔，三线均衡</div>
+        <div class="team-body">索斯盖特延续稳定体系。凯恩（33岁）仍是世界级中锋。没有明显短板。</div>
+        <div class="team-tags"><span>✅ 英格兰 2-1 晋级</span></div>
+      </div>
+      <div class="team-card">
+        <div class="team-flag" style="background:rgba(239,68,68,.12);">🇧🇪</div>
+        <div class="team-name">比利时 · 3-4-2-1</div>
+        <div class="team-sub">黄金一代最后一舞</div>
+        <div class="team-body">德布劳内（35）+库尔图瓦（34）还在阵中。常用3-4-2-1或4-3-3，防守稳定性是隐患。</div>
+        <div class="team-tags"><span>✅ 比利时 3-2 晋级</span></div>
+      </div>
+      <div class="team-card">
+        <div class="team-flag" style="background:rgba(168,85,247,.12);">🇪🇸</div>
+        <div class="team-name">西班牙 · 传控</div>
+        <div class="team-sub">tiki-taka永不过时</div>
+        <div class="team-body">佩德里、加维、罗德里中场顶级。但缺少支点中锋，破密集防守是弱点。</div>
+        <div class="team-tags"><span>✅ 西班牙 3-0 晋级</span></div>
+      </div>
+      <div class="team-card">
+        <div class="team-flag" style="background:rgba(251,191,36,.12);">🇵🇹</div>
+        <div class="team-name">葡萄牙 · 4-3-3</div>
+        <div class="team-sub">C罗最后一届？</div>
+        <div class="team-body">39岁C罗带队。B席、B费、莱奥、菲利克斯... 阵型可在4-3-3和4-2-3-1之间切换。</div>
+        <div class="team-tags"><span>✅ 葡萄牙 2-1 晋级</span></div>
+      </div>
+    </div>
+
+    <div class="team-indicators" id="teamDots">
+      <span class="tdot"></span><span class="tdot"></span><span class="tdot"></span>
+      <span class="tdot"></span><span class="tdot"></span><span class="tdot"></span>
+      <span class="tdot"></span><span class="tdot"></span>
+    </div>
+  </div><div class="card" id="sec-sub">
+    <h2><span class="icon">🔄</span> 换人策略 — 替补的艺术</h2>
+
+    <p style="font-size:.85rem;color:#94a3b8;margin-bottom:10px;">
+      每场比赛可以换 <strong style="color:#fbbf24;">5个人</strong>（以前只能换3个！）。替补不是"二线队员"——他们是教练的 <strong>秘密武器</strong>。
+    </p>
+
+    <!-- Sub Board Animation -->
+    <div class="sub-board">
+      <div class="num-out">7</div>
+      <div class="arrow">➡️</div>
+      <div class="num-in">20</div>
+      <div class="board-label">⚡ 换人！7号下 · 20号上</div>
+    </div>
+
+    <div class="gen-scroll flip-scroll" id="flipScroll_sub">
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">Substitution</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">换人</span>
+            <span class="flip-exp">死球时举牌换人</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">Super-Sub</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">超级替补</span>
+            <span class="flip-exp">专门留着下半场派上场改变比赛的人</span>
+            <span class="flip-eg">挪威对科特迪瓦就是替补进球的！</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">Early Sub</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">早换人</span>
+            <span class="flip-exp">半场就换——说明教练对首发不满</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">Tactical Sub</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">战术换人</span>
+            <span class="flip-exp">换阵型：后卫换前锋=我要进攻！前锋换后卫=我要守住！</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">Injury Sub</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">伤病换人</span>
+            <span class="flip-exp">受伤不得不换，占名额不占"战术调整"</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">Extra Time Sub</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">加时换人</span>
+            <span class="flip-exp">加时赛可多换1个，淘汰赛秘密武器</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="gen-dots" id="flipScroll_subDots"><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span></div>
+
+    <div class="trivia-block">
+      <h3>🎯 聪明的教练怎么用换人？</h3>
+      <p>
+        <strong style="color:#fbbf24;">提前换人 (60-70分钟)：</strong>对方体力下降时上新鲜血液，最致命的窗口。<br>
+        <strong style="color:#fbbf24;">时间换人 (80分钟以后，落后才换)：</strong>拖时间——每个换人消耗30秒。<br>
+        <strong style="color:#fbbf24;">对位换人：</strong>后卫换后卫、前锋换前锋——保持阵型不变。<br>
+        <strong style="color:#ef4444;">狂人换人：</strong>同时换3个4个——搏命了！
+      </p>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════ -->
+  <!-- 6. 红黄牌 -->
+  <!-- ════════════════════════════════════════════════════ -->
+  <div class="card" id="sec-card">
+    <h2><span class="icon">🟨🟥</span> 红黄牌 — 裁判的工具</h2>
+
+    <p style="font-size:.85rem;color:#94a3b8;margin-bottom:10px;">
+      裁判兜里揣着两种颜色的牌——和交通警察的罚单一样。
+    </p>
+
+    <div class="card-show">
+      <div class="card-item yellow">
+        <div class="card-icon">🟨</div>
+        <div class="card-desc">警告<br>还可以踢</div>
+      </div>
+      <div class="card-item red">
+        <div class="card-icon">🟥</div>
+        <div class="card-desc">你出局了！<br>全队少一人</div>
+      </div>
+    </div>
+
+    <div style="text-align:center;font-size:.8rem;color:#94a3b8;margin:8px 0 12px;">
+      🤯 <strong>红牌 = 你的球队接下来整场都要 10人打11人！</strong> 非常致命的惩罚！
+    </div>
+
+    <div class="gen-scroll flip-scroll" id="flipScroll_card">
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">Yellow Card</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">黄牌</span>
+            <span class="flip-exp">犯规、拖延时间、假摔的"警告"</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">Red Card</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">红牌</span>
+            <span class="flip-exp">严重犯规、暴力行为——直接滚蛋</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">Second Yellow to Red</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">两黄变一红</span>
+            <span class="flip-exp">两张黄牌=自动变红牌</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">Accumulation</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">累计停赛</span>
+            <span class="flip-exp">世界杯2张黄牌停赛1场！1/4决赛后才清零</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">Professional Foul</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">战术犯规</span>
+            <span class="flip-exp">故意拉倒对方——宁可吃黄牌也不让单刀</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">Diving</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">假摔</span>
+            <span class="flip-exp">明明没碰你，夸张摔倒——裁判给你黄牌</span>
+            <span class="flip-eg">丢人不？</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="gen-dots" id="flipScroll_cardDots"><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span></div>
+
+    <div class="trivia-block">
+      <h3>🤯 世界杯红牌冷知识</h3>
+      <p>
+        世界杯最快红牌：<strong>56秒</strong> — 1986年乌拉圭的 José Batista 开场恶犯被罚下！<br>
+        最多红牌的比赛：2006年葡萄牙vs荷兰——<strong>4张红牌、16张黄牌！</strong>被称为"纽伦堡之战"。<br>
+        2026世界杯最囧：已有多人因为累计黄牌错过了关键战。
+      </p>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════ -->
+  <!-- 7. 按位置评分 -->
+  <!-- ════════════════════════════════════════════════════ -->
+  <div class="card" id="sec-stats">
+    <h2><span class="icon">📊</span> 每个位置最重要的能力</h2>
+    <p style="font-size:.82rem;color:#94a3b8;margin-bottom:8px;">如果把球员当RPG角色——每个位置加点不同！</p>
+
+    <div class="stat-bar"><span style="min-width:70px;">GK 门将</span><div class="bar"><div class="fill gk-f"></div></div><span style="color:#94a3b8;font-size:.7rem;">反应快 = 85%</span></div>
+    <div class="stat-bar"><span style="min-width:70px;">CB 中后卫</span><div class="bar"><div class="fill cb-f"></div></div><span style="color:#94a3b8;font-size:.7rem;">身体对抗 = 92%</span></div>
+    <div class="stat-bar"><span style="min-width:70px;">CDM 后腰</span><div class="bar"><div class="fill cdm-f"></div></div><span style="color:#94a3b8;font-size:.7rem;">抢断+传球 = 88%</span></div>
+    <div class="stat-bar"><span style="min-width:70px;">CM 中前卫</span><div class="bar"><div class="fill cm-f"></div></div><span style="color:#94a3b8;font-size:.7rem;">体能覆盖 = 78%</span></div>
+    <div class="stat-bar"><span style="min-width:70px;">Winger 边锋</span><div class="bar"><div class="fill wing-f"></div></div><span style="color:#94a3b8;font-size:.7rem;">速度突破 = 96%</span></div>
+    <div class="stat-bar"><span style="min-width:70px;">ST 中锋</span><div class="bar"><div class="fill st-f"></div></div><span style="color:#94a3b8;font-size:.7rem;">射门准 = 99%</span></div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════ -->
+  <!-- 8. MATCH EVENTS -->
+  <!-- ════════════════════════════════════════════════════ -->
+  <div class="card" id="sec-tv">
+    <h2><span class="icon">📺</span> 看球黑话</h2>
+    <div class="gen-scroll flip-scroll" id="flipScroll_tv">
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">First / Second Half</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">上/下半场</span>
+            <span class="flip-exp">每半45分钟</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">Stoppage Time</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">伤停补时</span>
+            <span class="flip-exp">45&#39;+3&#39; = 加3分钟</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">Extra Time</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">加时赛</span>
+            <span class="flip-exp">打平加的30分钟。再平就点球大战</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">Penalty Shootout</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">点球大战</span>
+            <span class="flip-exp">一对一踢门将。德国就是这里输的！</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">Corner / Free Kick</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">角球/任意球</span>
+            <span class="flip-exp">守方碰出底线=角球。犯规=任意球</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">Offside</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">越位</span>
+            <span class="flip-exp">接球时不能比倒数第二个防守队员更靠近门</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">VAR</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">视频裁判</span>
+            <span class="flip-exp">场外看录像帮裁判纠错</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">Clean Sheet</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">零封</span>
+            <span class="flip-exp">对方没进球</span>
+            <span class="flip-eg">床的梗</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="gen-dots" id="flipScroll_tvDots"><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span></div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════ -->
+  <!-- 9. TACTICAL TERMS -->
+  <!-- ════════════════════════════════════════════════════ -->
+  <div class="card" id="sec-more">
+    <h2><span class="icon">📚</span> 更多战术黑话</h2>
+    <div class="gen-scroll flip-scroll" id="flipScroll_more">
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">Hat-Trick</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">帽子戏法</span>
+            <span class="flip-exp">一人进3球</span>
+            <span class="flip-eg">帽子</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">Brace</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">梅开二度</span>
+            <span class="flip-exp">一人进2球</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">Own Goal (OG)</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">乌龙球</span>
+            <span class="flip-exp">把球踢进自家！队友笑你一整年</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">xG</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">预期进球</span>
+            <span class="flip-exp">每次射门该进几个。单刀约0.4，远射约0.03</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">Possession</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">控球率</span>
+            <span class="flip-exp">球在谁脚下跌。有控球不一定赢</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">Overlap</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">套边插上</span>
+            <span class="flip-exp">边后卫从边锋外侧跑上去助攻</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">Nutmeg</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">穿裆</span>
+            <span class="flip-exp">把球从对方两腿间踢过去——超帅！</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">Through Ball</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">直塞球</span>
+            <span class="flip-exp">一脚穿过所有后卫找到前锋</span>
+            <span class="flip-eg">Odegaard最擅长</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="gen-dots" id="flipScroll_moreDots"><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span></div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════ -->
+  <!-- 10. BETTING (adult) -->
+  <!-- ════════════════════════════════════════════════════ -->
+  <div class="card" id="sec-bet" style="border-color:rgba(251,191,36,.15);background:linear-gradient(145deg,#1c1917,#292524);">
+    <h2><span class="icon">💰</span> 投注黑话 <span style="font-size:.7rem;color:#ef4444;">⚠️ 大人专用</span></h2>
+    <div class="gen-scroll flip-scroll" id="flipScroll_bet">
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">To Qualify</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">晋级</span>
+            <span class="flip-exp">赢整个系列赛。比胜场赔率更有参考价值</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">1X2</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">胜平负</span>
+            <span class="flip-exp">1=主胜 X=平 2=客胜</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">BTTS</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">双方都进球</span>
+            <span class="flip-exp">两队都得分了吗？</span>
+            <span class="flip-eg">Both Teams To Score</span>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" >
+        <div class="flip-inner">
+          <div class="flip-front">
+            <span class="flip-en">Over / Under</span>
+            <span class="flip-hint">翻转</span>
+          </div>
+          <div class="flip-back">
+            <span class="flip-cn">大小球</span>
+            <span class="flip-exp">总进球多还是少</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="gen-dots" id="flipScroll_betDots"><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span></div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════ -->
+  <!-- 11. MATCH STORY -->
+  <!-- ════════════════════════════════════════════════════ -->
+  <div class="card" id="sec-story">
+    <h2><span class="icon">📖</span> 一场比赛的完整故事</h2>
+    <p style="font-size:.85rem;color:#94a3b8;margin-bottom:8px;">
+      用学到的词看 <strong style="color:#fbbf24;">挪威 vs 科特迪瓦</strong> 的真实剧情：
+    </p>
+    <div class="timeline">
+      <div class="tl-item"><span class="time">0'</span><span class="desc">🇳🇴 挪威 <strong>Kick-Off</strong>。4-2-1-3阵型，Haaland打 <strong>ST</strong></span></div>
+      <div class="tl-item"><span class="time">39'</span><span class="desc">⚽ <strong>Nusa</strong> 左路内切抽射远角！挪威 <strong>1-0</strong>！慢动作显示打在后卫腿上变线入网</span></div>
+      <div class="tl-item"><span class="time">45+1'</span><span class="desc">🟨 Nusa 黄牌 — 铲倒科特迪瓦后卫</span></div>
+      <div class="tl-item"><span class="time">HT</span><span class="desc">🔄 <strong>Half-Time</strong>，科特迪瓦调整锋线，换上 Amad Diallo</span></div>
+      <div class="tl-item"><span class="time">74'</span><span class="desc">⚽ 换人见效！替补 Diallo 利用角球 <strong>头球扳平</strong>！1-1！科特迪瓦球迷疯了</span></div>
+      <div class="tl-item"><span class="time">86'</span><span class="desc">🔥 <strong>Haaland 爆射近角！</strong> 挪威 2-1 再次领先！门将毫无反应</span></div>
+      <div class="tl-item"><span class="time">88'</span><span class="desc">🟡 VAR 复核进球过程，确认不越位 — 全场跑圈庆祝！</span></div>
+    </div>
+    <p style="font-size:.78rem;color:#64748b;margin-top:6px;">你看懂了吗？这场比赛用了 <strong>18个</strong> 刚学的词 🎯</p>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════ -->
+  <!-- 14. R32 BRACKET -->
+  <!-- ════════════════════════════════════════════════════ -->
+    <div class="card" id="sec-bracket">
+    <h2><span class="icon">🏆</span> 2026世界杯淘汰赛对阵图</h2>
+    <p style="font-size:.82rem;color:#94a3b8;margin-bottom:10px;">
+      R32全部完赛·R16开打——<strong style="color:#34d399;">绿色=已晋级</strong> · <strong style="color:#ef4444;">红色=比赛中</strong> · <strong style="color:#475569;">灰色=未开始</strong>
+    </p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:.72rem;">
+      <!-- LEFT COLUMN -->
+      <div>
+        <div class="bracket-match" data-fifa="400021518" style="background:rgba(16,185,129,.08);border-left:3px solid #10b981;border-radius:6px;padding:6px 8px;margin:3px 0;" >
+          <span style="color:#475569;font-size:.6rem;">#73</span>
+          <div style="display:flex;justify-content:space-between;">
+            <span>🇿🇦 南非</span><span style="color:#64748b;">0</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;color:#34d399;font-weight:700;">
+            <span>🇨🇦 加拿大 ✅</span><span>1</span>
+          </div>
+        </div>
+        <div class="bracket-match" data-fifa="400021513" style="background:rgba(16,185,129,.08);border-left:3px solid #10b981;border-radius:6px;padding:6px 8px;margin:3px 0;" >
+          <span style="color:#475569;font-size:.6rem;">#74</span>
+          <div style="display:flex;justify-content:space-between;">
+            <span>🇩🇪 德国</span><span style="color:#64748b;">1</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;color:#34d399;font-weight:700;">
+            <span>🇵🇾 巴拉圭 ✅ (点球)</span><span>1</span>
+          </div>
+        </div>
+        <div class="bracket-match" data-fifa="400021522" style="background:rgba(16,185,129,.08);border-left:3px solid #10b981;border-radius:6px;padding:6px 8px;margin:3px 0;" >
+          <span style="color:#475569;font-size:.6rem;">#75</span>
+          <div style="display:flex;justify-content:space-between;">
+            <span>🇳🇱 荷兰</span><span style="color:#64748b;">1</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;color:#34d399;font-weight:700;">
+            <span>🇲🇦 摩洛哥 ✅ (点球)</span><span>1</span>
+          </div>
+        </div>
+        <div class="bracket-match" data-fifa="400021516" style="background:rgba(16,185,129,.08);border-left:3px solid #10b981;border-radius:6px;padding:6px 8px;margin:3px 0;" >
+          <span style="color:#475569;font-size:.6rem;">#76</span>
+          <div style="display:flex;justify-content:space-between;">
+            <span>🇯🇵 日本</span><span style="color:#64748b;">1</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;color:#34d399;font-weight:700;">
+            <span>🇧🇷 巴西 ✅</span><span>2</span>
+          </div>
+        </div>
+        <div class="bracket-match" data-fifa="400021514" style="background:rgba(16,185,129,.08);border-left:3px solid #10b981;border-radius:6px;padding:6px 8px;margin:3px 0;" >
+          <span style="color:#475569;font-size:.6rem;">#78</span>
+          <div style="display:flex;justify-content:space-between;">
+            <span>🇨🇮 科特迪瓦</span><span style="color:#64748b;">1</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;color:#34d399;font-weight:700;">
+            <span>🇳🇴 挪威 ✅ (86'+VAR)</span><span>2</span>
+          </div>
+        </div>
+      </div>
+      <!-- RIGHT COLUMN -->
+      <div>
+        <div class="bracket-match" data-fifa="400021523" style="background:rgba(16,185,129,.08);border-left:3px solid #10b981;border-radius:6px;padding:6px 8px;margin:3px 0;">
+          <span style="color:#475569;font-size:.6rem;">#77</span>
+          <div style="display:flex;justify-content:space-between;font-weight:700;color:#34d399;">
+            <span>🇫🇷 法国 ✅</span><span id="brFRA">3</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;">
+            <span>🇸🇪 瑞典</span><span style="color:#64748b;" id="brSWE">0</span>
+          </div>
+        </div>
+        <div class="bracket-match" data-fifa="400021520" style="background:rgba(148,163,184,.04);border-left:3px solid #475569;border-radius:6px;padding:6px 8px;margin:3px 0;">
+          <span style="color:#475569;font-size:.6rem;">#79</span>
+          <div style="display:flex;justify-content:space-between;"><span>🇲🇽 墨西哥</span><span style="color:#64748b;">-</span></div>
+          <div style="display:flex;justify-content:space-between;"><span>🇪🇨 厄瓜多尔</span><span style="color:#64748b;">-</span></div>
+          <span style="color:#475569;font-size:.55rem;">7月1日 01:00</span>
+        </div>
+        <div class="bracket-match" data-fifa="400021512" style="background:rgba(148,163,184,.04);border-left:3px solid #475569;border-radius:6px;padding:6px 8px;margin:3px 0;">
+          <span style="color:#475569;font-size:.6rem;">#80</span>
+          <div style="display:flex;justify-content:space-between;"><span>🏴󠁧󠁢󠁥󠁮󠁧󠁿 英格兰</span><span style="color:#64748b;">-</span></div>
+          <div style="display:flex;justify-content:space-between;"><span>🇨🇩 刚果(金)</span><span style="color:#64748b;">-</span></div>
+          <span style="color:#475569;font-size:.55rem;">7月1日 16:00</span>
+        </div>
+        <div class="bracket-match" data-fifa="400021525" style="background:rgba(148,163,184,.04);border-left:3px solid #475569;border-radius:6px;padding:6px 8px;margin:3px 0;">
+          <span style="color:#475569;font-size:.6rem;">#81</span>
+          <div style="display:flex;justify-content:space-between;"><span>🇧🇪 比利时</span><span style="color:#64748b;">-</span></div>
+          <div style="display:flex;justify-content:space-between;"><span>🇸🇳 塞内加尔</span><span style="color:#64748b;">-</span></div>
+          <span style="color:#475569;font-size:.55rem;">7月1日 20:00</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:8px;padding-top:8px;border-top:1px solid rgba(148,163,184,.06);">
+      <span style="font-size:.7rem;color:#475569;">
+        🌱 绿色=已晋级 · 🔴 红色=比赛中 · ⚪ 灰色=待赛 | 还有 <strong style="color:#fbbf24;">10场</strong> 未踢
+      </span>
+    </div>
+  </div>
+
+  <!-- 12. FUN FACTS -->
+  <!-- ════════════════════════════════════════════════════ -->
+    <div class="card" id="sec-fun" style="background:linear-gradient(145deg,#1c1917,#292524);border-color:rgba(251,191,36,.15);">
+    <h2><span class="icon">😲</span> 校园趣味冷知识</h2>
+    <p style="font-size:.72rem;color:#64748b;margin-bottom:8px;"><strong style="color:#fbbf24;">左右滑动</strong>跟同学们炫耀这些冷知识</p>
+    <div class="gen-scroll" id="funScroll">
+      <div class="gen-card fun-card">
+        <div class="gc-icon">🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+        <div class="gc-name" style="color:#fbbf24;">FC 还是 SC？</div>
+        <div class="gc-body">FC = Football Club。<br>美国不用FC，用SC——<br>因为他们把橄榄球叫football。</div>
+        <div class="gc-meta">⚽ soccer vs football 之争</div>
+      </div>
+      <div class="gen-card fun-card">
+        <div class="gc-icon">🔟</div>
+        <div class="gc-name" style="color:#fbbf24;">为什么10号最厉害？</div>
+        <div class="gc-body">以前1=GK, 2-6=后卫, 7-11=前锋。<br><strong>10号是核心前锋。</strong><br>梅西、马拉多纳、姆巴佩都是10号。</div>
+      </div>
+      <div class="gen-card fun-card">
+        <div class="gc-icon">👕</div>
+        <div class="gc-name" style="color:#fbbf24;">球衣号码退休</div>
+        <div class="gc-body">伟大球员退役后，号码永久封存。<br>AC米兰3号（马尔蒂尼）、<br>那不勒斯10号（马拉多纳）。</div>
+      </div>
+      <div class="gen-card fun-card">
+        <div class="gc-icon">🇺🇸</div>
+        <div class="gc-name" style="color:#fbbf24;">USMNT 什么意思？</div>
+        <div class="gc-body"><strong>United States Men's National Team</strong><br>女队叫 USWNT<br>M=Men, W=Women</div>
+      </div>
+    </div>
+    <div class="gen-dots" id="funDots"><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span></div>
+  
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- 加时赛规则 -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="card" id="sec-ot" style="background:linear-gradient(145deg,#1c1917,#292524);border-color:rgba(251,191,36,.15);">
+    <h2><span class="icon">⏱️</span> 加时赛 & 点球大战</h2>
+    <p style="font-size:.72rem;color:#64748b;margin-bottom:8px;"><strong style="color:#fbbf24;">左右滑动</strong>搞清楚淘汰赛怎么分出胜负</p>
+    <div class="gen-scroll" id="otScroll">
+      <div class="gen-card fun-card">
+        <div class="gc-icon">❓</div>
+        <div class="gc-name" style="color:#fbbf24;">什么时候加时？</div>
+        <div class="gc-body">
+          淘汰赛（1/16决赛开始）<br>
+          90分钟打平 → <strong>不加时</strong>？<br>
+          不对！<br><br>
+          <strong>必须分出胜负的比赛</strong>才加时。<br>
+          小组赛打平就平了，各拿1分。<br>
+          但淘汰赛不行——必须有人晋级。
+        </div>
+        <div class="gc-meta">⚽ 平局 → 加时 → 点球</div>
+      </div>
+      <div class="gen-card fun-card">
+        <div class="gc-icon">⏱️</div>
+        <div class="gc-name" style="color:#fbbf24;">加时赛怎么踢？</div>
+        <div class="gc-body">
+          <strong>30分钟，分上下半场。</strong><br>
+          上半场15分钟，换边。<br>
+          下半场15分钟。<br><br>
+          跟正常比赛一样，<br>
+          有伤停补时，有换人。<br><br>
+          30分钟后还平 → 
+          点球大战！😱
+        </div>
+        <div class="gc-meta">⚽ 2×15分钟，不休息直接踢</div>
+      </div>
+      <div class="gen-card fun-card">
+        <div class="gc-icon">🔄</div>
+        <div class="gc-name" style="color:#fbbf24;">加时可以多换人？</div>
+        <div class="gc-body">
+          正常比赛可以换 <strong>5个人</strong>。<br>
+          加时赛可以 <strong>再多换1个</strong>。<br><br>
+          一共可以换6个！<br>
+          （世界杯2022年改的规则）<br><br>
+          教练常在第120分钟换门将<br>
+          → 专门为点球大战准备！
+        </div>
+        <div class="gc-meta">⚽ 6次换人，门将第120分钟换</div>
+      </div>
+      <div class="gen-card fun-card">
+        <div class="gc-icon">⏳</div>
+        <div class="gc-name" style="color:#fbbf24;">以前的金球规则</div>
+        <div class="gc-body">
+          1990年代有过 <strong>"金球"(Golden Goal)</strong>：<br>
+          加时赛谁先进球立即结束。<br><br>
+          太刺激了，但太不公平。<br>
+          一方还没机会反扑就输了。<br><br>
+          <strong>2004年取消了。</strong><br>
+          现在必须踢满30分钟。<br>
+          佛得角才能103分钟扳平再踢！
+        </div>
+        <div class="gc-meta">⚽ 金球=突然死亡，已废除</div>
+      </div>
+      <div class="gen-card fun-card">
+        <div class="gc-icon">🎯</div>
+        <div class="gc-name" style="color:#fbbf24;">点球大战怎么玩？</div>
+        <div class="gc-body">
+          5轮交替射门。<br>
+          📍 12码，门将 vs 射手。<br><br>
+          5轮后平了 → 突然死亡。<br>
+          一方进，一方不进 → 结束。<br><br>
+          <strong>关键人物：</strong><br>
+          守门员！扑出一个就成英雄。<br>
+          很多门将专门练点球。
+        </div>
+        <div class="gc-meta">⚽ 5+1轮，门将成英雄</div>
+      </div>
+      <div class="gen-card fun-card">
+        <div class="gc-icon">🇨🇻</div>
+        <div class="gc-name" style="color:#fbbf24;">真实案例：佛得角</div>
+        <div class="gc-body">
+          7月3日，阿根廷 vs 佛得角！<br><br>
+          90分钟 <strong>1-1</strong> → 加时赛！<br>
+          92' 阿根廷领先 → 103' 佛得角扳平<br>
+          加时赛还能进，因为不是金球。<br><br>
+          最后111' 乌龙球，<br>
+          佛得角3-2输了。<br>
+          但他们是站着死的！💪
+        </div>
+        <div class="gc-meta">⚽ 2026世界杯·加时赛经典战役</div>
+      </div>
+    </div>
+    <div class="gen-dots"><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span></div>
+  </div>  <div class="card" id="sec-test">
+</div>  <div class="card" id="sec-test">
+    <h2><span class="icon">📝</span> 费曼测试</h2>
+    <p style="font-size:.82rem;color:#94a3b8;margin-bottom:6px;">如果你能把这些讲给牧之听，你就真正学会了！</p>
+
+    <!-- Score bar -->
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+      <div style="font-size:.85rem;font-weight:700;color:#fbbf24;" id="quizScore">0/4</div>
+      <div style="flex:1;height:6px;background:#1e293b;border-radius:3px;overflow:hidden;">
+        <div id="quizBar" style="height:100%;width:0%;background:#10b981;border-radius:3px;transition:width .4s ease;"></div>
+      </div>
+      <div style="font-size:.7rem;color:#64748b;"><span id="quizDone">0</span>题完成</div>
+    </div>
+
+    <div class="gen-scroll" id="quizScroll">
+      <div class="quiz-card qc-0">
+        <div class="qc-num">Q1</div>
+        <div class="qc-q">4-1-2-3 里的 "1" 是谁？</div>
+        <div class="qc-choices">
+          <div class="qc-btn" data-a="correct" onclick="quizSelect(this)"><span class="qc-letter">A</span> 后腰 CDM</div>
+          <div class="qc-btn" data-a="wrong" onclick="quizSelect(this)"><span class="qc-letter">B</span> 中锋 ST</div>
+          <div class="qc-btn" data-a="wrong" onclick="quizSelect(this)"><span class="qc-letter">C</span> 边锋 LW</div>
+        </div>
+        <div class="qc-feedback" id="qfb-0"></div>
+      </div>
+      <div class="quiz-card qc-1">
+        <div class="qc-num">Q2</div>
+        <div class="qc-q">什么叫越位 (Offside)？</div>
+        <div class="qc-choices">
+          <div class="qc-btn" data-a="wrong" onclick="quizSelect(this)"><span class="qc-letter">A</span> 球出界了</div>
+          <div class="qc-btn" data-a="correct" onclick="quizSelect(this)"><span class="qc-letter">B</span> 接球时比倒数第二个防守队员更靠近球门</div>
+          <div class="qc-btn" data-a="wrong" onclick="quizSelect(this)"><span class="qc-letter">C</span> 球踢太高了</div>
+        </div>
+        <div class="qc-feedback" id="qfb-1"></div>
+      </div>
+      <div class="quiz-card qc-2">
+        <div class="qc-num">Q3</div>
+        <div class="qc-q">德国为什么输给巴拉圭？</div>
+        <div class="qc-choices">
+          <div class="qc-btn" data-a="wrong" onclick="quizSelect(this)"><span class="qc-letter">A</span> 德国队太累了</div>
+          <div class="qc-btn" data-a="correct" onclick="quizSelect(this)"><span class="qc-letter">B</span> Low Block 守了120分钟 → 点球赢了</div>
+          <div class="qc-btn" data-a="wrong" onclick="quizSelect(this)"><span class="qc-letter">C</span> 裁判不公平</div>
+        </div>
+        <div class="qc-feedback" id="qfb-2"></div>
+      </div>
+      <div class="quiz-card qc-3">
+        <div class="qc-num">Q4</div>
+        <div class="qc-q">教练什么时候会换人？</div>
+        <div class="qc-choices">
+          <div class="qc-btn" data-a="wrong" onclick="quizSelect(this)"><span class="qc-letter">A</span> 只能换1次</div>
+          <div class="qc-btn" data-a="correct" onclick="quizSelect(this)"><span class="qc-letter">B</span> 最多5人！60-70'换新鲜血液，80'后换人拖时间，差球时同时换3个搏命</div>
+          <div class="qc-btn" data-a="wrong" onclick="quizSelect(this)"><span class="qc-letter">C</span> 随时都可以</div>
+        </div>
+        <div class="qc-feedback" id="qfb-3"></div>
+      </div>
+    </div>
+    <div class="gen-dots" id="quizDots"><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span></div>
+  </div><div class="hero" style="padding:16px;">
+    <div class="mascot" style="font-size:2.8rem;">⚽🎉</div>
+    <p style="font-size:.85rem;color:#94a3b8;">牧童专属 · 2026世界杯现场版 · Per Aspera Ad Astra</p>
+  </div>
+
+</div>
+
+<script>
+  // ─── Helper: draw a formation on a mini pitch ───
+  function drawFormation(pitchId, players) {
+    const pitch = document.getElementById(pitchId);
+    if (!pitch) return;
+    // Draw pitch markings
+    function addMark(cls, style) { const el=document.createElement('div'); el.className=cls; if(style) Object.assign(el.style,style); pitch.appendChild(el); }
+    addMark('mline');
+    addMark('mcircle');
+    // Penalty areas — big box + small box
+    addMark('mpen-box mpen-big a');
+    addMark('mpen-box mpen-big b');
+    addMark('mpen-box mpen-small a');
+    addMark('mpen-box mpen-small b');
+    // Goals — goal posts + crossbar (top)
+    addMark('', {position:'absolute',top:'-1px',left:'36%',width:'28%',height:'6px',background:'rgba(255,255,255,.2)',borderRadius:'2px',zIndex:'0'});
+    addMark('', {position:'absolute',top:'-1px',left:'36%',width:'2px',height:'18px',background:'rgba(255,255,255,.15)',borderRadius:'1px',zIndex:'0'});
+    addMark('', {position:'absolute',top:'-1px',right:'36%',width:'2px',height:'18px',background:'rgba(255,255,255,.15)',borderRadius:'1px',zIndex:'0'});
+    // Goals — goal posts + crossbar (bottom)
+    addMark('', {position:'absolute',bottom:'-1px',left:'36%',width:'28%',height:'6px',background:'rgba(255,255,255,.2)',borderRadius:'2px',zIndex:'0'});
+    addMark('', {position:'absolute',bottom:'-1px',left:'36%',width:'2px',height:'18px',background:'rgba(255,255,255,.15)',borderRadius:'1px',zIndex:'0'});
+    addMark('', {position:'absolute',bottom:'-1px',right:'36%',width:'2px',height:'18px',background:'rgba(255,255,255,.15)',borderRadius:'1px',zIndex:'0'});
+    players.forEach(p => {
+      const el = document.createElement('div');
+      el.className = `pl ${p.cls}`;
+      el.style.left = p.x + '%';
+      el.style.top = p.y + '%';
+      el.textContent = p.label;
+      if (p.name) {
+        const label = document.createElement('span');
+        label.style.cssText = 'display:none;position:absolute;top:-20px;white-space:nowrap;background:rgba(0,0,0,.8);color:#fff;padding:1px 5px;border-radius:3px;font-size:.45rem;font-weight:400;';
+        label.textContent = p.name;
+        el.appendChild(label);
+        el.onmouseenter = () => label.style.display = 'block';
+        el.onmouseleave = () => label.style.display = 'none';
+      }
+      pitch.appendChild(el);
+    });
+  }
+
+  // ─── 4-1-2-3 Main Pitch ───
+  drawFormation('main-pitch', [
+    { label: 'GK', x: 50, y: 92, cls: 'gk', name: 'Alisson' },
+    { label: 'LB', x: 15, y: 74, cls: 'df', name: 'D.Santos' },
+    { label: 'CB', x: 38, y: 78, cls: 'df', name: 'Gabriel' },
+    { label: 'CB', x: 62, y: 78, cls: 'df', name: 'Marquinhos' },
+    { label: 'RB', x: 85, y: 74, cls: 'df', name: 'Danilo' },
+    { label: 'DM', x: 50, y: 60, cls: 'pl-dm', name: 'Casemiro' },
+    { label: 'CM', x: 30, y: 45, cls: 'md', name: 'Bruno G' },
+    { label: 'CM', x: 70, y: 45, cls: 'md', name: 'Paquetá' },
+    { label: 'LW', x: 15, y: 22, cls: 'fw', name: 'Vini Jr' },
+    { label: 'ST', x: 50, y: 15, cls: 'fw', name: 'Rayan' },
+    { label: 'RW', x: 85, y: 22, cls: 'fw', name: 'M.Cunha' },
+  ]);
+
+  // ─── 4-3-3 ───
+  drawFormation('pp-433', [
+    { label: 'GK', x: 50, y: 92, cls: 'gk' },
+    { label: 'RB', x: 82, y: 76, cls: 'df' }, { label: 'CB', x: 60, y: 80, cls: 'df' },
+    { label: 'CB', x: 40, y: 80, cls: 'df' }, { label: 'LB', x: 18, y: 76, cls: 'df' },
+    { label: 'CM', x: 50, y: 58, cls: 'md' }, { label: 'CM', x: 30, y: 50, cls: 'md' }, { label: 'CM', x: 70, y: 50, cls: 'md' },
+    { label: 'LW', x: 15, y: 22, cls: 'fw' }, { label: 'ST', x: 50, y: 14, cls: 'fw' }, { label: 'RW', x: 85, y: 22, cls: 'fw' },
+  ]);
+
+  // ─── 4-4-2 ───
+  drawFormation('pp-442', [
+    { label: 'GK', x: 50, y: 92, cls: 'gk' },
+    { label: 'RB', x: 82, y: 76, cls: 'df' }, { label: 'CB', x: 60, y: 80, cls: 'df' },
+    { label: 'CB', x: 40, y: 80, cls: 'df' }, { label: 'LB', x: 18, y: 76, cls: 'df' },
+    { label: 'RM', x: 82, y: 54, cls: 'md' }, { label: 'CM', x: 60, y: 52, cls: 'md' },
+    { label: 'CM', x: 40, y: 52, cls: 'md' }, { label: 'LM', x: 18, y: 54, cls: 'md' },
+    { label: 'ST', x: 35, y: 16, cls: 'fw' }, { label: 'ST', x: 65, y: 16, cls: 'fw' },
+  ]);
+
+  // ─── 4-2-3-1 ───
+  drawFormation('pp-4231', [
+    { label: 'GK', x: 50, y: 92, cls: 'gk' },
+    { label: 'RB', x: 82, y: 76, cls: 'df' }, { label: 'CB', x: 60, y: 80, cls: 'df' },
+    { label: 'CB', x: 40, y: 80, cls: 'df' }, { label: 'LB', x: 18, y: 76, cls: 'df' },
+    { label: 'DM', x: 40, y: 60, cls: 'pl-dm' }, { label: 'DM', x: 60, y: 60, cls: 'pl-dm' },
+    { label: 'LW', x: 15, y: 32, cls: 'fw' }, { label: 'AM', x: 50, y: 30, cls: 'md' }, { label: 'RW', x: 85, y: 32, cls: 'fw' },
+    { label: 'ST', x: 50, y: 14, cls: 'fw' },
+  ]);
+
+  // ─── 3-4-3 ───
+  drawFormation('pp-343', [
+    { label: 'GK', x: 50, y: 92, cls: 'gk' },
+    { label: 'CB', x: 65, y: 80, cls: 'df' }, { label: 'CB', x: 50, y: 84, cls: 'df' }, { label: 'CB', x: 35, y: 80, cls: 'df' },
+    { label: 'RWB', x: 88, y: 58, cls: 'md' }, { label: 'CM', x: 60, y: 56, cls: 'md' },
+    { label: 'CM', x: 40, y: 56, cls: 'md' }, { label: 'LWB', x: 12, y: 58, cls: 'md' },
+    { label: 'LW', x: 15, y: 22, cls: 'fw' }, { label: 'ST', x: 50, y: 14, cls: 'fw' }, { label: 'RW', x: 85, y: 22, cls: 'fw' },
+  ]);
+
+  // ─── France 4-2-3-1 ───
+  drawFormation('fr-pitch', [
+    { label: 'GK', x: 50, y: 92, cls: 'gk', name: 'Maignan' },
+    { label: 'LB', x: 18, y: 76, cls: 'df', name: 'Digne' }, { label: 'CB', x: 40, y: 80, cls: 'df', name: 'Saliba' },
+    { label: 'CB', x: 60, y: 80, cls: 'df', name: 'Upamecano' }, { label: 'RB', x: 82, y: 76, cls: 'df', name: 'Koundé' },
+    { label: 'DM', x: 38, y: 60, cls: 'pl-dm', name: 'Tchouameni' }, { label: 'DM', x: 62, y: 60, cls: 'pl-dm', name: 'Rabiot' },
+    { label: 'LW', x: 12, y: 34, cls: 'fw', name: 'Dembélé' }, { label: 'AM', x: 50, y: 32, cls: 'md', name: 'Olise' }, { label: 'RW', x: 88, y: 34, cls: 'fw', name: 'Barcola' },
+    { label: 'ST', x: 50, y: 14, cls: 'fw', name: 'Mbappé ⭐' },
+  ]);
+
+  // ─── Brazil 4-1-2-3 ───
+  drawFormation('br-pitch', [
+    { label: 'GK', x: 50, y: 92, cls: 'gk', name: 'Alisson' },
+    { label: 'LB', x: 18, y: 76, cls: 'df', name: 'D.Santos' }, { label: 'CB', x: 40, y: 80, cls: 'df', name: 'Gabriel' },
+    { label: 'CB', x: 60, y: 80, cls: 'df', name: 'Marquinhos' }, { label: 'RB', x: 82, y: 76, cls: 'df', name: 'Danilo' },
+    { label: 'DM', x: 50, y: 60, cls: 'pl-dm', name: 'Casemiro' },
+    { label: 'CM', x: 32, y: 46, cls: 'md', name: 'Bruno G' }, { label: 'CM', x: 68, y: 46, cls: 'md', name: 'Paquetá' },
+    { label: 'LW', x: 14, y: 22, cls: 'fw', name: 'Vini Jr' }, { label: 'ST', x: 50, y: 14, cls: 'fw', name: 'Rayan' }, { label: 'RW', x: 86, y: 22, cls: 'fw', name: 'M.Cunha' },
+  ]);
+
+  // ─── Norway 4-2-1-3 ───
+  drawFormation('no-pitch', [
+    { label: 'GK', x: 50, y: 92, cls: 'gk', name: 'Nyland' },
+    { label: 'LB', x: 18, y: 76, cls: 'df', name: 'Heggem' }, { label: 'CB', x: 38, y: 80, cls: 'df', name: 'Ajer' },
+    { label: 'CB', x: 62, y: 80, cls: 'df', name: 'M.Wolfe' }, { label: 'RB', x: 82, y: 76, cls: 'df', name: 'Pedersen' },
+    { label: 'DM', x: 38, y: 60, cls: 'pl-dm', name: 'P.Berg' }, { label: 'DM', x: 62, y: 60, cls: 'pl-dm', name: 'S.Berge' },
+    { label: 'AM', x: 50, y: 40, cls: 'md', name: 'Ødegaard ⭐' },
+    { label: 'LW', x: 14, y: 22, cls: 'fw', name: 'Sørloth' }, { label: 'ST', x: 50, y: 14, cls: 'fw', name: 'Haaland ⭐' }, { label: 'RW', x: 86, y: 22, cls: 'fw', name: 'Nusa' },
+  ]);
+
+  // ─── TOC Overlay ───
+  var tocOverlay = document.getElementById('tocOverlay');
+  var fabToc = document.getElementById('fabToc');
+  var tocClose = document.getElementById('tocCloseBtn');
+
+  if (fabToc) {
+    fabToc.addEventListener('click', function() {
+      tocOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  }
+  if (tocClose) {
+    tocClose.addEventListener('click', function() {
+      tocOverlay.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  }
+  // Close overlay on backdrop click
+  if (tocOverlay) {
+    tocOverlay.addEventListener('click', function(e) {
+      if (e.target === tocOverlay || e.target.closest('.toc-grid a')) {
+        tocOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    });
+  }
+
+
+
+
+  // ─── Quiz ───
+  function selectQuiz(el) {
+    var parent = el.parentElement;
+    var msg = parent.nextElementSibling;
+    var allBtns = parent.querySelectorAll('.quiz-btn');
+    allBtns.forEach(function(b) {
+      b.style.cursor = 'default';
+      b.onclick = null;
+      if (b.dataset.ans === 'correct') {
+        b.style.background = 'rgba(16,185,129,.15)';
+        b.style.borderColor = 'rgba(16,185,129,.3)';
+      }
+    });
+    if (el.dataset.ans === 'correct') {
+      el.style.background = 'rgba(16,185,129,.25)';
+      el.style.borderColor = '#10b981';
+      el.style.color = '#6ee7b7';
+      el.style.fontWeight = '700';
+      if (msg) { msg.innerHTML = '✅ 答对了！🎉'; msg.style.color = '#34d399'; }
+    } else {
+      el.style.background = 'rgba(239,68,68,.15)';
+      el.style.borderColor = 'rgba(239,68,68,.3)';
+      el.style.color = '#fca5a5';
+      el.style.fontWeight = '700';
+      if (msg) { msg.innerHTML = '❌ 再想想！看手册找答案'; msg.style.color = '#f87171'; }
+      allBtns.forEach(function(b) {
+        if (b.dataset.ans === 'correct') {
+          b.style.background = 'rgba(16,185,129,.2)';
+          b.style.borderColor = '#10b981';
+          b.style.color = '#6ee7b7';
+        }
+      });
+    }
+  };
+
+
+  // ─── Scroll-Triggered Animations ───
+  (function() {
+    if (!window.IntersectionObserver) return;
+    var cards = document.querySelectorAll('.card');
+    cards.forEach(function(card, i) {
+      card.style.opacity = '0';
+      card.style.transition = 'opacity .6s ease, transform .6s ease';
+      card.style.transform = 'translateY(30px)';
+    });
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    cards.forEach(function(c) { observer.observe(c); });
+  })();
+
+  // ─── Live Score Refresh ───
+  window.refreshScore = function() {
+    var scoreEl = document.getElementById('liveScore');
+    var scoreElA = document.getElementById('liveScoreA');
+    var minEl = document.getElementById('liveMinute');
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://api.fifa.com/api/v3/live/football/17/285023/289287/400021523', true);
+    xhr.onload = function() {
+      try {
+        var d = JSON.parse(xhr.responseText);
+        var h = d.HomeTeam, a = d.AwayTeam;
+        var sh = (h.Score !== undefined ? h.Score : h.Goals) || 0;
+        var sa = (a.Score !== undefined ? a.Score : a.Goals) || 0;
+        if (scoreEl) scoreEl.textContent = sh;
+        if (scoreElA) scoreElA.textContent = sa;
+        var st = d.MatchStatus || 0;
+        var m = d.Minute || '';
+        if (minEl) {
+          if (st === 0 || st === 5) minEl.textContent = '已结束';
+          else if (st === 3) minEl.textContent = m ? m + "'" : '进行中';
+          else if (st === 1) minEl.textContent = '待赛';
+          else minEl.textContent = m ? m + "'" : '进行中';
+        }
+      } catch(e) {}
+    };
+    xhr.send();
+  };
+  // Auto-refresh every 60s
+  refreshScore();
+  setInterval(refreshScore, 60000);
+
+
+  // ─── Tactical Passing Animation ───
+  (function() {
+    var canvas = document.getElementById('pass-anim');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var pitch = canvas.parentElement;
+    
+    function resize() {
+      canvas.width = pitch.offsetWidth;
+      canvas.height = pitch.offsetHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Path: sequence of player positions as percentages of pitch dimensions
+    var path = [
+      {x:50, y:92},   // GK
+      {x:50, y:78},   // CB (split)
+      {x:60, y:78},   // CB
+      {x:70, y:60},   // CM
+      {x:50, y:40},   // AM
+      {x:15, y:22},   // LW
+      {x:50, y:14},   // ST — SHOOT!
+    ];
+    
+    var t = 0;
+    var speed = 0.008;
+    var trail = [];
+    var MAX_TRAIL = 30;
+
+    function animate() {
+      t += speed;
+      if (t >= 1) t -= 1;
+      
+      // Calculate position along path
+      var segCount = path.length - 1;
+      var seg = t * segCount;
+      var idx = Math.floor(seg);
+      var frac = seg - idx;
+      if (idx >= segCount) { idx = segCount - 1; frac = 1; }
+      
+      var p0 = path[idx];
+      var p1 = path[Math.min(idx + 1, segCount)];
+      
+      var px = (p0.x + (p1.x - p0.x) * frac) / 100 * canvas.width;
+      var py = (p0.y + (p1.y - p0.y) * frac) / 100 * canvas.height;
+      
+      trail.push({x: px, y: py});
+      if (trail.length > MAX_TRAIL) trail.shift();
+
+      // Draw
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Trail
+      for (var i = 1; i < trail.length; i++) {
+        var alpha = i / trail.length * 0.6;
+        ctx.beginPath();
+        ctx.moveTo(trail[i-1].x, trail[i-1].y);
+        ctx.lineTo(trail[i].x, trail[i].y);
+        ctx.strokeStyle = 'rgba(251, 191, 36, ' + alpha + ')';
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+      }
+      
+      // Ball
+      ctx.beginPath();
+      ctx.arc(px, py, 5, 0, Math.PI * 2);
+      ctx.fillStyle = '#fbbf24';
+      ctx.fill();
+      ctx.shadowColor = 'rgba(251, 191, 36, .5)';
+      ctx.shadowBlur = 10;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+      
+      // Player markers at path points
+      for (var i = 0; i < path.length; i++) {
+        var mx = path[i].x / 100 * canvas.width;
+        var my = path[i].y / 100 * canvas.height;
+        ctx.beginPath();
+        ctx.arc(mx, my, 3, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,255,255,.12)';
+        ctx.fill();
+      }
+      
+      requestAnimationFrame(animate);
+    }
+    animate();
+  })();
+
+
+  // ─── Formation Wheel + Drawer ───
+  var formData = {
+    '4123': { name: '4-1-2-3', label: '4后卫·1后腰·2中场·3前锋', strength: '🟢 攻防转换快',
+      pro: '攻防转换快，前场人数多', con: '单后腰负担重，边路防守薄弱', fit: '巴西·安切洛蒂风格',
+      tags: ['✔ 巴西', '✔ 皇马(安切洛蒂)'] },
+    '433':  { name: '4-3-3', label: '4后卫·3中场·3前锋', strength: '🟢 攻守均衡',
+      pro: '中场人多控球强，边路进攻丰富', con: '单后腰容易被穿透，对边后卫体力要求高', fit: '技术型球队·控球打法',
+      tags: ['✔ 巴萨', '✔ 拜仁', '✔ 英格兰'] },
+    '442':  { name: '4-4-2', label: '4后卫·4中场·2前锋', strength: '🟢 防守稳固',
+      pro: '简单直接，两条线紧凑防守稳', con: '中场可能被以多打少，边路创造力有限', fit: '英式传统·防守反击',
+      tags: ['✔ 曼联(经典)', '✔ 葡萄牙'] },
+    '4231': { name: '4-2-3-1', label: '4后卫·2后腰·3前卫·1前锋', strength: '🟢 中路超安全',
+      pro: '双后腰保护极好，防守基础牢', con: '进攻人数少，单前锋容易被盯死', fit: '杯赛·淘汰赛',
+      tags: ['✔ 法国', '✔ 英格兰(索斯盖特)'] },
+    '343':  { name: '3-4-3', label: '3后卫·4中场·3前锋', strength: '🟢 攻击力爆棚',
+      pro: '前场6人进攻，观赏性极高', con: '三后卫容易出漏洞，对翼卫体能要求极高', fit: '进攻型球队·强队打弱队',
+      tags: ['✔ 比利时', '✔ 荷兰'] },
+  };
+  var pitchPositions = {
+    '433':  [{x:50,y:92,c:'gk'},{x:20,y:72,c:'def'},{x:40,y:74,c:'def'},{x:60,y:74,c:'def'},{x:80,y:72,c:'def'},{x:30,y:52,c:'mid'},{x:50,y:48,c:'mid'},{x:70,y:52,c:'mid'},{x:25,y:24,c:'fwd'},{x:50,y:18,c:'fwd'},{x:75,y:24,c:'fwd'}],
+    '4123': [{x:50,y:92,c:'gk'},{x:20,y:72,c:'def'},{x:40,y:74,c:'def'},{x:60,y:74,c:'def'},{x:80,y:72,c:'def'},{x:50,y:58,c:'mid'},{x:35,y:42,c:'mid'},{x:65,y:42,c:'mid'},{x:25,y:22,c:'fwd'},{x:50,y:16,c:'fwd'},{x:75,y:22,c:'fwd'}],
+    '442':  [{x:50,y:92,c:'gk'},{x:20,y:72,c:'def'},{x:40,y:74,c:'def'},{x:60,y:74,c:'def'},{x:80,y:72,c:'def'},{x:22,y:48,c:'mid'},{x:40,y:50,c:'mid'},{x:60,y:50,c:'mid'},{x:78,y:48,c:'mid'},{x:35,y:22,c:'fwd'},{x:65,y:22,c:'fwd'}],
+    '4231': [{x:50,y:92,c:'gk'},{x:20,y:72,c:'def'},{x:40,y:74,c:'def'},{x:60,y:74,c:'def'},{x:80,y:72,c:'def'},{x:38,y:58,c:'mid'},{x:62,y:58,c:'mid'},{x:25,y:38,c:'fwd'},{x:50,y:34,c:'fwd'},{x:75,y:38,c:'fwd'},{x:50,y:16,c:'fwd'}],
+    '343':  [{x:50,y:92,c:'gk'},{x:25,y:74,c:'def'},{x:50,y:76,c:'def'},{x:75,y:74,c:'def'},{x:15,y:50,c:'mid'},{x:40,y:52,c:'mid'},{x:60,y:52,c:'mid'},{x:85,y:50,c:'mid'},{x:30,y:22,c:'fwd'},{x:50,y:16,c:'fwd'},{x:70,y:22,c:'fwd'}],
+  };
+
+  var currentForm = '433';
+  function selectForm(f) {
+    currentForm = f;
+    var d = formData[f];
+    document.getElementById('fcNum').textContent = d.name;
+    document.getElementById('fcLabel').textContent = d.label;
+    document.getElementById('fcStrength').textContent = d.strength;
+    document.querySelectorAll('.form-seg').forEach(function(el) {
+      el.classList.toggle('active', el.getAttribute('data-form') === f);
+    });
+  }
+
+  function openDrawer(f) {
+    if (!f) f = currentForm;
+    selectForm(f);
+    var d = formData[f];
+    document.getElementById('drawerTitle').textContent = d.name + ' · ' + d.strength.replace('🟢 ','');
+    document.getElementById('dDecode').textContent = d.label;
+    document.getElementById('dPro').textContent = d.pro;
+    document.getElementById('dCon').textContent = d.con;
+    document.getElementById('dFit').textContent = d.fit;
+    document.getElementById('dTags').innerHTML = d.tags.map(function(t){ return '<span>'+t+'</span>'; }).join('');
+    drawPitch(f);
+    document.getElementById('formDrawerOverlay').classList.add('open');
+    document.getElementById('formDrawer').classList.add('open');
+  }
+
+  function closeDrawer() {
+    document.getElementById('formDrawerOverlay').classList.remove('open');
+    document.getElementById('formDrawer').classList.remove('open');
+  }
+
+  function drawPitch(f) {
+    var pitch = document.getElementById('dPitch');
+    pitch.innerHTML = '';
+    var pos = pitchPositions[f] || pitchPositions['433'];
+    var w = pitch.offsetWidth || 200;
+    var h = pitch.offsetHeight || 150;
+    pos.forEach(function(p) {
+      var el = document.createElement('div');
+      el.className = 'dplayer dpl-' + p.c;
+      el.style.left = (p.x/100*w) + 'px';
+      el.style.top = (p.y/100*h) + 'px';
+      pitch.appendChild(el);
+    });
+  }
+
+  // Bind wheel interactions
+  document.querySelectorAll('.form-seg').forEach(function(el) {
+    el.addEventListener('click', function() {
+      selectForm(this.getAttribute('data-form'));
+    });
+  });
+  document.getElementById('formCenter').addEventListener('click', function() {
+    openDrawer(currentForm);
+  });
+
+  // ─── Position Scroll Indicators ───
+  (function() {
+    var scroll = document.getElementById('posScroll');
+    if (!scroll) return;
+    var dots = document.querySelectorAll('.pos-dot');
+    scroll.addEventListener('scroll', function() {
+      var idx = Math.round(scroll.scrollLeft / (scroll.scrollWidth / dots.length));
+      if (idx >= dots.length) idx = dots.length - 1;
+      dots.forEach(function(d, i) { d.classList.toggle('active', i === idx); });
+    });
+    // Init first dot
+    if (dots.length) dots[0].classList.add('active');
+  })();
+
+
+  // ─── Team Scroll Indicators ───
+  (function() {
+    var ts = document.getElementById('teamScroll');
+    if (!ts) return;
+    var dots = document.querySelectorAll('.tdot');
+    ts.addEventListener('scroll', function() {
+      var idx = Math.round(ts.scrollLeft / (ts.scrollWidth / dots.length));
+      if (idx >= dots.length) idx = dots.length - 1;
+      dots.forEach(function(d, i) { d.classList.toggle('active', i === idx); });
+    });
+    if (dots.length) dots[0].classList.add('active');
+  })();
+
+
+  // ─── Generic Scroll Indicators ───
+  (function() {
+    var containers = [
+      { id: 'compScroll', dots: 'compDots' },
+      { id: 'tactScroll', dots: 'tactDots' },
+      { id: 'funScroll', dots: 'funDots' },
+    ];
+    // Add flip-scroll containers
+    var fsIds = ['sub','card','tv','more','bet'];
+    fsIds.forEach(function(sid) {
+      var el = document.getElementById('flipScroll_' + sid);
+      if (el) containers.push({ id: 'flipScroll_' + sid, dots: 'flipScroll_' + sid + 'Dots' });
+    });
+    containers.forEach(function(ctx) {
+      var sc = document.getElementById(ctx.id);
+      var dots = document.getElementById(ctx.dots);
+      if (!sc || !dots) return;
+      var ds = dots.querySelectorAll('.gdot');
+      sc.addEventListener('scroll', function() {
+        var idx = Math.round(sc.scrollLeft / (sc.scrollWidth / ds.length));
+        if (idx >= ds.length) idx = ds.length - 1;
+        ds.forEach(function(d, i) { d.classList.toggle('active', i === idx); });
+      });
+      if (ds.length) ds[0].classList.add('active');
+    });
+  })();
+
+
+  // ─── Quiz Engine ───
+  var quizState = [{done:false},{done:false},{done:false},{done:false}];
+  var quizScore = 0;
+  function quizSelect(el) {
+    var card = el.closest('.quiz-card');
+    if (!card) return;
+    var idx = Array.from(document.querySelectorAll('.quiz-card')).indexOf(card);
+    if (idx < 0 || quizState[idx].done) return;
+    var correct = el.getAttribute('data-a') === 'correct';
+    var btns = card.querySelectorAll('.qc-btn');
+    btns.forEach(function(b) {
+      b.style.pointerEvents = 'none';
+      if (b.getAttribute('data-a') === 'correct') b.classList.add('reveal');
+    });
+    el.classList.add(correct ? 'correct' : 'wrong');
+    var fb = document.getElementById('qfb-' + idx);
+    if (correct) {
+      fb.textContent = '✅ 正确！';
+      fb.className = 'qc-feedback good';
+      quizScore++;
+    } else {
+      fb.textContent = '❌ 再看看手册~';
+      fb.className = 'qc-feedback bad';
+    }
+    quizState[idx].done = true;
+    document.getElementById('quizScore').textContent = quizScore + '/4';
+    document.getElementById('quizBar').style.width = (quizScore/4*100) + '%';
+    var done = quizState.filter(function(s){ return s.done; }).length;
+    document.getElementById('quizDone').textContent = done;
+    if (done === 4 && quizScore > 1) {
+      fb.textContent += ' 🎉 不愧是你！';
+    } else if (done === 4) {
+      fb.textContent += ' 🦞 龙虾点赞~';
+    }
+  }
+
+  // ─── Quiz Scroll Indicators ───
+  (function() {
+    var qs = document.getElementById('quizScroll');
+    if (!qs) return;
+    var qdots = document.querySelectorAll('#quizDots .gdot');
+    qs.addEventListener('scroll', function() {
+      var idx = Math.round(qs.scrollLeft / (qs.scrollWidth / qdots.length));
+      if (idx >= qdots.length) idx = qdots.length - 1;
+      qdots.forEach(function(d, i) { d.classList.toggle('active', i === idx); });
+    });
+    if (qdots.length) qdots[0].classList.add('active');
+  })();
+
+
+  // ─── Bracket Live Score Update ───
+  var bracketMatchIds = {73:"400021518",74:"400021513",75:"400021522",76:"400021516",77:"400021523",78:"400021514",79:"400021520",80:"400021512",81:"400021525",82:"400021524",83:"400021519",84:"400021526",85:"400021527",86:"400021515",87:"400021521",88:"400021517"};
+  
+  function refreshBracket() {
+    Object.keys(bracketMatchIds).forEach(function(num) {
+      var fid = bracketMatchIds[num];
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'https://api.fifa.com/api/v3/live/football/17/285023/289287/' + fid, true);
+      xhr.onload = function() {
+        try {
+          var d = JSON.parse(xhr.responseText);
+          var h = d.HomeTeam, a = d.AwayTeam;
+          var sh = (h.Score !== undefined ? h.Score : h.Goals) || 0;
+          var sa = (a.Score !== undefined ? a.Score : a.Goals) || 0;
+          var s = d.MatchStatus || 0;
+          var el = document.querySelector('.bracket-match[' + fid + '"]');
+          if (!el) return;
+          var rows = el.querySelectorAll('div[style*="display:flex;justify-content:space-between"]');
+          if (rows.length >= 2) {
+            var hs = rows[0].querySelector('span:last-child');
+            var as = rows[1].querySelector('span:last-child');
+            if (hs) hs.textContent = sh;
+            if (as) as.textContent = sa;
+          }
+          if (s === 0 || s === 5) { el.style.background = 'rgba(16,185,129,.08)'; el.style.borderLeftColor = '#10b981'; }
+          else if (s === 3) { el.style.background = 'rgba(239,68,68,.08)'; el.style.borderLeftColor = '#ef4444'; }
+        } catch(e) {}
+      };
+      xhr.send();
+    });
+  }
+  refreshBracket();
+  setInterval(refreshBracket, 60000);
+
+  // ─── Flip Cards: addEventListener ───
+
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.flip-card').forEach(function(card) {
+      if (!card.hasClickListener) {
+        card.hasClickListener = true;
+        card.addEventListener('click', function(e) {
+          this.classList.toggle('flipped');
+        });
+      }
+    });
+  });
+
+  // ─── Init bracket ───
+  setTimeout(fetchBracket, 500);
+
+</script>
+
+</body>
+</html>
