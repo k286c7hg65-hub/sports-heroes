@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>舒马赫 · 红色王朝的缔造者 | 体育英雄殿堂</title>
+<style>
+:root {
+  --red: #dc0000; --gold: #ffd700; --dark: #0f0f1a;
+  --card-bg: #1a1a30; --text: #e0e0e0; --text-dim: #999; --accent: #e60000;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--dark); color: var(--text); line-height: 1.7; overflow-x: hidden;
+}
+
+/* ── Navigation ── */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(15,15,26,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(220,0,0,0.15); padding: 0.5rem 1rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.nav a { color: var(--gold); text-decoration: none; font-weight: 600; font-size: 0.85rem; flex-shrink: 0; }
+.nav .chapters { display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: flex-end; }
+.nav .chapters span { font-size: 0.7rem; padding: 0.3rem 0.55rem; border-radius: 12px; background: rgba(255,255,255,0.06); color: #888; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+.nav .chapters span:hover, .nav .chapters span.active { background: var(--red); color: #fff; }
+
+/* ── Hero ── */
+.hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 5rem 1rem 3rem; position: relative; }
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(220,0,0,0.15) 0%, transparent 70%); pointer-events: none; }
+.hero .number { font-size: clamp(8rem, 20vw, 14rem); font-weight: 900; background: linear-gradient(180deg, var(--red) 0%, var(--gold) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; opacity: 0.9; line-height: 1; animation: pulse 3s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+.hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; color: #fff; margin: 0.5rem 0 0; letter-spacing: 0.05em; }
+.hero .subtitle { font-size: clamp(1rem, 2.5vw, 1.3rem); color: var(--gold); margin-bottom: 1rem; }
+.hero .tagline { color: #888; max-width: 550px; margin: 0 auto 2rem; font-size: 0.95rem; }
+.hero .scroll-hint { color: #555; font-size: 0.8rem; animation: float 2s ease-in-out infinite; cursor: default; }
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+
+/* ── Chapter Sections ── */
+.chapter { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 5rem 1rem; position: relative; }
+.chapter:nth-child(odd) .chapter-inner { flex-direction: row; }
+.chapter:nth-child(even) .chapter-inner { flex-direction: row-reverse; }
+.chapter-inner { max-width: 1000px; width: 100%; display: flex; gap: 3rem; align-items: center; }
+.chapter-icon { font-size: clamp(4rem, 10vw, 7rem); flex-shrink: 0; animation: float 4s ease-in-out infinite; filter: drop-shadow(0 8px 24px rgba(220,0,0,0.3)); }
+.chapter-content { flex: 1; }
+.chapter-num { font-size: 0.8rem; letter-spacing: 0.15em; color: var(--red); font-weight: 700; margin-bottom: 0.5rem; }
+.chapter-title { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 900; color: #fff; margin-bottom: 1rem; }
+.chapter-text { color: #bbb; font-size: 0.95rem; line-height: 1.8; margin-bottom: 1.5rem; }
+.chapter-text strong { color: var(--gold); }
+.chapter-text .highlight { background: linear-gradient(180deg, transparent 60%, rgba(220,0,0,0.3) 60%); padding: 0 2px; }
+
+/* ── Full-width Sections ── */
+.section { padding: 4rem 1rem; position: relative; }
+.section-inner { max-width: 900px; margin: 0 auto; }
+.section h2 { text-align: center; font-size: clamp(1.6rem, 3vw, 2rem); color: #fff; margin-bottom: 0.5rem; }
+.section .sub { text-align: center; color: #888; margin-bottom: 2.5rem; font-size: 0.9rem; }
+
+/* ── Stat Card ── */
+.stat-card { background: var(--card-bg); border-radius: 16px; padding: 1.2rem; border: 1px solid rgba(220,0,0,0.12); margin-bottom: 1rem; transition: transform 0.3s; }
+.stat-card:hover { transform: translateY(-2px); border-color: rgba(255,215,0,0.2); }
+.stat-card .label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 0.3rem; }
+.stat-card .value { font-size: 1.8rem; font-weight: 900; color: #fff; }
+.stat-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+.stat-row .stat-card { flex: 1; min-width: 120px; }
+
+/* ── Moments Grid ── */
+.moments-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+.moment-card { background: var(--card-bg); border-radius: 16px; padding: 1.5rem; border: 1px solid rgba(220,0,0,0.12); transition: all 0.3s; cursor: default; }
+.moment-card:hover { transform: translateY(-4px); border-color: rgba(220,0,0,0.3); box-shadow: 0 8px 32px rgba(220,0,0,0.1); }
+.moment-card .moment-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+.moment-card .moment-title { font-weight: 700; color: #fff; margin-bottom: 0.3rem; font-size: 1rem; }
+.moment-card .moment-meta { font-size: 0.75rem; color: var(--gold); margin-bottom: 0.8rem; }
+.moment-card .moment-desc { font-size: 0.85rem; color: #aaa; line-height: 1.6; }
+
+/* ── Dark Moments ── */
+.dark-card { background: linear-gradient(135deg, rgba(220,0,0,0.08), rgba(0,0,0,0.3)); border-left: 3px solid var(--red); border-radius: 0 14px 14px 0; padding: 1.5rem; margin-bottom: 1.2rem; }
+.dark-card .dark-year { color: var(--red); font-weight: 700; font-size: 0.8rem; margin-bottom: 0.3rem; }
+.dark-card .dark-title { color: #fff; font-weight: 700; margin-bottom: 0.5rem; }
+.dark-card .dark-desc { color: #aaa; font-size: 0.9rem; line-height: 1.7; }
+.dark-card .dark-rise { color: var(--gold); font-size: 0.85rem; margin-top: 0.6rem; font-weight: 600; }
+
+/* ── Quiz ── */
+.quiz { background: linear-gradient(135deg, rgba(220,0,0,0.12), rgba(255,215,0,0.08)); border-radius: 16px; padding: 1.5rem; margin-top: 1.5rem; border: 1px solid rgba(220,0,0,0.2); }
+.quiz .q { font-weight: 700; color: #fff; margin-bottom: 0.8rem; font-size: 0.95rem; }
+.quiz .options { display: flex; flex-direction: column; gap: 0.5rem; }
+.quiz .opt { padding: 0.6rem 1rem; border-radius: 10px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); cursor: pointer; transition: all 0.2s; color: #ccc; font-size: 0.9rem; text-align: left; }
+.quiz .opt:hover { background: rgba(255,255,255,0.08); border-color: var(--gold); }
+.quiz .opt.correct { background: rgba(42,157,70,0.2); border-color: #2a9d46; color: #fff; }
+.quiz .opt.wrong { background: rgba(220,0,0,0.2); border-color: var(--red); color: #fff; }
+.quiz .feedback { margin-top: 0.8rem; font-size: 0.85rem; color: var(--gold); display: none; }
+
+/* ── Quote Block ── */
+.blockquote { background: var(--card-bg); border-radius: 16px; padding: 2rem; margin: 1.5rem 0; text-align: center; border: 1px solid rgba(220,0,0,0.12); position: relative; }
+.blockquote::before { content: '"'; position: absolute; top: -0.5rem; left: 1.5rem; font-size: 5rem; color: var(--red); opacity: 0.3; font-family: Georgia, serif; line-height: 1; }
+.blockquote p { font-size: 1.1rem; color: #fff; font-style: italic; line-height: 1.6; position: relative; }
+.blockquote .by { color: var(--gold); margin-top: 0.8rem; font-weight: 600; font-style: normal; }
+
+/* ── Timeline ── */
+.timeline-section { padding: 4rem 1rem; }
+.timeline-section h2 { text-align: center; font-size: 1.8rem; color: #fff; margin-bottom: 3rem; }
+.timeline { position: relative; padding-left: 2rem; max-width: 700px; margin: 0 auto; }
+.timeline::before { content: ''; position: absolute; left: 0.5rem; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--red), var(--gold), var(--red)); }
+.timeline-item { position: relative; margin-bottom: 2.2rem; padding-left: 2rem; }
+.timeline-item::before { content: ''; position: absolute; left: -1.75rem; top: 0.5rem; width: 12px; height: 12px; border-radius: 50%; background: var(--gold); border: 2px solid var(--dark); }
+.timeline-year { font-size: 0.8rem; color: var(--gold); font-weight: 700; margin-bottom: 0.3rem; }
+.timeline-event { color: #ccc; font-size: 0.9rem; }
+
+/* ── Trophy Wall ── */
+.trophy-section { padding: 4rem 1rem 6rem; }
+.trophy-section h2 { text-align: center; font-size: 1.8rem; color: #fff; margin-bottom: 0.5rem; }
+.trophy-section .sub { text-align: center; color: #888; margin-bottom: 2.5rem; }
+.trophy-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.8rem; max-width: 900px; margin: 0 auto; }
+.trophy { background: var(--card-bg); border-radius: 14px; padding: 1rem 0.8rem; border: 1px solid rgba(220,0,0,0.12); transition: transform 0.3s; text-align: center; }
+.trophy:hover { transform: translateY(-4px); border-color: rgba(255,215,0,0.3); }
+.trophy .t-icon { font-size: 2rem; margin-bottom: 0.4rem; }
+.trophy .t-name { font-size: 0.75rem; color: #ccc; font-weight: 600; }
+.trophy .t-count { font-size: 0.85rem; color: var(--gold); font-weight: 900; }
+.trophy .t-detail { font-size: 0.65rem; color: #777; margin-top: 0.15rem; }
+
+/* ── Philosophy Cards ── */
+.phil-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+.phil-card { background: var(--card-bg); border-radius: 16px; padding: 1.5rem; border: 1px solid rgba(220,0,0,0.12); text-align: center; transition: all 0.3s; }
+.phil-card:hover { transform: translateY(-4px); border-color: rgba(255,215,0,0.3); }
+.phil-card .phil-icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
+.phil-card .phil-name { color: #fff; font-weight: 700; margin-bottom: 0.5rem; }
+.phil-card .phil-desc { color: #aaa; font-size: 0.85rem; line-height: 1.5; }
+
+/* ── Celebration Particles ── */
+.particles { position: fixed; inset: 0; pointer-events: none; z-index: 200; }
+.particle { position: absolute; font-size: 1.5rem; animation: fall linear forwards; }
+@keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(720deg); opacity: 0; } }
+
+/* ── Back to top ── */
+.back-top { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 99; width: 44px; height: 44px; border-radius: 50%; background: var(--red); color: #fff; border: none; font-size: 1.3rem; cursor: pointer; opacity: 0; transform: translateY(20px); transition: all 0.3s; box-shadow: 0 4px 16px rgba(220,0,0,0.4); }
+.back-top.show { opacity: 1; transform: translateY(0); }
+
+/* ── Footer ── */
+footer { text-align: center; padding: 3rem 1rem; color: #555; font-size: 0.8rem; border-top: 1px solid rgba(220,0,0,0.1); line-height: 2; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .chapter-inner, .chapter:nth-child(even) .chapter-inner { flex-direction: column !important; gap: 1.5rem; text-align: center; }
+  .chapter-icon { font-size: 4rem; }
+  .chapter { padding: 4rem 1rem; min-height: auto; }
+  .nav .chapters { display: none; }
+  .stat-row { flex-direction: column; }
+  .timeline { padding-left: 1.5rem; }
+  .trophy-grid { grid-template-columns: repeat(2, 1fr); }
+  .moments-grid { grid-template-columns: 1fr; }
+  .phil-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 400px) {
+  .phil-grid { grid-template-columns: 1fr; }
+  .trophy-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ═══ Scroll Animations ═══ */
+@keyframes fadeSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+@keyframes countUp { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+.timeline-item { opacity: 0; transform: translateX(-15px); transition: all 0.6s ease-out; }
+.timeline-item:nth-child(even) { transform: translateX(15px); }
+.timeline-item.is-visible { opacity: 1; transform: translateX(0); }
+.trophy { position: relative; overflow: hidden; }
+.trophy::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 0%, rgba(255,215,0,0.08) 50%, transparent 100%); background-size: 200% 100%; opacity: 0; transition: opacity 0.3s; }
+.trophy:hover::after { opacity: 1; animation: shimmer 1.5s ease-in-out infinite; }
+.stat-card.is-visible { animation: countUp 0.5s ease-out forwards; }
+
+</style>
+</head>
+<body>
+
+<!-- ═══ DATA VERIFIED ═══
+  7 World Championships: 1994, 1995, 2000, 2001, 2002, 2003, 2004
+  91 Grand Prix wins | 68 pole positions | 77 fastest laps
+  155 podiums | 307 race starts | 1566 career points
+  Sources: Formula1.com, Ferrari.com, Autosport, StatsF1
+  ════════════════════════ -->
+
+<div class="particles" id="particles"></div>
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<nav class="nav">
+  <a href="../">← 英雄殿堂</a>
+  <div class="chapters" id="navChapters">
+    <span onclick="scrollToChapter(0)">🇩🇪</span>
+    <span onclick="scrollToChapter(1)">🟢</span>
+    <span onclick="scrollToChapter(2)">🔴</span>
+    <span onclick="scrollToChapter(3)">🌧️</span>
+    <span onclick="scrollToChapter(4)">🌑</span>
+    <span onclick="scrollToChapter(5)">⭐</span>
+    <span onclick="scrollToChapter(6)">🏎️</span>
+    <span onclick="scrollToChapter(7)">🤝</span>
+    <span onclick="scrollToChapter(8)">📊</span>
+    <span onclick="scrollToChapter(9)">❤️</span>
+    <span onclick="scrollToChapter(10)">💬</span>
+  </div>
+</nav>
+
+<!-- ══════ HERO ══════ -->
+<section class="hero" id="top">
+  <div class="number">7</div>
+  <h1>MICHAEL SCHUMACHER</h1>
+  <p class="subtitle">迈克尔 · 舒马赫</p>
+  <p class="tagline">一个德国穷小子的父亲把割草机引擎装在废弃卡丁车上——二十年后，他唤醒了沉睡21年的法拉利，用红色风暴重新定义了F1的速度极限。7次世界冠军，91场分站胜利，68个杆位——这些数字背后的故事，远比数字本身更伟大。</p>
+  <div class="scroll-hint" onclick="celebrate()">👇 点击开始他的故事</div>
+</section>
+
+<!-- ══════ CH1: German Childhood ══════ -->
+<section class="chapter" id="ch1">
+  <div class="chapter-inner">
+    <div class="chapter-icon">🇩🇪</div>
+    <div class="chapter-content">
+      <div class="chapter-num">第一章</div>
+      <h2 class="chapter-title">卡丁车场上的穷小子</h2>
+      <div class="chapter-text">
+        <p>1969年1月3日，迈克尔·舒马赫出生在德国科隆附近的<strong>许尔特镇</strong>。父亲罗尔夫是个砖瓦匠兼卡丁车场管理员，母亲伊丽莎白在车场旁经营一家小餐厅。舒马赫一家不富裕——住在一栋紧挨着卡丁车赛道的普通房子里。许尔特是一个安静的小镇，在科隆以西约9公里——如果不是因为舒马赫，大多数人永远不会知道这个名字。</p>
+        <p><strong>4岁那年</strong>，父亲罗尔夫把一台废弃的小摩托车引擎装在了儿子的脚踏卡丁车上。小迈克尔第一次踩下油门就撞上了路灯柱——但他的父亲没有责骂，而是把他带到了<strong>凯尔彭（Kerpen）卡丁车俱乐部</strong>的正式赛道上。从那天起，赛道的轰鸣声成了他的摇篮曲。凯尔彭赛道离他家只有几分钟路程——对舒马赫来说，那就是全世界最好的游乐场。</p>
+        <p>6岁时，舒马赫赢下了第一个俱乐部冠军。没有钱买新轮胎，他就用其他车手<strong>淘汰下来的旧轮胎</strong>比赛——照样赢。父亲为了支持儿子，打着两份工：白天砌砖，晚上在卡丁车场出租卡丁车。母亲在赛道旁的小餐厅里为来训练的车手们做简餐。全家人把每一分钱都投在了小迈克尔的赛车梦上。他们搬到了赛道旁边的一栋小房子里——不是因为他家变富了，而是因为他父亲成了卡丁车场的<strong>兼职管理员</strong>。</p>
+        <p>舒马赫的弟弟<strong>拉尔夫</strong>也在同一时期开始卡丁车生涯。兄弟俩共用一台卡丁车——迈克尔跑完一场比赛，机械师匆忙调校，拉尔夫紧接着上场。多年后，两人同时成为F1车手——这在F1历史上极为罕见。舒马赫兄弟的对决是那个时代最引人注目的话题之一。</p>
+        <p>14岁时，他遇到了一个障碍：德国规定卡丁车驾照的最低年龄是14岁。他等不及——通过<strong>卢森堡</strong>的特例拿到了执照。他的第一份"职业合同"来自经理人威利·韦伯：每月2000马克、一辆车、五年合约。签约那天，父亲罗尔夫哭了——<strong>"我儿子连500马克都没有，现在他有了未来。"</strong></p>
+      </div>
+      <div class="stat-row">
+        <div class="stat-card"><div class="label">出生日期</div><div class="value">1969.01.03</div></div>
+        <div class="stat-card"><div class="label">首次参赛</div><div class="value">4岁</div></div>
+        <div class="stat-card"><div class="label">父亲职业</div><div class="value">砖瓦匠</div></div>
+      </div>
+      <div class="quiz" id="quiz1">
+        <div class="q">🤔 舒马赫4岁时开的第一辆"卡丁车"是用什么改装的？</div>
+        <div class="options">
+          <div class="opt" onclick="checkQuiz(this,true,'quiz1-fb')">🔧 父亲的废弃摩托车引擎 + 一辆脚踏卡丁车——第一脚油门就撞上了路灯柱</div>
+          <div class="opt" onclick="checkQuiz(this,false,'quiz1-fb')">🏎️ 法拉利送的一辆儿童版F1赛车</div>
+          <div class="opt" onclick="checkQuiz(this,false,'quiz1-fb')">🛒 超市购物车装上引擎</div>
+        </div>
+        <div class="feedback" id="quiz1-fb">🔧 没错！父亲罗尔夫把割草机/摩托车的小引擎装在了儿子的脚踏卡丁车上。一个小车祸没有劝退他们——反而开启了F1史上最伟大的传奇。穷不可怕，可怕的是没有一颗敢把引擎装在梦想上的心。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CH2: Benetton ══════ -->
+<section class="chapter" id="ch2">
+  <div class="chapter-inner">
+    <div class="chapter-icon">🟢</div>
+    <div class="chapter-content">
+      <div class="chapter-num">第二章</div>
+      <h2 class="chapter-title">贝纳通奇迹：94-95两连冠</h2>
+      <div class="chapter-text">
+        <p><strong>1991年，22岁。</strong>舒马赫在乔丹车队完成F1首秀——斯帕赛道，排位赛第七。所有人在那一圈后就明白：这个德国人不是来参与比赛的，是来改写历史的。仅仅一场比赛后，贝纳通车队就用合同条款把他"抢"了过去。</p>
+        <p><strong>1992年比利时大奖赛</strong>——他拿下了生涯第一个分站冠军。斯帕，这条蜿蜒在阿登森林里的传奇赛道，从此成了他的"主场"。</p>
+        <p><strong>1994年，世界为之震动。</strong>在传奇车手<strong>埃尔顿·塞纳</strong>在伊莫拉不幸去世的黑暗赛季中，25岁的舒马赫站了出来。全年8场胜利，在收官战澳大利亚站与达蒙·希尔发生争议碰撞后，以<strong>1分之差</strong>夺得生涯第一个世界冠军。德国国旗第一次升起在F1之巅。在塞纳去世的阴影下，一个来自科隆郊区的年轻人接过了F1的旗帜。颁奖典礼上他没有笑——那不是庆祝的时刻，那是接力的时刻。</p>
+        <p><strong>1995年，他更加强大。</strong>9场胜利，以压倒性优势卫冕世界冠军。他的驾驶风格已经进化——从"快但鲁莽"变成了"快且精确"。贝纳通绿色的赛车在赛道上像一道闪电：从斯帕到铃鹿、从摩纳哥到蒙扎，舒马赫在每一条赛道上都是焦点。两连冠的他已经征服了F1，但所有人都知道，他真正的野心还没有开始。他要去一个更大的舞台——一个在他之前所有人都失败了的地方。</p>
+      </div>
+      <div class="stat-row">
+        <div class="stat-card"><div class="label">F1首秀</div><div class="value">1991</div></div>
+        <div class="stat-card"><div class="label">首胜</div><div class="value">1992斯帕</div></div>
+        <div class="stat-card"><div class="label">贝纳通冠军</div><div class="value">94 + 95</div></div>
+      </div>
+      <div class="quiz" id="quiz2">
+        <div class="q">🤔 舒马赫的第一个F1世界冠军是在哪一年、以什么方式赢得的？</div>
+        <div class="options">
+          <div class="opt" onclick="checkQuiz(this,false,'quiz2-fb')">🏆 1993年，以压倒性优势提前5站夺冠</div>
+          <div class="opt" onclick="checkQuiz(this,true,'quiz2-fb')">🏁 1994年，收官战与希尔碰撞后以1分之差惊险夺冠</div>
+          <div class="opt" onclick="checkQuiz(this,false,'quiz2-fb')">🎲 1995年，靠队友让车才拿到的冠军</div>
+        </div>
+        <div class="feedback" id="quiz2-fb">🏁 1994年澳大利亚站，舒马赫与达蒙·希尔发生碰撞，两人双双受损。舒马赫退赛，希尔虽然继续但最终未能完赛——舒马赫以1分优势夺冠。在塞纳去世的至暗赛季里，25岁的舒马赫扛起了F1的旗帜。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CH3: Ferrari Dynasty ══════ -->
+<section class="chapter" id="ch3">
+  <div class="chapter-inner">
+    <div class="chapter-icon">🔴</div>
+    <div class="chapter-content">
+      <div class="chapter-num">第三章</div>
+      <h2 class="chapter-title">法拉利王朝：唤醒沉睡的跃马</h2>
+      <div class="chapter-text">
+        <p><strong>1996年，舒马赫做了一个让所有人震惊的决定。</strong>他离开了已经夺冠的贝纳通，加入了当时<strong>一团混乱的法拉利</strong>——这支F1历史上最负盛名的车队，已经<strong>21年没有拿过车手总冠军</strong>。上一次法拉利夺冠是1979年，乔迪·谢克特。上一次法拉利赢得车队冠军是1983年。在这之间，法拉利经历了无数次"差一点"：1990年普罗斯特在铃鹿被塞纳撞出冠军、多年来赛车可靠性堪忧、内部政治斗争不断。媒体嘲笑他："去法拉利是去退休的。"队友埃尔文更是直说1996年的F310是"<strong>一堆垃圾</strong>"——底盘太软、引擎太重、空气动力学落后威廉姆斯至少两年。</p>
+        <p>但他看到的不是一支落魄车队，而是一匹<strong>沉睡的跃马</strong>。他带来了贝纳通的技术总监罗斯·布朗和首席设计师罗里·伯恩，与法拉利掌门人让·托德组成了F1史上最传奇的<strong>"铁三角"</strong>——舒马赫+布朗+托德。他在马拉内罗的工厂里和工程师们一起熬夜到凌晨，用自己的遥测数据帮助他们理解赛车的不足。他<strong>用德语、英语和意大利语夹杂的方式</strong>和车队沟通——有时一句话里三种语言交替出现。法拉利在变，每一天都在变。</p>
+        <p>1997-1999年，三次与冠军擦肩而过。1997年赫雷斯争议、1998年铃鹿决战输给哈基宁、1999年银石断腿——普通人可能放弃了。舒马赫没有。</p>
+        <p><strong>2000年，铃鹿。</strong>在与哈基宁史诗级的全年对决后，舒马赫在日本夺冠——法拉利<strong>21年的等待结束了</strong>。领奖台上，他抱着让·托德泣不成声。接下来的故事创造了历史：<strong>2001、2002、2003、2004——五连冠。</strong></p>
+        <p><strong>2001年</strong>：9场胜利，提前4站锁定冠军。法拉利双冠（车队+车手）。舒马赫开始让胜利<strong>看起来像例行公事</strong>——但那是因为他把所有人都不知道的努力投入了每一个细节。</p>
+        <p><strong>2002年</strong>：统治力的巅峰。11场胜利，在<strong>全部17站比赛中都站上了领奖台</strong>。提前6站锁定冠军——F1史上最早。他的积分（144分）是第二名巴里切罗（77分）的近两倍。这一年，舒马赫和法拉利让"竞争"这个词在F1中暂时失去了意义。</p>
+        <p><strong>2003年</strong>：最艰难的一冠。规则改变旨在限制法拉利，迈凯伦和威廉姆斯步步紧逼。赛季打到最后一站才分出胜负。在伊莫拉——母亲去世的那天——他拿下了赛季首胜。8月的匈牙利站，他被套圈车挡了整整20圈——赛后罕见地发了脾气。但10月的铃鹿，他用一场无懈可击的胜利锁定了<strong>第六冠</strong>，超越了方吉奥保持了近半个世纪的五冠纪录。</p>
+        <p><strong>2004年</strong>：13胜——统治力的终极演出。赛季前13站赢下12站，前7站全胜。每一个比赛周末，全世界都在猜"谁能拿第二"——因为第一已经提前写好了名字。</p>
+      </div>
+      <div class="stat-row">
+        <div class="stat-card"><div class="label">法拉利冠军</div><div class="value">5连冠</div></div>
+        <div class="stat-card"><div class="label">法拉利等待</div><div class="value">21年</div></div>
+        <div class="stat-card"><div class="label">2004赛季胜场</div><div class="value">13/18</div></div>
+      </div>
+      <div class="blockquote"><p>法拉利等了他21年。他来的时候，跃马在睡觉。他走的时候，跃马已经统治了世界。</p><div class="by">— 意大利《米兰体育报》</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ Iconic Moments ══════ -->
+<section class="section" id="moments">
+  <div class="section-inner">
+    <h2>🌧️ 经典时刻 — 当凡人望而却步，他踏浪而行</h2>
+    <p class="sub">F1历史上最伟大的几场驾驶中，有好几场刻着他的名字</p>
+    <div class="moments-grid">
+      <div class="moment-card">
+        <div class="moment-icon">🌧️</div>
+        <div class="moment-title">1996西班牙雨战 · F1史上最佳驾驶之一</div>
+        <div class="moment-meta">1996年6月2日 · 巴塞罗那加泰罗尼亚赛道</div>
+        <div class="moment-desc">暴雨如注，能见度不足百米。舒马赫驾驶着那台被队友埃尔文形容为<strong>"一堆垃圾"</strong>的法拉利F310——引擎甚至一度熄掉了一个气缸——从第三起步，在雨中<strong>每圈比对手快4-5秒</strong>。他找到了只有他能看见的抓地力线，45秒优势夺冠。达蒙·希尔赛后说："<strong>他的驾驶让我们所有人看起来都很傻。</strong>"这是舒马赫在法拉利的第一个分站冠军——在雨中，在一台本不该赢的赛车里。这场比赛被Autosport评为F1史上最伟大的雨战驾驶之一，与塞纳1993年多宁顿公园的表现并列为雨战艺术的巅峰。</div>
+      </div>
+      <div class="moment-card">
+        <div class="moment-icon">🖤</div>
+        <div class="moment-title">2003伊莫拉 · 母亲去世后的胜利</div>
+        <div class="moment-meta">2003年4月20日 · 圣马力诺大奖赛</div>
+        <div class="moment-desc">比赛当天清晨，舒马赫的母亲伊丽莎白在科隆的医院去世。前一晚，迈克尔和弟弟拉尔夫刚飞回德国见她最后一面。周日早上他们飞回伊莫拉——<strong>臂缠黑纱</strong>，一言不发。迈克尔拿下杆位，正赛中从弟弟拉尔夫手中夺回领先，第一个冲过终点线。领奖台上<strong>没有香槟喷洒</strong>——只有三个车手和一面沉默的黑纱。他的车队老板让·托德说："今天他向我们展示了为什么他是冠军——不仅仅在赛道上。"</div>
+      </div>
+      <div class="moment-card">
+        <div class="moment-icon">1️⃣3️⃣</div>
+        <div class="moment-title">2004赛季 · 13胜的绝对统治</div>
+        <div class="moment-meta">2004年 · 18站比赛</div>
+        <div class="moment-desc">F1历史上最具统治力的个人赛季之一。舒马赫在18场比赛中赢下<strong>13场</strong>，另外2场亚军，仅有1场未完赛。他在赛季前13站中赢了12站。积分<strong>148分</strong>，比第二名队友巴里切罗高出34分，比第三名巴顿高出63分。他一个人得的分数比<strong>整个迈凯伦车队加起来还多</strong>。这个单赛季13胜的纪录保持了近十年，直到2013年才被维特尔追平。但有一个数字仍然站在历史之巅：舒马赫在2004年<strong>连续7站获胜</strong>——从欧洲站到匈牙利站，无人能挡。F1从未见过如此系统化的统治。</div>
+      </div>
+      <div class="moment-card">
+        <div class="moment-icon">🇫🇷</div>
+        <div class="moment-title">2004法国站 · 四次进站的魔术</div>
+        <div class="moment-meta">2004年7月4日 · 马尼库尔赛道</div>
+        <div class="moment-desc">法拉利策略组设计了一个疯狂的计划：<strong>四次进站</strong>——在一条以难超车闻名的赛道上。舒马赫需要在每次出站后的干净空气中用<strong>排位赛级别的速度</strong>跑出足够大的领先优势来覆盖额外一次进站的时间损失。他做到了——每一圈都像在跑排位赛，最终以8秒优势夺冠。赛后布朗在无线电中对他说："迈克尔，你刚才创造了历史。"这不是驾驶，是<strong>精密计算的极限艺术</strong>。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ Darkest Moments ══════ -->
+<section class="section" id="dark">
+  <div class="section-inner">
+    <h2>🌑 至暗时刻 — 王者也会跌倒</h2>
+    <p class="sub">伟大不等于从未犯错——伟大是每次跌倒后都选择继续战斗</p>
+
+    <div class="dark-card">
+      <div class="dark-year">🏁 1997 · 赫雷斯</div>
+      <div class="dark-title">故意撞车——被取消全年成绩</div>
+      <div class="dark-desc">1997年欧洲大奖赛收官战，赫雷斯赛道。舒马赫仅领先雅克·维伦纽夫1分——赢下比赛或让维伦纽夫拿不到分，冠军就是他的。第48圈，维伦纽夫从内线发起进攻——已经领先了半个车身。舒马赫<strong>向右猛打方向盘</strong>，法拉利的右前轮撞上了威廉姆斯的侧箱。碰撞导致舒马赫的赛车陷入沙石退赛，但维伦纽夫的赛车奇迹般地继续前进并以第三名完赛。国际汽联调取遥测数据和车载视频后判定：<strong>"故意但不预谋"</strong>。史无前例的惩罚：<strong>取消舒马赫全年的亚军成绩</strong>——他保持了分站胜利和杆位，但年度排名被清零。法拉利内部甚至有人要求解雇他。这是F1历史上最具争议的时刻之一，也是舒马赫职业生涯最大的污点。多年后他在Netflix纪录片中承认：<strong>"那时候我不愿意承认自己犯了错。但我确实错了。我花了很长时间才接受这一点。"</strong></div>
+      <div class="dark-rise">🔥 三年后的2000年，他用干净的方式击败了哈基宁，举起了法拉利等了21年的冠军奖杯。</div>
+    </div>
+
+    <div class="dark-card">
+      <div class="dark-year">🏎️ 1998 · 铃鹿</div>
+      <div class="dark-title">最后一圈爆胎——冠军从指缝中溜走</div>
+      <div class="dark-desc">1998年日本大奖赛收官战，舒马赫从维修区起步，一路狂追到领先位置。但比赛末段<strong>右后轮胎突然爆胎</strong>，他被迫退赛。哈基宁夺冠。比赛结束后，舒马赫径直走向迈凯伦维修区，<strong>亲自向哈基宁祝贺</strong>——这一举动赢得了整个围场的敬意。后来他说："哈基宁是我最尊重的对手。我们在赛道上战斗到极限，但从不说对方的坏话。"</div>
+      <div class="dark-rise">🔥 2000年舒马赫终于在铃鹿击败哈基宁夺得第三冠，两人在颁奖台上真诚拥抱——F1史上最纯粹的竞争画上了完美的句号。</div>
+    </div>
+
+    <div class="dark-card">
+      <div class="dark-year">🦵 1999 · 银石</div>
+      <div class="dark-title">刹车失灵——108km/h撞墙断腿</div>
+      <div class="dark-desc">1999年英国大奖赛第一圈，红旗后重新起步。舒马赫的刹车系统<strong>突然失灵</strong>——事后调查发现是一名技师忘记拧紧一颗螺丝，导致制动液泄漏。赛车以<strong>108km/h</strong>直直撞入轮胎墙。右腿胫骨和腓骨<strong>双骨折</strong>，脚踝严重挫伤，脚后跟被割开4厘米深的伤口。他被困在驾驶舱内无法动弹，救援人员花了数分钟才将他从残骸中拉出。他错过了接下来6场比赛。在医院的病床上，妻子科琳娜几乎寸步不离。舒马赫后来回忆："我试图把腿从驾驶舱里拔出来——但它被卡住了。那一刻，我第一次感到真正的恐惧。"他的康复速度快得惊人——赛季倒数第二站马来西亚站就重返赛场。</div>
+      <div class="dark-rise">🔥 赛季倒数第二站马来西亚站复出，以队内第二车手身份帮助埃尔文争冠——他放下自尊，为车队贡献一切。</div>
+    </div>
+
+    <div class="dark-card">
+      <div class="dark-year">😢 2006 · 蒙扎</div>
+      <div class="dark-title">赛后宣布退役——整个F1世界哭了</div>
+      <div class="dark-desc">2006年9月10日，意大利蒙扎。舒马赫刚刚赢得了他在这条传奇赛道上的第五场胜利。赛后新闻发布会上，在全世界的直播镜头前，他平静地宣布："<strong>这是我最后一场蒙扎比赛。本赛季结束后，我将退役。</strong>"他的声音平稳，但眼眶发红。法拉利主席蒙特泽莫罗坐在旁边，用手掩住了半张脸。整个围场陷入了死寂。让·托德——他最亲密的战友——在台下悄悄擦拭眼角。记者们忘了提问。电视评论员沉默了好几秒。一个时代，在蒙扎的夕阳下，被一个德国人用平静的语调终结了。</div>
+      <div class="dark-rise">🔥 2010年他回归F1加入梅赛德斯——虽然再未夺冠，但他证明了赛道对他永远有吸引力。</div>
+    </div>
+
+    <div class="dark-card">
+      <div class="dark-year">⛷️ 2013.12.29 · 梅里贝尔</div>
+      <div class="dark-title">滑雪事故——最危险的弯道在赛道之外</div>
+      <div class="dark-desc">退役一年后，舒马赫与14岁的儿子米克在法国阿尔卑斯山梅里贝尔滑雪度假。在离开标记雪道后，他不慎在岩石区摔倒，<strong>头部撞击岩石</strong>，头盔裂成两半。事故发生后，米克立即按下滑雪服上的紧急按钮呼救。直升机在几分钟内就抵达并将舒马赫紧急送往穆捷医院，随后转入格勒诺布尔大学医院——法国最好的神经外科中心之一。两次紧急开颅手术清除血肿，然后被置入<strong>人工昏迷</strong>以降低颅内压。医生诊断：<strong>弥漫性轴索损伤</strong>——一种严重的创伤性脑损伤。他在昏迷中度过了近半年，2014年6月才被报道苏醒并转入瑞士洛桑继续康复。此后，他的家人选择了<strong>绝对的隐私</strong>——关于他康复状况的一切信息都被严密保护。让·托德是为数不多获准探望的人之一，他在2023年说："迈克尔还在战斗。"</div>
+      <div class="dark-rise">🔥 他的家人创立了<strong>Keep Fighting基金会</strong>——"永不放弃"从舒马赫的赛场信条变成了激励全世界的精神符号。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ Mercedes Comeback ══════ -->
+<section class="chapter" id="mercedes">
+  <div class="chapter-inner">
+    <div class="chapter-icon">⭐</div>
+    <div class="chapter-content">
+      <div class="chapter-num">第五章</div>
+      <h2 class="chapter-title">梅赛德斯归来：不再为赢，只为热爱</h2>
+      <div class="chapter-text">
+        <p><strong>2009年12月23日——一条震惊世界的消息。</strong>在退役三年后，41岁的迈克尔·舒马赫宣布<strong>复出F1</strong>，加盟梅赛德斯AMG车队——罗斯·布朗领衔的银箭军团。全世界的车迷疯狂了：车王回来了。</p>
+        <p>但这次的舒马赫和从前不同。梅赛德斯赛车没有冠军竞争力——他不再是夺冠热门。人们问他为什么回来，他笑着说：<strong>"因为我想念赛车。想念速度。想念竞争。"</strong>不是为纪录，不是为荣耀——就是单纯的热爱。</p>
+        <p>2010-2012三个赛季，91场比赛，<strong>一次领奖台</strong>——2012年欧洲大奖赛瓦伦西亚，43岁的舒马赫第三个冲过终点线。这是他最后一次站上F1领奖台。虽然没有再赢下比赛，但这三年证明了F1历史上最深刻的真理之一：<strong>真正的冠军不需要用胜利来证明自己还在赛道上</strong>——只要他还在那里，他就是传奇。</p>
+      </div>
+      <div class="stat-row">
+        <div class="stat-card"><div class="label">梅赛德斯参赛</div><div class="value">3赛季</div></div>
+        <div class="stat-card"><div class="label">梅赛德斯登台</div><div class="value">1次</div></div>
+        <div class="stat-card"><div class="label">复出时年龄</div><div class="value">41岁</div></div>
+      </div>
+      <div class="blockquote"><p>有人问我为什么回来——因为我还爱着这项运动。这和纪录无关。</p><div class="by">— 舒马赫，2010年复出首战前</div></div>
+      <div class="quiz" id="quizM">
+        <div class="q">🤔 舒马赫2010年复出的真正原因是什么？</div>
+        <div class="options">
+          <div class="opt" onclick="checkQuiz(this,false,'quizM-fb')">💰 为了钱——梅赛德斯开出了天价合约</div>
+          <div class="opt" onclick="checkQuiz(this,true,'quizM-fb')">❤️ 单纯的热爱——想念速度、想念竞争、想念赛车</div>
+          <div class="opt" onclick="checkQuiz(this,false,'quizM-fb')">🎭 为了拍一部关于自己的纪录片</div>
+        </div>
+        <div class="feedback" id="quizM-fb">❤️ 他曾说："因为我想念赛车。想念速度。想念竞争。"一个已经拥有七冠和一切荣誉的人，在41岁时选择回到赛场——唯一的解释就是热爱。真正的冠军不需要赢来证明自己还活着——但他需要赛道来感觉自己活着。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ Driving Philosophy ══════ -->
+<section class="section" id="philosophy">
+  <div class="section-inner">
+    <h2>🏎️ 驾驶哲学 — 极限边缘的艺术</h2>
+    <p class="sub">他的赛车理念超越了速度本身</p>
+
+    <div class="chapter-inner" style="max-width:900px;margin:0 auto;display:flex;gap:3rem;align-items:center;flex-wrap:wrap;">
+      <div class="chapter-icon" style="font-size:5rem;">⚡</div>
+      <div class="chapter-content" style="min-width:280px;">
+        <div class="chapter-text">
+          <p>舒马赫不是在开车——他是在与物理极限对话。他的驾驶风格有一个独特的标签：<strong>"极限边缘的艺术"（Art of Driving on the Limit）</strong>。</p>
+          <p>大多数车手在弯道中<strong>收油滑行</strong>——这是最安全的方式。舒马赫不同：他<strong>在弯中持续给油</strong>，让赛车处于一种微妙的"可控不稳定"状态。方向盘在手中不断微调，后轮在抓地力极限上滑动——这需要超凡的<strong>脚感</strong>和<strong>手眼协调能力</strong>。他的队友巴里切罗曾说："我试过用他的遥测数据来开——根本做不到。那需要一种我无法复制的感知力。"</p>
+          <p>更重要的是他对<strong>团队</strong>的理解。舒马赫是F1历史上第一个真正把<strong>整支车队团结在一起</strong>的车手。他记得每一个技师的名字，在马拉内罗工厂里和工程师们一起熬夜，赢下比赛后第一件事是把奖杯献给机械师。罗斯·布朗说："迈克尔让法拉利的每个人都觉得——我们不是在为他工作，我们是在<strong>和他一起战斗</strong>。"</p>
+          <p>他曾说：<strong>"第二只是第一个输家。"（Second is just the first loser.）</strong>这句话被无数人误解为傲慢——但了解他的人知道，这是他对自己的要求，不是对别人的评价。他需要的对手只有他自己。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz" id="quiz3" style="margin-top:2rem;">
+      <div class="q">🤔 舒马赫独特的驾驶风格被称为什么？</div>
+      <div class="options">
+        <div class="opt" onclick="checkQuiz(this,false,'quiz3-fb')">🔄 漂移过弯——像《头文字D》一样</div>
+        <div class="opt" onclick="checkQuiz(this,false,'quiz3-fb')">🐢 稳扎稳打——保守驾驶从不冒险</div>
+        <div class="opt" onclick="checkQuiz(this,true,'quiz3-fb')">🎯 极限边缘的艺术——在弯中持续给油，保持可控不稳定</div>
+      </div>
+      <div class="feedback" id="quiz3-fb">🎯 舒马赫在弯道中从不收油滑行——他持续给油，让赛车处于抓地力的极限边界上。这种技术需要超凡的感知力，连他的队友都无法复制。这不是蛮力，是与物理学对话的艺术。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ The Ferrari Dream Team ══════ -->
+<section class="section" id="dreamteam">
+  <div class="section-inner">
+    <h2>🤝 铁三角：F1史上最伟大的团队</h2>
+    <p class="sub">没有这支团队，就没有红色王朝</p>
+
+    <div class="chapter-text" style="max-width:900px;margin:0 auto;">
+      <p>舒马赫的伟大不可否认——但他从不声称这是一个人的成就。法拉利王朝的核心是一个<strong>"铁三角"</strong>：</p>
+      <p><strong>让·托德（Jean Todt）</strong>——法拉利车队领队。一个矮个子法国人，纪律严明到近乎军事化。他在1993年接手法拉利时，车队正处在几十年最混乱的时期。托德用铁腕整顿了内部政治，给了舒马赫一个可以专注驾驶的环境。赛后发布会上，托德总是坐在舒马赫旁边——两人之间的信任无需言语。</p>
+      <p><strong>罗斯·布朗（Ross Brawn）</strong>——技术总监，F1史上最伟大的策略家。布朗的大脑是为F1而生的：他设计的比赛策略大胆到近乎疯狂——2004年法国站四次进站就是他的杰作。舒马赫曾说："罗斯让我只需要专注三件事：刹车、转向、加速。其他的一切，他会在无线电里告诉我。"</p>
+      <p><strong>罗里·伯恩（Rory Byrne）</strong>——首席设计师。这位南非工程师设计出了F2002和F2004——被广泛认为是F1史上最伟大的赛车。伯恩的性格和舒马赫相反——安静、内向、极少出现在公众视野——但两人在技术理解上有着惊人的默契。</p>
+      <p>这四人组合的力量在于：<strong>没有一个人试图成为明星</strong>。舒马赫在赛道上赢，但他在围场里永远在说"我们"而不是"我"。2006年舒马赫退役时，铁三角也随之一同解体——托德后来成为国际汽联主席，布朗创建了自己的车队（后来成为梅赛德斯王朝的根基），伯恩退休回了南非。一个时代，因为四个人的默契而存在，也随着他们的分离而终结。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ Records & Legacy ══════ -->
+<section class="section" id="legacy">
+  <div class="section-inner">
+    <h2>📊 他留下的纪录与遗产</h2>
+    <p class="sub">有些数字永远不会从F1历史中消失</p>
+
+    <div class="stat-row" style="margin-bottom:2rem;">
+      <div class="stat-card"><div class="label">F1参赛</div><div class="value">307</div></div>
+      <div class="stat-card"><div class="label">完赛领奖台率</div><div class="value">50%+</div></div>
+      <div class="stat-card"><div class="label">连续登台纪录</div><div class="value">19站</div></div>
+    </div>
+
+    <div class="chapter-text" style="max-width:900px;margin:0 auto;">
+      <p>舒马赫在F1的19个完整赛季（1991-2006，2010-2012）中，创造了无数至今仍未被打破或刚刚被追平的纪录。他的<strong>77个最快圈速</strong>至今仍是F1历史最多。他连续<strong>19站登上领奖台</strong>（2001年美国站—2002年日本站），这个纪录保持了十多年。他在同一支车队（法拉利）赢下<strong>72场胜利</strong>——没有任何其他车手为单一车队的胜场数接近这个数字。</p>
+      <p>但他的遗产远远超过数据。舒马赫<strong>重新定义了F1车手的角色</strong>——在他之前，车手只是开车。在他之后，车手必须是团队的<strong>领导者、激励者和核心</strong>。他冬天去马拉内罗工厂和技师一起加班，他记得每一个团队成员的名字，他赢得比赛后第一件事是冲向维修区拥抱机械师。这种"<strong>以车手为中心建设整个团队</strong>"的模式，后来被汉密尔顿、维特尔、维斯塔潘等所有冠军继承。</p>
+      <p>舒马赫还<strong>将F1的体能标准提升到了一个全新的层次</strong>。他是第一位把严格健身计划和营养管理引入F1的车手。当其他车手在休赛期度假时，他在健身房和赛道上。当围场还在喝咖啡时，他已经完成了90分钟的体能训练。现代F1车手必须像职业运动员一样训练——这个标准就是舒马赫设立的。</p>
+      <p>2021年Netflix纪录片《舒马赫》上映后，新一代车迷发现了这个名字的分量。刘易斯·汉密尔顿在追平他的七冠纪录时说：<strong>"我小时候的卧室墙上贴满了舒马赫的海报。能和这个名字并排而立，是我一生中最大的荣誉。"</strong></p>
+    </div>
+
+    <div class="quiz" id="quizL">
+      <div class="q">🤔 舒马赫对F1最深远的改变是什么——超越数据统计？</div>
+      <div class="options">
+        <div class="opt" onclick="checkQuiz(this,false,'quizL-fb')">🏎️ 他发明了新的赛车技术</div>
+        <div class="opt" onclick="checkQuiz(this,true,'quizL-fb')">👥 他重新定义了车手角色：从"开车的人"变成"团队的核心领导者"</div>
+        <div class="opt" onclick="checkQuiz(this,false,'quizL-fb')">💰 他开创了F1的商业化时代</div>
+      </div>
+      <div class="feedback" id="quizL-fb">👥 在舒马赫之前，车手只是车手。在他之后，车手必须是整个团队的灵魂——领导者、激励者、核心。他在工厂过夜、记住每个技师的名字、用数据帮助工程师理解赛车。"以车手为中心建队"的模式，后来被所有冠军继承。这不只是开车——这是领导力。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ Charity & Family ══════ -->
+<section class="section" id="charity">
+  <div class="section-inner">
+    <h2>❤️ 慈善与家庭 — 赛道之外的舒马赫</h2>
+    <p class="sub">在头盔后面，他是一个丈夫、一个父亲、一个捐赠者</p>
+
+    <div class="chapter-text" style="max-width:900px;margin:0 auto 2rem;">
+      <p>在F1围场里，舒马赫以对媒体的警惕著称——他不喜欢谈论自己的私生活。但那些和他共事过的人都知道，赛道下的舒马赫有着一颗柔软的心。</p>
+      <p>他从未公开炫耀过自己的慈善行为。联合国教科文组织大使的身份是他为数不多公开参与的公益角色。但据统计，他一生捐赠总额<strong>超过5000万欧元</strong>。2004年印度洋海啸后，他的1000万美元捐款是当时体育界最大的一笔。他帮助过无数患病儿童，支付手术费、探望病房——从不让记者跟随。</p>
+      <p>在围场里，他是那些"小人物"最好的朋友。法拉利的厨师、保安、清洁工——每一个都记得舒马赫的生日祝福和圣诞礼物。他说过：<strong>"一个团队的伟大不在于它的明星，而在于它如何对待最普通的人。"</strong></p>
+    </div>
+
+    <div class="phil-grid">
+      <div class="phil-card">
+        <div class="phil-icon">💛</div>
+        <div class="phil-name">Keep Fighting基金会</div>
+        <div class="phil-desc">2016年由舒马赫家人和密友创立。"永不放弃"——从赛道信条变成了激励全世界的精神符号。基金会在全球开展慈善项目，延续舒马赫一生坚持的公益事业。妻子科琳娜说："我们想把一场可怕的事故转化为积极的力量。"</div>
+      </div>
+      <div class="phil-card">
+        <div class="phil-icon">💰</div>
+        <div class="phil-name">匿名巨额捐赠</div>
+        <div class="phil-desc">舒马赫一生捐赠了数千万欧元，但从不张扬。联合国教科文组织曾透露他单笔捐赠超过150万美元用于儿童教育。2004年印度洋海啸后，他个人捐款1000万美元——当时体育界最大额的个人捐款之一。大多数捐赠都是在事后多年才被第三方披露。</div>
+      </div>
+      <div class="phil-card">
+        <div class="phil-icon">💛</div>
+        <div class="phil-name">家庭：他的避风港</div>
+        <div class="phil-desc">1995年与科琳娜结婚，育有一子一女——米克和吉娜。在围场里他是一台精密机器，回家后他是一个会陪孩子踢足球、骑马、做饭的普通人。科琳娜是他最信任的守护者。朋友们说："在家里，他不是车王——他是爸爸。而那是他最享受的角色。"</div>
+      </div>
+      <div class="phil-card">
+        <div class="phil-icon">🏇</div>
+        <div class="phil-name">牧场生活</div>
+        <div class="phil-desc">舒马赫在瑞士日内瓦湖畔拥有一座牧场。退役后他最喜欢的事就是骑马——和妻子科琳娜（一位前马术运动员）一起。远离引擎的轰鸣和媒体的闪光灯，他在马背上找到了另一种速度——慢下来的速度。</div>
+      </div>
+    </div>
+
+    <div class="quiz" id="quiz4">
+      <div class="q">🤔 舒马赫在2004年印度洋海啸后做了什么？</div>
+      <div class="options">
+        <div class="opt" onclick="checkQuiz(this,false,'quiz4-fb')">📸 发了一条社交媒体帖子表示哀悼</div>
+        <div class="opt" onclick="checkQuiz(this,true,'quiz4-fb')">💵 个人捐款1000万美元——当时体育界最大额的个人捐款之一</div>
+        <div class="opt" onclick="checkQuiz(this,false,'quiz4-fb')">🏎️ 举办了一场慈善赛车比赛</div>
+      </div>
+      <div class="feedback" id="quiz4-fb">💵 1000万美元——他从不大张旗鼓，大多数捐赠都是后来才被第三方披露。赛道上他是最张扬的战士，赛道下他是最低调的慈善家。真正的强者不需要用慈善来证明自己——他们只是做。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ Quotes Wall ══════ -->
+<section class="section" id="quotes">
+  <div class="section-inner">
+    <h2>💬 他说过的话</h2>
+    <p class="sub">每一句背后都是速度、汗水与信念</p>
+
+    <div class="blockquote"><p>第一永远是最好的选择，第二只是第一个输家。</p><div class="by">— 舒马赫解释他的竞争哲学</div></div>
+
+    <div class="blockquote"><p>我一直相信，你永远永远不能放弃——即使只有一丝机会，你也要继续战斗。</p><div class="by">— 2007年接受采访，这句话后来成为Keep Fighting基金会的座右铭</div></div>
+
+    <div class="blockquote"><p>当你踩下刹车，你就已经慢了。</p><div class="by">— 回应为什么他的刹车点总比别人晚</div></div>
+
+    <div class="blockquote"><p>我不是为纪录而战。我为赢而战——纪录只是赢的副产品。</p><div class="by">— 打破方吉奥五冠纪录后，2003年</div></div>
+
+    <div class="blockquote"><p>完美的圈速不存在。你可以永远更快。</p><div class="by">— 训练日对年轻车手说的话</div></div>
+
+    <div class="blockquote"><p>我不是最好的——我只是比所有人都更努力。</p><div class="by">— 回应"史上最佳"的争论</div></div>
+
+    <div class="blockquote"><p>车不是最重要的——团队才是。没有团队，你什么也不是。</p><div class="by">— 每次获胜后必说的话</div></div>
+
+    <div class="quiz" id="quiz5" style="margin-top:2.5rem;">
+      <div class="q">🤔 舒马赫对"纪录"的真实态度是什么？</div>
+      <div class="options">
+        <div class="opt" onclick="checkQuiz(this,false,'quiz5-fb')">📊 他每天都在看纪录榜，以此为动力</div>
+        <div class="opt" onclick="checkQuiz(this,true,'quiz5-fb')">🏁 他不是为纪录而战——他为赢而战，纪录只是副产品</div>
+        <div class="opt" onclick="checkQuiz(this,false,'quiz5-fb')">📝 他不在乎任何数字，只是想赚钱</div>
+      </div>
+      <div class="feedback" id="quiz5-fb">🏁 舒马赫的原话是："我不是为纪录而战。我为赢而战——纪录只是赢的副产品。"这句话道出了真正的王者心态：专注于做好每一件事，纪录会自己来追你。不要盯着计分板——盯着赛道。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ Reflection ══════ -->
+<section class="section" id="reflection">
+  <div class="section-inner">
+    <h2>🖤 舒马赫对今天意味着什么</h2>
+    <p class="sub">超越F1——他是"永不放弃"的全球象征</p>
+
+    <div class="chapter-text" style="max-width:900px;margin:0 auto;">
+      <p>舒马赫已经离开F1赛道十多年了，但他的影子仍然笼罩着每一场比赛。每一个在雨中表现出色的车手都会被拿来和他比较。每一个用数据驱动车队建设的方法论都能追溯到他的马拉内罗时代。每一个在赛道上"不怕极限"的驾驶风格——无论是维斯塔潘的激进还是汉密尔顿的精准——都在某种程度上站在他的肩膀上。</p>
+      <p>但他的意义已经超越了赛车。2013年12月29日之后，"舒马赫"这个名字成为了一个全球性的祈祷词。世界各地的车迷和普通人——包括从未看过F1的人——都在关注一个人的康复进程。这不是因为他是七冠王，而是因为<strong>他代表了"永不放弃"</strong>。</p>
+      <p>从凯尔彭卡丁车场那个用旧轮胎比赛的穷孩子，到马拉内罗工厂里和技师一起熬夜到凌晨的冠军，再到梅里贝尔雪道上那个陪伴儿子滑雪的父亲——舒马赫的一生是一部关于<strong>意志力</strong>的教科书。</p>
+      <p>他的家人至今守护着他的隐私。妻子科琳娜在2021年Netflix纪录片中说：<strong>"迈克尔一直在保护我们，现在轮到我们保护他了。"</strong></p>
+      <p>他的儿子<strong>米克·舒马赫</strong>追随父亲的脚步进入了F1（2021-2022年在哈斯车队，后成为梅赛德斯储备车手）。当米克第一次坐进F1赛车时，全世界都在屏幕前屏住了呼吸——不是因为又一个舒马赫来了，而是因为<strong>这个姓氏本身就是一种力量</strong>。</p>
+      <p>Keep Fighting，这个词曾经只是一个车手的赛场座右铭。如今它是<strong>数百万人的精神支柱</strong>——那些在和疾病、困难、命运抗争的人们，从舒马赫的故事中找到了继续前行的理由。</p>
+    </div>
+
+    <div class="blockquote" style="margin-top:2rem;">
+      <p>我希望有一天，我们能再用"正常"的方式谈论迈克尔。但在此之前——Keep Fighting。</p>
+      <div class="by">— 让·托德，舒马赫最亲密的战友</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ By The Numbers ══════ -->
+<section class="section" id="numbers">
+  <div class="section-inner">
+    <h2>🔢 定义他伟大的数字</h2>
+    <p class="sub">有些数字不需要语境——它们本身就是传奇</p>
+    <div class="stat-row">
+      <div class="stat-card"><div class="label">世界冠军</div><div class="value">7</div></div>
+      <div class="stat-card"><div class="label">分站胜利</div><div class="value">91</div></div>
+      <div class="stat-card"><div class="label">杆位</div><div class="value">68</div></div>
+      <div class="stat-card"><div class="label">最快圈速</div><div class="value">77</div></div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-card"><div class="label">领奖台</div><div class="value">155</div></div>
+      <div class="stat-card"><div class="label">大奖赛参赛</div><div class="value">307</div></div>
+      <div class="stat-card"><div class="label">生涯积分</div><div class="value">1566</div></div>
+      <div class="stat-card"><div class="label">领先圈数</div><div class="value">5111</div></div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-card"><div class="label">法拉利胜场</div><div class="value">72</div></div>
+      <div class="stat-card"><div class="label">单季最高胜率</div><div class="value">72.2%</div></div>
+      <div class="stat-card"><div class="label">连续登台</div><div class="value">19站</div></div>
+      <div class="stat-card"><div class="label">从首胜到末胜</div><div class="value">14年</div></div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-card"><div class="label">雨中胜利</div><div class="value">16</div></div>
+      <div class="stat-card"><div class="label">摩纳哥胜利</div><div class="value">5</div></div>
+      <div class="stat-card"><div class="label">斯帕胜利</div><div class="value">6</div></div>
+      <div class="stat-card"><div class="label">蒙扎胜利</div><div class="value">5</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ TIMELINE ══════ -->
+<section class="timeline-section">
+  <h2>⏳ 完整时间线</h2>
+  <div class="timeline">
+    <div class="timeline-item"><div class="timeline-year">1969</div><div class="timeline-event">1月3日出生于德国许尔特镇，父亲罗尔夫是砖瓦匠，母亲伊丽莎白是餐厅经营者</div></div>
+    <div class="timeline-item"><div class="timeline-year">1973</div><div class="timeline-event">4岁，父亲将摩托车引擎装在脚踏卡丁车上——第一次踩油门就撞上灯柱，传奇开始了</div></div>
+    <div class="timeline-item"><div class="timeline-year">1975</div><div class="timeline-event">6岁，赢下第一个卡丁车俱乐部冠军。用其他车手淘汰的旧轮胎照样夺冠</div></div>
+    <div class="timeline-item"><div class="timeline-year">1983</div><div class="timeline-event">14岁，通过卢森堡特例拿到德国最低年龄要求的卡丁车执照</div></div>
+    <div class="timeline-item"><div class="timeline-year">1984</div><div class="timeline-event">15岁，赢得德国青少年卡丁车锦标赛冠军，同年欧洲卡丁车锦标赛亚军</div></div>
+    <div class="timeline-item"><div class="timeline-year">1987</div><div class="timeline-event">18岁，赢下德国和欧洲卡丁车锦标赛冠军。经理人威利·韦伯签下他："每月2000马克加一辆车"</div></div>
+    <div class="timeline-item"><div class="timeline-year">1990</div><div class="timeline-event">21岁，赢得德国F3锦标赛冠军。同年澳门F3大赛与世界未来之星同场竞技</div></div>
+    <div class="timeline-item"><div class="timeline-year">1991</div><div class="timeline-event">22岁，比利时斯帕赛道完成F1首秀——排位赛第七。一场比赛后被贝纳通车队"抢走"</div></div>
+    <div class="timeline-item"><div class="timeline-year">1992</div><div class="timeline-event">比利时斯帕——生涯第一个F1分站冠军。同年总成绩第三，震惊围场</div></div>
+    <div class="timeline-item"><div class="timeline-year">1993</div><div class="timeline-event">葡萄牙站夺冠。全年积分榜第四，在威廉姆斯统治的赛季中成为最耀眼的挑战者</div></div>
+    <div class="timeline-item"><div class="timeline-year">1994</div><div class="timeline-event"><strong>首个世界冠军！</strong>25岁，8胜，在黑暗的赛季中崛起。德国第一位F1世界冠军</div></div>
+    <div class="timeline-item"><div class="timeline-year">1995</div><div class="timeline-event"><strong>卫冕成功！</strong>9胜，压倒性优势拿下第二个世界冠军。贝纳通两连冠</div></div>
+    <div class="timeline-item"><div class="timeline-year">1996</div><div class="timeline-event">转会法拉利——一支21年未夺冠的落魄豪门。西班牙站雨中首胜法拉利，F1史上最佳雨战驾驶之一</div></div>
+    <div class="timeline-item"><div class="timeline-year">1997</div><div class="timeline-event">赫雷斯收官战与维伦纽夫碰撞——被FIA取消全年成绩。职业生涯最大污点</div></div>
+    <div class="timeline-item"><div class="timeline-year">1999</div><div class="timeline-event">英国银石刹车失灵，108km/h撞墙——右腿胫骨腓骨双骨折。缺席6站比赛</div></div>
+    <div class="timeline-item"><div class="timeline-year">2000</div><div class="timeline-event"><strong>法拉利王朝开启！</strong>铃鹿站击败哈基宁夺冠——法拉利21年等待终结。舒马赫泣不成声</div></div>
+    <div class="timeline-item"><div class="timeline-year">2001</div><div class="timeline-event"><strong>第四冠。</strong>9胜，提前4站锁定冠军。法拉利连续第二冠</div></div>
+    <div class="timeline-item"><div class="timeline-year">2002</div><div class="timeline-event"><strong>第五冠。</strong>11胜，17站全部登上领奖台。提前6站锁定冠军——史上最早</div></div>
+    <div class="timeline-item"><div class="timeline-year">2003</div><div class="timeline-event"><strong>第六冠，超越方吉奥。</strong>伊莫拉站母亲去世当天夺冠，臂缠黑纱站上领奖台</div></div>
+    <div class="timeline-item"><div class="timeline-year">2004</div><div class="timeline-event"><strong>第七冠——五连冠巅峰。</strong>13胜创赛季纪录，148分碾压全场。一个人分数超过整个迈凯伦车队</div></div>
+    <div class="timeline-item"><div class="timeline-year">2005</div><div class="timeline-event">规则改革削弱法拉利。唯一胜利来自争议性美国站（仅6辆车参赛）。全年季军</div></div>
+    <div class="timeline-item"><div class="timeline-year">2006.10</div><div class="timeline-event">中国大奖赛夺得生涯第91胜——也是最后一场F1胜利。巴西站告别战以第四名完赛</div></div>
+    <div class="timeline-item"><div class="timeline-year">2006</div><div class="timeline-event">蒙扎站赛后宣布退役。中国站获生涯第91胜——也是最后一胜。巴西站告别战获第四</div></div>
+    <div class="timeline-item"><div class="timeline-year">2010-12</div><div class="timeline-event">宣布复出！加盟梅赛德斯AMG车队。三年间1次登台（2012瓦伦西亚），虽未再夺冠但证明了热爱永不老去</div></div>
+    <div class="timeline-item"><div class="timeline-year">2013.12.29</div><div class="timeline-event" style="color:var(--red);">法国梅里贝尔滑雪事故——头部重伤，紧急手术，人工昏迷。全世界为他祈祷</div></div>
+    <div class="timeline-item"><div class="timeline-year">2014.06</div><div class="timeline-event">从人工昏迷中苏醒，转入瑞士洛桑大学医院继续康复</div></div>
+    <div class="timeline-item"><div class="timeline-year">2016</div><div class="timeline-event">Keep Fighting基金会成立。舒马赫的家人用他的精神继续激励世界</div></div>
+    <div class="timeline-item"><div class="timeline-year">2019</div><div class="timeline-event">舒马赫50岁生日，法拉利在马拉内罗举办特别展览。官方App"迈克尔·舒马赫"发布</div></div>
+    <div class="timeline-item"><div class="timeline-year">2020</div><div class="timeline-event">刘易斯·汉密尔顿追平舒马赫七冠纪录，在赛后致敬："能和这个名字并排，是我一生最大的荣誉"</div></div>
+    <div class="timeline-item"><div class="timeline-year">2021</div><div class="timeline-event">Netflix纪录片《舒马赫》全球上映。儿子米克·舒马赫完成F1首秀，舒马赫姓氏重返赛道</div></div>
+    <div class="timeline-item"><div class="timeline-year" style="color:var(--gold);">∞</div><div class="timeline-event" style="color:var(--gold);">Keep Fighting, Michael. 全世界还在等你。🏎️❤️</div></div>
+  </div>
+</section>
+
+<!-- ══════ Schumacher Trivia ══════ -->
+<section class="section" id="trivia">
+  <div class="section-inner">
+    <h2>💡 你不知道的舒马赫</h2>
+    <p class="sub">七冠王背后那些鲜为人知的小事</p>
+    <div class="dark-card">
+      <div class="dark-year">🎵 音乐品味</div>
+      <div class="dark-title">重金属爱好者</div>
+      <div class="dark-desc">舒马赫是德国重金属乐队Scorpions的铁杆粉丝。赛前他会听重金属音乐来进入状态——当其他车手在冥想时，舒马赫戴着耳机随着吉他solo摇头。他还曾在Scorpions的演唱会上客串吉他手，和乐队一起表演。</div>
+    </div>
+    <div class="dark-card">
+      <div class="dark-year">⚽ 第二职业？</div>
+      <div class="dark-title">差点去踢足球</div>
+      <div class="dark-desc">舒马赫是一名相当不错的前锋。退役后他经常参加慈善足球赛，甚至为瑞士第四级别联赛球队FC Echichens正式出场过。他的跑位和速度让半职业球员都感到惊讶。有人开玩笑道："如果他当年选择了足球，德国队可能又多了一个克洛泽。"</div>
+    </div>
+    <div class="dark-card">
+      <div class="dark-year">🍝 围场传统</div>
+      <div class="dark-title">法拉利厨房里的常客</div>
+      <div class="dark-desc">在法拉利时期，舒马赫养成了一个习惯：比赛周末的每天晚上，他会去车队厨房和厨师一起做意大利面——不是为了吃，是为了<strong>和每一个人聊天</strong>。从机械师到清洁工，他在灶台旁建立的关系比任何会议都有效。托德说："他在厨房里赢得的人心，比在领奖台上还多。"</div>
+    </div>
+    <div class="dark-card">
+      <div class="dark-year">🏇 马术选手</div>
+      <div class="dark-title">和妻子一起骑马</div>
+      <div class="dark-desc">妻子科琳娜是前马术运动员，舒马赫退役后认真学习骑马——不是为了比赛，而是为了能和妻子共度更多时光。他在瑞士的牧场里养了好几匹马，每一匹都亲自照料。邻居说经常看到车王拿着刷子在马厩里工作——和他在F1维修区里拿着方向盘的样子判若两人。</div>
+    </div>
+    <div class="dark-card">
+      <div class="dark-year">🎬 银幕客串</div>
+      <div class="dark-title">《赛车总动员》里的舒马赫</div>
+      <div class="dark-desc">2006年皮克斯动画《赛车总动员》中，舒马赫为一辆红色法拉利F430配音——德语版和意大利语版都是他的原声。当这辆动画法拉利出现在银幕上时，影院的孩子们和大人们同时欢呼了起来。这是少数他愿意在公众面前放下严肃形象的时刻——一个卡通版的自己，在另一个世界里继续飞驰。</div>
+    </div>
+    <div class="dark-card">
+      <div class="dark-year">🧢 幸运物</div>
+      <div class="dark-title">从不更换的头盔设计师</div>
+      <div class="dark-desc">舒马赫整个F1生涯只用过一位头盔涂装设计师——延斯·芒瑟（Jens Munser）。从贝纳通时期的蓝色到法拉利时期的红色，他的头盔永远是赛道上最具辨识度的标志之一。芒瑟说："迈克尔从不追潮流。他只要简单、清晰、一眼就能认出来。"这种对细节的偏执和忠诚，正是他性格的缩影。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ TROPHY WALL ══════ -->
+<section class="trophy-section">
+  <h2>🏆 荣誉殿堂</h2>
+  <p class="sub">他用一辆红色赛车改写了F1的历史书</p>
+  <div class="trophy-grid">
+    <div class="trophy"><div class="t-icon">🏆</div><div class="t-name">F1世界冠军</div><div class="t-count">×7</div><div class="t-detail">94 95 00 01 02 03 04</div></div>
+    <div class="trophy"><div class="t-icon">🏁</div><div class="t-name">分站胜利</div><div class="t-count">91</div><div class="t-detail">F1历史第二</div></div>
+    <div class="trophy"><div class="t-icon">⏱️</div><div class="t-name">杆位</div><div class="t-count">68</div><div class="t-detail">F1历史前列</div></div>
+    <div class="trophy"><div class="t-icon">🥇</div><div class="t-name">最快圈速</div><div class="t-count">77</div><div class="t-detail">F1历史纪录</div></div>
+    <div class="trophy"><div class="t-icon">🏅</div><div class="t-name">领奖台</div><div class="t-count">155</div><div class="t-detail">F1历史第二</div></div>
+    <div class="trophy"><div class="t-icon">📊</div><div class="t-name">生涯积分</div><div class="t-count">1566</div><div class="t-detail">F1历史前列</div></div>
+    <div class="trophy"><div class="t-icon">👑</div><div class="t-name">五连冠</div><div class="t-count">00-04</div><div class="t-detail">法拉利王朝</div></div>
+    <div class="trophy"><div class="t-icon">📅</div><div class="t-name">单赛季胜场</div><div class="t-count">13</div><div class="t-detail">2004赛季纪录</div></div>
+    <div class="trophy"><div class="t-icon">🇩🇪</div><div class="t-name">德国第一人</div><div class="t-count">开创者</div><div class="t-detail">德国首冠</div></div>
+    <div class="trophy"><div class="t-icon">🔴</div><div class="t-name">法拉利传奇</div><div class="t-count">72胜</div><div class="t-detail">队史第一人</div></div>
+    <div class="trophy"><div class="t-icon">🏎️</div><div class="t-name">大奖赛参赛</div><div class="t-count">307</div><div class="t-detail">1991-2012</div></div>
+    <div class="trophy"><div class="t-icon">🌧️</div><div class="t-name">雨中胜利</div><div class="t-count">16</div><div class="t-detail">雨战之王</div></div>
+    <div class="trophy"><div class="t-icon">🏠</div><div class="t-name">斯帕之王</div><div class="t-count">6胜</div><div class="t-detail">传奇赛道</div></div>
+    <div class="trophy"><div class="t-icon">👑</div><div class="t-name">德国体育名人堂</div><div class="t-count">入选</div><div class="t-detail">时代象征</div></div>
+    <div class="trophy"><div class="t-icon">⭐</div><div class="t-name">劳伦斯奖</div><div class="t-count">×2</div><div class="t-detail">2002/2004</div></div>
+    <div class="trophy"><div class="t-icon">🏎️</div><div class="t-name">德国F3冠军</div><div class="t-count">×1</div><div class="t-detail">1990</div></div>
+    <div class="trophy"><div class="t-icon">🇲🇴</div><div class="t-name">澳门F3冠军</div><div class="t-count">×1</div><div class="t-detail">1990</div></div>
+    <div class="trophy"><div class="t-icon">🎖️</div><div class="t-name">FIA世纪车手</div><div class="t-count">获奖</div><div class="t-detail">2004</div></div>
+    <div class="trophy"><div class="t-icon">🇩🇪</div><div class="t-name">德国年度运动员</div><div class="t-count">×2</div><div class="t-detail">1995/2004</div></div>
+    <div class="trophy"><div class="t-icon">🛡️</div><div class="t-name">车队冠军</div><div class="t-count">×7</div><div class="t-detail">95/99-04</div></div>
+    <div class="trophy"><div class="t-icon">🦅</div><div class="t-name">F1名人堂</div><div class="t-count">入选</div><div class="t-detail">永久传奇</div></div>
+    <div class="trophy"><div class="t-icon">❤️</div><div class="t-name">车迷心中</div><div class="t-count">永远的车王</div><div class="t-detail">GOAT</div></div>
+  </div>
+</section>
+
+<!-- ══════ FOOTER ══════ -->
+<footer>
+  <p style="font-size:1.2rem;color:var(--gold);font-weight:700;">KEEP FIGHTING, MICHAEL 🏎️❤️🔴</p>
+  <p>🏟️ 体育英雄殿堂 · 舒马赫篇</p>
+  <p>献给所有相信极限可以被重新定义的人：</p>
+  <p style="color:#aaa;">出身不决定终点 · 团队胜过个人 · 永远不要踩刹车</p>
+  <p style="margin-top:1.5rem;color:#777;font-size:0.75rem;">
+    <br>
+    7次世界冠军（1994, 1995, 2000, 2001, 2002, 2003, 2004）· 91场分站胜利 · 68次杆位 · 77次最快圈速<br>
+    155次领奖台 · 307场大奖赛 · 1566生涯积分
+  </p>
+  <p style="margin-top:1rem;"><a href="../" style="color:var(--gold)">← 返回英雄殿堂</a></p>
+</footer>
+
+<script>
+// Quiz engine
+function checkQuiz(el, correct, fbId) {
+  if (el.parentElement.querySelector('.correct')) return;
+  const opts = el.parentElement.querySelectorAll('.opt');
+  const fb = document.getElementById(fbId);
+  opts.forEach(o => { o.style.pointerEvents = 'none'; });
+  if (correct) {
+    el.classList.add('correct');
+    fb.style.display = 'block';
+    if (fbId === 'quiz5-fb') celebrate();
+  } else {
+    el.classList.add('wrong');
+    opts.forEach(o => {
+      const oc = o.getAttribute('onclick');
+      if (oc && oc.includes('true') && o !== el) o.classList.add('correct');
+    });
+    fb.style.display = 'block';
+  }
+}
+
+// Celebration
+function celebrate() {
+  const emojis = ['🏎️','🏆','🔴','⚡','🏁','🦅','🇩🇪','7','⭐','🔥','💪','🍾','🖤','❤️'];
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 60; i++) {
+    setTimeout(() => {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = (2 + Math.random() * 3) + 's';
+      p.style.animationDelay = Math.random() * 0.6 + 's';
+      container.appendChild(p);
+      setTimeout(() => p.remove(), 4500);
+    }, i * 35);
+  }
+}
+
+// Scroll to chapter
+function scrollToChapter(idx) {
+  const ids = ['ch1','ch2','ch3','moments','dark','mercedes','philosophy','dreamteam','legacy','charity','quotes'];
+  const el = document.getElementById(ids[idx]);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
+// Back to top + nav active
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('backTop');
+  btn.classList.toggle('show', window.scrollY > 400);
+
+  const ids = ['ch1','ch2','ch3','moments','dark','mercedes','philosophy','dreamteam','legacy','charity','quotes'];
+  const navSpans = document.querySelectorAll('#navChapters span');
+  let activeIdx = -1;
+  ids.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      if (rect.top <= 250 && rect.bottom >= 250) activeIdx = i;
+    }
+  });
+  navSpans.forEach((s, i) => s.classList.toggle('active', i === activeIdx));
+});
+
+// Hero click celebrate
+document.querySelector('.hero .scroll-hint').addEventListener('click', () => { celebrate(); });
+
+// Auto-celebrate on quotes section
+const quoteEl = document.getElementById('quotes');
+if (quoteEl) {
+  const obs = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) { setTimeout(celebrate, 600); obs.unobserve(quoteEl); }
+  }, { threshold: 0.3 });
+  obs.observe(quoteEl);
+}
+(function(){var o=new IntersectionObserver(function(e){e.forEach(function(n){if(n.isIntersecting){var t=n.target,c=Array.from(t.parentElement.children).indexOf(t);setTimeout(function(){t.classList.add('is-visible')},c*80);o.unobserve(t)}})},{threshold:0.15,rootMargin:'0px 0px -50px 0px'});document.querySelectorAll('.timeline-item,.stat-card').forEach(function(e){o.observe(e)})})();
+
+</script>
+</body>
+</html>
