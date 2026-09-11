@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏆 体育英雄殿堂</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 40%, #16213e 100%);
+  min-height: 100vh; color: #e0e0e0;
+}
+.container { max-width: 960px; margin: 0 auto; padding: 2rem 1rem; }
+
+.header { text-align: center; padding: 2rem 0 3rem; }
+.header h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); background: linear-gradient(135deg, #f5af19, #f12711); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem; }
+.header p { color: #888; font-size: clamp(0.9rem, 2vw, 1.1rem); }
+.header .star { font-size: 3rem; display: block; margin-bottom: 0.5rem; animation: twinkle 2s infinite; }
+@keyframes twinkle { 0%,100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.15); } }
+
+/* Category */
+.category { margin-bottom: 2.5rem; }
+.cat-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.cat-header .cat-icon { font-size: 1.4rem; }
+.cat-header .cat-name { font-size: 1.05rem; font-weight: 700; color: #fff; }
+.cat-header .cat-count { font-size: 0.7rem; color: #666; margin-left: 0.3rem; }
+.cat-header .cat-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,0.08), transparent); }
+
+.hero-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.8rem; }
+
+.hero-card {
+  background: linear-gradient(145deg, #1e1e32, #252545);
+  border-radius: 14px; padding: 1.1rem 0.7rem; text-align: center;
+  transition: all 0.3s ease; cursor: pointer; position: relative; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.06);
+  text-decoration: none; color: inherit; display: block;
+}
+.hero-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); border-color: rgba(245,175,25,0.3); }
+
+.hero-emoji { font-size: 2.4rem; margin-bottom: 0.5rem; display: block; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); }
+.hero-card:hover .hero-emoji { animation: bounce 0.6s ease; }
+@keyframes bounce { 0%,100% { transform: translateY(0); } 40% { transform: translateY(-12px); } 60% { transform: translateY(-4px); } }
+
+.hero-name { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.15rem; }
+.hero-sport { font-size: 0.65rem; color: #f5af19; margin-bottom: 0.45rem; }
+.hero-badge {
+  display: inline-block; padding: 0.15rem 0.5rem; border-radius: 20px; font-size: 0.6rem; font-weight: 600;
+  background: linear-gradient(135deg, #f12711, #f5af19); color: #fff;
+}
+
+.hero-decor {
+  position: absolute; bottom: -18px; right: -18px; font-size: 3rem; opacity: 0.04;
+  transition: opacity 0.3s;
+}
+.hero-card:hover .hero-decor { opacity: 0.08; }
+
+.spotlight {
+  background: linear-gradient(145deg, #1e1e32, #252545);
+  border-radius: 20px; padding: 1.3rem; margin: 0 0 2rem; text-align: center;
+  border: 1px solid rgba(245,175,25,0.15);
+}
+.spotlight h2 { color: #f5af19; margin-bottom: 0.4rem; font-size: 1rem; }
+.spotlight p { color: #999; font-size: 0.8rem; line-height: 1.6; }
+.spotlight .count { color: #fff; font-weight: 700; }
+
+.footer { text-align: center; padding: 2rem 0; color: #555; font-size: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05); }
+
+@media (max-width: 480px) {
+  .hero-grid { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+  .hero-card { padding: 0.7rem 0.35rem; }
+  .hero-emoji { font-size: 1.8rem; }
+  .hero-name { font-size: 0.75rem; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <span class="star">🏟️</span>
+    <h1>体育英雄殿堂</h1>
+    <p>十二段传奇，十二种力量 · <a href="./worldcup/" style="color:#f5af19;text-decoration:none;">世界杯专区 →</a></p>
+  </div>
+
+  <div class="spotlight">
+    <h2>🌟 殿堂已点亮 <span class="count">12</span> 位英雄 + <span style="color:#ffd700;">🏆</span> 世界杯专区</h2>
+    <p>从足球场到F1赛道，从拳击台到篮球馆——每一位都用自己的方式定义了「伟大」。<br><a href="./worldcup/history/" style="color:#ffd700;font-weight:700;text-decoration:none;">世界杯百年历史 →</a> · <a href="./worldcup/2026/" style="color:#ff6b35;font-weight:700;text-decoration:none;">美加墨 2026 →</a></p>
+  </div>
+
+  <!-- ══════ 世界杯 ══════ -->
+  <div class="category">
+    <div class="cat-header">
+      <span class="cat-icon">🏆</span>
+      <span class="cat-name">世界杯</span>
+      <span class="cat-count">专区</span>
+      <span class="cat-line"></span>
+    </div>
+    <div class="hero-grid">
+      <a href="./worldcup/" class="hero-card">
+        <span class="hero-emoji">🏆</span>
+        <div class="hero-name">世界杯专区</div>
+        <div class="hero-sport">全史 · 2026 · 更多</div>
+        <span class="hero-badge">进入 →</span><div class="hero-decor">🏆</div>
+      </a>
+      <a href="./worldcup/2026/" class="hero-card">
+        <span class="hero-emoji">🌎</span>
+        <div class="hero-name">美加墨 2026</div>
+        <div class="hero-sport">48队 · 3国 · 104场</div>
+        <span class="hero-badge">探索 →</span><div class="hero-decor">26</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ══════ 足球 ══════ -->
+  <div class="category">
+    <div class="cat-header">
+      <span class="cat-icon">⚽</span>
+      <span class="cat-name">足球</span>
+      <span class="cat-count">5位</span>
+      <span class="cat-line"></span>
+    </div>
+    <div class="hero-grid">
+      <a href="./maradona/" class="hero-card">
+        <span class="hero-emoji">⭐</span>
+        <div class="hero-name">马拉多纳</div>
+        <div class="hero-sport">阿根廷</div>
+        <span class="hero-badge">探索 →</span><div class="hero-decor">10</div>
+      </a>
+      <a href="./r9/" class="hero-card">
+        <span class="hero-emoji">👽</span>
+        <div class="hero-name">大罗</div>
+        <div class="hero-sport">巴西</div>
+        <span class="hero-badge">探索 →</span><div class="hero-decor">R9</div>
+      </a>
+      <a href="./ronaldinho/" class="hero-card">
+        <span class="hero-emoji">🎩</span>
+        <div class="hero-name">小罗</div>
+        <div class="hero-sport">巴西</div>
+        <span class="hero-badge">探索 →</span><div class="hero-decor">10</div>
+      </a>
+      <a href="./messi/" class="hero-card">
+        <span class="hero-emoji">🇦🇷</span>
+        <div class="hero-name">梅西</div>
+        <div class="hero-sport">阿根廷</div>
+        <span class="hero-badge">探索 →</span><div class="hero-decor">10</div>
+      </a>
+      <a href="./cr7/" class="hero-card">
+        <span class="hero-emoji">⚽</span>
+        <div class="hero-name">C罗</div>
+        <div class="hero-sport">葡萄牙</div>
+        <span class="hero-badge">探索 →</span><div class="hero-decor">7</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ══════ 篮球 ══════ -->
+  <div class="category">
+    <div class="cat-header">
+      <span class="cat-icon">🏀</span>
+      <span class="cat-name">篮球</span>
+      <span class="cat-count">3位</span>
+      <span class="cat-line"></span>
+    </div>
+    <div class="hero-grid">
+      <a href="./jordan/" class="hero-card">
+        <span class="hero-emoji">🏀</span>
+        <div class="hero-name">乔丹</div>
+        <div class="hero-sport">美国</div>
+        <span class="hero-badge">探索 →</span><div class="hero-decor">23</div>
+      </a>
+      <a href="./kobe/" class="hero-card">
+        <span class="hero-emoji">🐍</span>
+        <div class="hero-name">科比</div>
+        <div class="hero-sport">美国</div>
+        <span class="hero-badge">探索 →</span><div class="hero-decor">24</div>
+      </a>
+      <a href="./yao/" class="hero-card">
+        <span class="hero-emoji">🌍</span>
+        <div class="hero-name">姚明</div>
+        <div class="hero-sport">中国</div>
+        <span class="hero-badge">探索 →</span><div class="hero-decor">11</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ══════ F1 ══════ -->
+  <div class="category">
+    <div class="cat-header">
+      <span class="cat-icon">🏎️</span>
+      <span class="cat-name">F1 方程式</span>
+      <span class="cat-count">2位</span>
+      <span class="cat-line"></span>
+    </div>
+    <div class="hero-grid">
+      <a href="./senna/" class="hero-card">
+        <span class="hero-emoji">🏁</span>
+        <div class="hero-name">塞纳</div>
+        <div class="hero-sport">巴西</div>
+        <span class="hero-badge">探索 →</span><div class="hero-decor">S</div>
+      </a>
+      <a href="./schumacher/" class="hero-card">
+        <span class="hero-emoji">🏎️</span>
+        <div class="hero-name">舒马赫</div>
+        <div class="hero-sport">德国</div>
+        <span class="hero-badge">探索 →</span><div class="hero-decor">7</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ══════ 田径 ══════ -->
+  <div class="category">
+    <div class="cat-header">
+      <span class="cat-icon">⚡</span>
+      <span class="cat-name">田径</span>
+      <span class="cat-count">1位</span>
+      <span class="cat-line"></span>
+    </div>
+    <div class="hero-grid">
+      <a href="./bolt/" class="hero-card">
+        <span class="hero-emoji">⚡</span>
+        <div class="hero-name">博尔特</div>
+        <div class="hero-sport">短跑 · 牙买加</div>
+        <span class="hero-badge">探索 →</span><div class="hero-decor">9.58</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ══════ 拳击 ══════ -->
+  <div class="category">
+    <div class="cat-header">
+      <span class="cat-icon">🥊</span>
+      <span class="cat-name">拳击</span>
+      <span class="cat-count">1位</span>
+      <span class="cat-line"></span>
+    </div>
+    <div class="hero-grid">
+      <a href="./ali/" class="hero-card">
+        <span class="hero-emoji">🥊</span>
+        <div class="hero-name">阿里</div>
+        <div class="hero-sport">拳击 · 美国</div>
+        <span class="hero-badge">探索 →</span><div class="hero-decor">🦋</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>🏟️ 体育英雄殿堂 · 献给每一个热爱运动的孩子</p>
+    <p>Made with ❤️ for 牧童</p>
+  </div>
+</div>
+</body>
+</html>
