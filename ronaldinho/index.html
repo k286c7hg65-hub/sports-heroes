@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>罗纳尔迪尼奥 · 足球精灵 | 体育英雄殿堂</title>
+<style>
+:root {
+  --red: #fc6600; --gold: #004a98; --green: #2a9d46; --dark: #0f0f1a;
+  --card-bg: #1a1a30; --text: #e0e0e0; --text-dim: #999; --accent: #fc6600;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--dark); color: var(--text); line-height: 1.7; overflow-x: hidden;
+}
+
+/* ── Navigation ── */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(15,15,26,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 0.5rem 1rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.nav a { color: var(--gold); text-decoration: none; font-weight: 600; font-size: 0.85rem; flex-shrink: 0; }
+.nav .chapters { display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: flex-end; }
+.nav .chapters span { font-size: 0.7rem; padding: 0.3rem 0.55rem; border-radius: 12px; background: rgba(255,255,255,0.06); color: #888; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+.nav .chapters span:hover, .nav .chapters span.active { background: var(--red); color: #fff; }
+
+/* ── Hero ── */
+.hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 5rem 1rem 3rem; position: relative; }
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(252,102,0,0.15) 0%, transparent 70%); pointer-events: none; }
+.hero .number { font-size: clamp(8rem, 20vw, 14rem); font-weight: 900; background: linear-gradient(180deg, var(--red) 0%, var(--gold) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; opacity: 0.9; line-height: 1; animation: pulse 3s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+.hero .cr7 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; color: #fff; margin: 0.5rem 0 0; letter-spacing: 0.05em; }
+.hero .subtitle { font-size: clamp(1rem, 2.5vw, 1.3rem); color: var(--red); margin-bottom: 1rem; }
+.hero .tagline { color: #888; max-width: 500px; margin: 0 auto 2rem; font-size: 0.95rem; }
+.hero .scroll-hint { color: #555; font-size: 0.8rem; animation: float 2s ease-in-out infinite; cursor: default; }
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+
+/* ── Chapter Sections ── */
+.chapter { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 5rem 1rem; position: relative; }
+.chapter:nth-child(odd) .chapter-inner { flex-direction: row; }
+.chapter:nth-child(even) .chapter-inner { flex-direction: row-reverse; }
+.chapter-inner { max-width: 1000px; width: 100%; display: flex; gap: 3rem; align-items: center; }
+.chapter-icon { font-size: clamp(4rem, 10vw, 7rem); flex-shrink: 0; animation: float 4s ease-in-out infinite; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.4)); }
+.chapter-content { flex: 1; }
+.chapter-num { font-size: 0.8rem; letter-spacing: 0.15em; color: var(--red); font-weight: 700; margin-bottom: 0.5rem; }
+.chapter-title { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 900; color: #fff; margin-bottom: 1rem; }
+.chapter-text { color: #bbb; font-size: 0.95rem; line-height: 1.8; margin-bottom: 1.5rem; }
+.chapter-text strong { color: var(--red); }
+.chapter-text .highlight { background: linear-gradient(180deg, transparent 60%, rgba(252,102,0,0.3) 60%); padding: 0 2px; }
+
+/* ── Full-width Sections (no icon) ── */
+.section { padding: 4rem 1rem; position: relative; }
+.section-inner { max-width: 900px; margin: 0 auto; }
+.section h2 { text-align: center; font-size: clamp(1.6rem, 3vw, 2rem); color: #fff; margin-bottom: 0.5rem; }
+.section .sub { text-align: center; color: #888; margin-bottom: 2.5rem; font-size: 0.9rem; }
+
+/* ── Stat Card ── */
+.stat-card { background: var(--card-bg); border-radius: 16px; padding: 1.2rem; border: 1px solid rgba(255,255,255,0.06); margin-bottom: 1rem; transition: transform 0.3s; }
+.stat-card:hover { transform: translateY(-2px); border-color: rgba(0,74,152,0.2); }
+.stat-card .label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--red); margin-bottom: 0.3rem; }
+.stat-card .value { font-size: 1.8rem; font-weight: 900; color: #fff; }
+.stat-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+.stat-row .stat-card { flex: 1; min-width: 120px; }
+
+/* ── Iconic Goals Gallery ── */
+.goals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+.goal-card { background: var(--card-bg); border-radius: 16px; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s; cursor: default; }
+.goal-card:hover { transform: translateY(-4px); border-color: rgba(252,102,0,0.3); box-shadow: 0 8px 32px rgba(252,102,0,0.1); }
+.goal-card .goal-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+.goal-card .goal-title { font-weight: 700; color: #fff; margin-bottom: 0.3rem; font-size: 1rem; }
+.goal-card .goal-meta { font-size: 0.75rem; color: var(--red); margin-bottom: 0.8rem; }
+.goal-card .goal-desc { font-size: 0.85rem; color: #aaa; line-height: 1.6; }
+
+/* ── Dark Moments ── */
+.dark-card { background: linear-gradient(135deg, rgba(252,102,0,0.08), rgba(0,0,0,0.3)); border-left: 3px solid var(--red); border-radius: 0 14px 14px 0; padding: 1.5rem; margin-bottom: 1.2rem; }
+.dark-card .dark-year { color: var(--red); font-weight: 700; font-size: 0.8rem; margin-bottom: 0.3rem; }
+.dark-card .dark-title { color: #fff; font-weight: 700; margin-bottom: 0.5rem; }
+.dark-card .dark-desc { color: #aaa; font-size: 0.9rem; line-height: 1.7; }
+.dark-card .dark-rise { color: var(--gold); font-size: 0.85rem; margin-top: 0.6rem; font-weight: 600; }
+
+/* ── Quiz ── */
+.quiz { background: linear-gradient(135deg, rgba(252,102,0,0.12), rgba(0,74,152,0.08)); border-radius: 16px; padding: 1.5rem; margin-top: 1.5rem; border: 1px solid rgba(252,102,0,0.2); }
+.quiz .q { font-weight: 700; color: #fff; margin-bottom: 0.8rem; font-size: 0.95rem; }
+.quiz .options { display: flex; flex-direction: column; gap: 0.5rem; }
+.quiz .opt { padding: 0.6rem 1rem; border-radius: 10px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); cursor: pointer; transition: all 0.2s; color: #ccc; font-size: 0.9rem; text-align: left; }
+.quiz .opt:hover { background: rgba(255,255,255,0.08); border-color: var(--red); }
+.quiz .opt.correct { background: rgba(42,157,70,0.2); border-color: var(--green); color: #fff; }
+.quiz .opt.wrong { background: rgba(252,102,0,0.2); border-color: var(--red); color: #fff; }
+.quiz .feedback { margin-top: 0.8rem; font-size: 0.85rem; color: var(--red); display: none; }
+
+/* ── Quote Block ── */
+.blockquote { background: var(--card-bg); border-radius: 16px; padding: 2rem; margin: 1.5rem 0; text-align: center; border: 1px solid rgba(255,255,255,0.06); position: relative; }
+.blockquote::before { content: '"'; position: absolute; top: -0.5rem; left: 1.5rem; font-size: 5rem; color: var(--red); opacity: 0.3; font-family: Georgia, serif; line-height: 1; }
+.blockquote p { font-size: 1.1rem; color: #fff; font-style: italic; line-height: 1.6; position: relative; }
+.blockquote .by { color: var(--gold); margin-top: 0.8rem; font-weight: 600; font-style: normal; }
+
+/* ── Timeline ── */
+.timeline-section { padding: 4rem 1rem; }
+.timeline-section h2 { text-align: center; font-size: 1.8rem; color: #fff; margin-bottom: 3rem; }
+.timeline { position: relative; padding-left: 2rem; max-width: 700px; margin: 0 auto; }
+.timeline::before { content: ''; position: absolute; left: 0.5rem; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--red), var(--gold), var(--green)); }
+.timeline-item { position: relative; margin-bottom: 2.2rem; padding-left: 2rem; }
+.timeline-item::before { content: ''; position: absolute; left: -1.75rem; top: 0.5rem; width: 12px; height: 12px; border-radius: 50%; background: var(--red); border: 2px solid var(--dark); }
+.timeline-year { font-size: 0.8rem; color: var(--red); font-weight: 700; margin-bottom: 0.3rem; }
+.timeline-event { color: #ccc; font-size: 0.9rem; }
+
+/* ── Trophy Wall ── */
+.trophy-section { padding: 4rem 1rem 6rem; }
+.trophy-section h2 { text-align: center; font-size: 1.8rem; color: #fff; margin-bottom: 0.5rem; }
+.trophy-section .sub { text-align: center; color: #888; margin-bottom: 2.5rem; }
+.trophy-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.8rem; max-width: 900px; margin: 0 auto; }
+.trophy { background: var(--card-bg); border-radius: 14px; padding: 1rem 0.8rem; border: 1px solid rgba(255,255,255,0.06); transition: transform 0.3s; text-align: center; }
+.trophy:hover { transform: translateY(-4px); border-color: rgba(252,102,0,0.3); }
+.trophy .t-icon { font-size: 2rem; margin-bottom: 0.4rem; }
+.trophy .t-name { font-size: 0.75rem; color: #ccc; font-weight: 600; }
+.trophy .t-count { font-size: 0.85rem; color: var(--red); font-weight: 900; }
+.trophy .t-detail { font-size: 0.65rem; color: #777; margin-top: 0.15rem; }
+
+/* ── Magic Cards ── */
+.biz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+.biz-card { background: var(--card-bg); border-radius: 16px; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.06); text-align: center; transition: all 0.3s; }
+.biz-card:hover { transform: translateY(-4px); border-color: rgba(252,102,0,0.3); }
+.biz-card .biz-icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
+.biz-card .biz-name { color: #fff; font-weight: 700; margin-bottom: 0.5rem; }
+.biz-card .biz-desc { color: #aaa; font-size: 0.85rem; line-height: 1.5; }
+
+/* ── Influence Stats ── */
+.influence-row { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+.influence-stat { background: var(--card-bg); border-radius: 16px; padding: 1.5rem; text-align: center; border: 1px solid rgba(255,255,255,0.06); min-width: 140px; flex: 1; }
+.influence-stat .big { font-size: 2.2rem; font-weight: 900; background: linear-gradient(135deg, var(--red), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.influence-stat .big.native-icon { background: none; -webkit-background-clip: unset; -webkit-text-fill-color: initial; }
+.influence-stat .desc { color: #aaa; font-size: 0.8rem; margin-top: 0.3rem; }
+
+/* ── Celebration Particles ── */
+.particles { position: fixed; inset: 0; pointer-events: none; z-index: 200; }
+.particle { position: absolute; font-size: 1.5rem; animation: fall linear forwards; }
+@keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(720deg); opacity: 0; } }
+
+/* ── Back to top ── */
+.back-top { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 99; width: 44px; height: 44px; border-radius: 50%; background: var(--red); color: #fff; border: none; font-size: 1.3rem; cursor: pointer; opacity: 0; transform: translateY(20px); transition: all 0.3s; box-shadow: 0 4px 16px rgba(252,102,0,0.4); }
+.back-top.show { opacity: 1; transform: translateY(0); }
+
+/* ── Divider ── */
+.divider { text-align: center; padding: 1rem; color: #333; font-size: 1.5rem; letter-spacing: 0.3em; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .chapter-inner, .chapter:nth-child(even) .chapter-inner { flex-direction: column !important; gap: 1.5rem; text-align: center; }
+  .chapter-icon { font-size: 4rem; }
+  .chapter { padding: 4rem 1rem; min-height: auto; }
+  .nav .chapters { display: none; }
+  .stat-row { flex-direction: column; }
+  .timeline { padding-left: 1.5rem; }
+  .trophy-grid { grid-template-columns: repeat(2, 1fr); }
+  .goals-grid { grid-template-columns: 1fr; }
+  .biz-grid { grid-template-columns: 1fr 1fr; }
+  .influence-row { flex-direction: column; }
+}
+@media (max-width: 400px) {
+  .biz-grid { grid-template-columns: 1fr; }
+  .trophy-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ═══ Scroll Animations ═══ */
+@keyframes fadeSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+@keyframes countUp { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+.timeline-item { opacity: 0; transform: translateX(-15px); transition: all 0.6s ease-out; }
+.timeline-item:nth-child(even) { transform: translateX(15px); }
+.timeline-item.is-visible { opacity: 1; transform: translateX(0); }
+.trophy { position: relative; overflow: hidden; }
+.trophy::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 0%, rgba(255,215,0,0.08) 50%, transparent 100%); background-size: 200% 100%; opacity: 0; transition: opacity 0.3s; }
+.trophy:hover::after { opacity: 1; animation: shimmer 1.5s ease-in-out infinite; }
+.stat-card.is-visible { animation: countUp 0.5s ease-out forwards; }
+
+</style>
+</head>
+<body>
+
+<div class="particles" id="particles"></div>
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<nav class="nav">
+  <a href="../">← 英雄殿堂</a>
+  <div class="chapters" id="navChapters">
+    <span onclick="scrollToChapter(0)">🇧🇷</span>
+    <span onclick="scrollToChapter(1)">🔴🔵</span>
+    <span onclick="scrollToChapter(2)">🎯</span>
+    <span onclick="scrollToChapter(3)">✨</span>
+    <span onclick="scrollToChapter(4)">🪄</span>
+    <span onclick="scrollToChapter(5)">🌑</span>
+    <span onclick="scrollToChapter(6)">📊</span>
+    <span onclick="scrollToChapter(7)">🎸</span>
+    <span onclick="scrollToChapter(8)">🌍</span>
+    <span onclick="scrollToChapter(9)">💬</span>
+  </div>
+</nav>
+
+<!-- ══════ HERO ══════ -->
+<section class="hero" id="top">
+  <div class="number">10</div>
+  <h1 class="cr7">RONALDINHO GAÚCHO</h1>
+  <p class="subtitle">罗纳尔迪尼奥 · 足球精灵</p>
+  <p class="tagline">世界上只有两种球员：一种是来踢球的，一种是来玩球的。罗纳尔迪尼奥——他把足球变成了魔法。</p>
+  <div class="scroll-hint" onclick="celebrate()">👇 点击开始他的故事</div>
+</section>
+
+<!-- ══════ CH1: Porto Alegre → Grêmio ══════ -->
+<section class="chapter" id="ch1">
+  <div class="chapter-inner">
+    <div class="chapter-icon">🇧🇷</div>
+    <div class="chapter-content">
+      <div class="chapter-num">第一章</div>
+      <h2 class="chapter-title">阿雷格里港的街头天才</h2>
+      <div class="chapter-text">
+        <p><strong>1980年3月21日</strong>，罗纳尔多·德·阿西斯·莫雷拉出生在巴西南部城市<strong>阿雷格里港</strong>。这是一个足球流淌在血液里的地方——他的父亲若昂曾是业余球员，哥哥罗贝托在格雷米奥踢职业足球。贫穷，但足球从不缺。</p>
+        <p>8岁那年，父亲在自家泳池中突发心脏病去世。对于一个孩子来说，天塌了。但足球成了他的避难所——小罗在后院的泥地上、在街头的鹅卵石巷道上，用一只<strong>破旧到几乎看不出颜色的足球</strong>，开始他的魔法之旅。</p>
+        <p><strong>13岁那年的故事至今被反复传颂：</strong>阿雷格里港少年锦标赛，他一人独进<strong>23球</strong>，包括一场比赛面对一支比他们大两岁的球队<strong>一人包办全队所有进球</strong>。更让人瞠目的是——在一次颠球比赛中，他用全身各部位连续颠球<strong>超过200次</strong>，球从未落地。对手们放弃了，裁判们目瞪口呆。格雷米奥青年队的球探当场说："<strong>这不是一个足球运动员，这是一个魔术师。</strong>"</p>
+        <p>1997年，17岁的罗纳尔迪尼奥在U17世青赛上大放异彩，被评为赛事最佳球员。1998年，他为格雷米奥一线队完成首秀。在首场职业比赛中，他就<strong>上演了牛尾巴过人</strong>——这个后来成为他标志性动作的绝技。整个巴西都在问："这个龅牙小子是谁？"</p>
+      </div>
+      <div class="stat-row">
+        <div class="stat-card"><div class="label">出生日期</div><div class="value">1980.03.21</div></div>
+        <div class="stat-card"><div class="label">故乡</div><div class="value">阿雷格里港</div></div>
+        <div class="stat-card"><div class="label">童年绰号</div><div class="value">罗纳尔迪尼奥 👶</div></div>
+      </div>
+      <div class="quiz" id="quiz1">
+        <div class="q">🤔 "罗纳尔迪尼奥"这个名字的意思是？</div>
+        <div class="options">
+          <div class="opt" onclick="checkQuiz(this,true,'quiz1-fb')">👶 "小罗纳尔多"——因为巴西队已经有了一个"大"罗纳尔多</div>
+          <div class="opt" onclick="checkQuiz(this,false,'quiz1-fb')">🎵 "跳舞的人"——因为他踢球像跳舞</div>
+          <div class="opt" onclick="checkQuiz(this,false,'quiz1-fb')">⭐ "金童"——因为他13岁就出名了</div>
+        </div>
+        <div class="feedback" id="quiz1-fb">👶 没错！Ronaldinho在葡萄牙语中意为"小罗纳尔多"。当他在1999年首次入选巴西国家队时，队中已经有一位叫"罗纳尔多"的巨星——"外星人"罗纳尔多（R9）。为了区分，这个从阿雷格里港来的年轻人成了"罗纳尔迪尼奥"——从名字开始，他就注定了要追随传奇的脚步，然后走出自己的路。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FAMILY LEGACY ══════ -->
+<section class="section" id="family">
+  <div class="section-inner">
+    <h2>🏠 足球世家 — 流淌在血液里的天赋</h2>
+    <p class="sub">小罗的足球不是学会的——是继承下来的</p>
+    <div class="stat-row" style="margin-bottom:1.5rem;">
+      <div class="stat-card"><div class="label">父亲若昂</div><div class="value" style="font-size:1rem;">业余球员 · 造船厂工人</div></div>
+      <div class="stat-card"><div class="label">哥哥罗贝托</div><div class="value" style="font-size:1rem;">格雷米奥职业球员</div></div>
+      <div class="stat-card"><div class="label">姐姐黛西</div><div class="value" style="font-size:1rem;">记者 · 家庭的守护者</div></div>
+    </div>
+    <div class="chapter-text" style="max-width:900px;margin:0 auto;">
+      <p>罗贝托·阿西斯——小罗的哥哥——是一个被命运不公平对待的天才。他在格雷米奥踢中场，技术和视野都极为出色，被认为是巴西足球的未来之星。但一次严重的膝伤<strong>在22岁那年终结了他的职业生涯</strong>。从那天起，罗贝托把自己的全部梦想转移到了弟弟身上。他成为了小罗的经纪人、保护者、最严厉的批评者和最坚定的支持者。小罗后来说："<strong>我的偶像是我哥哥。他本来可以比我更好。我踢球，也是在替他踢。</strong>"</p>
+      <p>父亲若昂在小罗8岁时因心脏病去世——那是在自家泳池里，在小罗放学回家的几分钟前。那天，小罗失去了父亲，也失去了天真。但若昂留给儿子的，是一种对足球纯粹的热爱。若昂生前经常在周末带着两个儿子去看格雷米奥的比赛，给小罗买了人生第一双球鞋。小罗的每一个进球，都有一半是替他父亲进的。</p>
+      <p>在巴西，足球从来不只是足球——它是<strong>贫困家庭改变命运的唯一通道</strong>。小罗一家住在阿雷格里港的贫民区，房子是用木板和铁皮搭起来的。但当他母亲米格利娜回忆那段时光时，她说的第一句话不是贫穷，而是："<strong>我们的院子里总是飘着足球的声音。</strong>"</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CH2: Paris → Barcelona ══════ -->
+<section class="chapter" id="ch2">
+  <div class="chapter-inner">
+    <div class="chapter-icon">🔴🔵</div>
+    <div class="chapter-content">
+      <div class="chapter-num">第二章</div>
+      <h2 class="chapter-title">从巴黎到诺坎普：加冕为王</h2>
+      <div class="chapter-text">
+        <p><strong>2001年</strong>，21岁的小罗做出了一个出人意料的选择——没有加盟向他伸出橄榄枝的欧洲顶级豪门，而是去了法甲的<strong>巴黎圣日耳曼</strong>。在巴黎的两年里，他像一颗未经打磨的钻石——才华横溢但缺乏纪律。他会在比赛前夜去跳舞，第二天依然能过掉所有人。但欧洲足坛已经清楚地意识到：<strong>这可能是世界上最有天赋的足球运动员。</strong></p>
+        <p><strong>2002年韩日世界杯</strong>，小罗真正让全世界认识了他。在那支拥有罗纳尔多、里瓦尔多、卡洛斯的"3R"巴西队中，22岁的小罗是最年轻的一个——但他在对阵英格兰的四分之一决赛中，踢出了<strong>世界杯历史上最令人瞠目结舌的个人表演之一</strong>：先助攻里瓦尔多扳平，然后用一记38米外的任意球直接吊射攻破了大卫·希曼把守的大门。巴西最终夺冠，小罗以一枚世界杯金牌开启了传奇。</p>
+        <p><strong>2003年夏天，命运的齿轮转动了。</strong>巴塞罗那——这支正经历低谷的加泰罗尼亚豪门——做出了一个将改变历史的决定。在新主席拉波尔塔的运作下，他们拒绝了贝克汉姆，选择了这个<strong>龅牙、爱笑、走路摇摇晃晃的巴西男孩</strong>。转会费3000万欧元。当小罗第一次走进诺坎普球场时，没有人知道接下来会发生什么。他自己也不知道。他只是笑着说："我想在这里踢球，因为我喜欢这里的阳光。"</p>
+        <p>他的第一个赛季并不顺利。巴萨在联赛中排名第二，欧冠早早出局。批评者说："3000万买了一个只会做花哨动作的巴西人。"但小罗没有回应——他不是那种用语言反击的人。</p>
+        <p>第二个赛季，魔法开始了。他像一台突然接上电源的机器——<strong>2004-05赛季</strong>，他带领巴萨时隔六年重夺西甲冠军。诺坎普的球迷为他创作了新的助威歌。获得职业生涯首个国际足联世界足球先生。但这只是开始。</p>
+        <p>接下来的<strong>2005-06赛季</strong>，小罗将巴萨带到了一个全新的高度：<strong>西甲二连冠 + 欧洲冠军联赛冠军</strong>——那座2006年的欧冠奖杯，是巴萨自1992年以来的第一座。在决赛中，虽然他没有进球，但他的每一次触球都在撕碎阿森纳的防线。巴萨球迷至今仍说：那是他们见过的最好的球队，而小罗是那支球队里最好的球员。</p>
+        <p>在巴萨的鼎盛时期，他不仅是世界最佳，更是一个<strong>改变了足球审美的人</strong>——他证明了，赢球和"玩得漂亮"从不矛盾。</p>
+      </div>
+      <div class="stat-row">
+        <div class="stat-card"><div class="label">巴萨进球</div><div class="value">94</div></div>
+        <div class="stat-card"><div class="label">金球奖</div><div class="value">1座</div></div>
+        <div class="stat-card"><div class="label">世界足球先生</div><div class="value">2次</div></div>
+      </div>
+      <div class="quiz" id="quiz2">
+        <div class="q">🤔 2003年巴萨在小罗和谁之间做出了选择？</div>
+        <div class="options">
+          <div class="opt" onclick="checkQuiz(this,false,'quiz2-fb')">🇫🇷 齐达内——皇马也在抢他</div>
+          <div class="opt" onclick="checkQuiz(this,true,'quiz2-fb')">🏴󠁧󠁢󠁥󠁮󠁧󠁿 大卫·贝克汉姆——但曼联把贝帅卖给了皇马</div>
+          <div class="opt" onclick="checkQuiz(this,false,'quiz2-fb')">🇧🇷 卡卡——AC米兰的巴西天才</div>
+        </div>
+        <div class="feedback" id="quiz2-fb">🏴󠁧󠁢󠁥󠁮󠁧󠁿 历史性的一次选择！2003年巴萨新主席拉波尔塔竞选时承诺签下贝克汉姆。但贝克汉姆选择了皇马。于是巴萨转向了小罗。后来的故事证明——这不是备胎，这是命运。小罗重塑了巴萨的DNA，为梅西、哈维、伊涅斯塔的黄金一代奠定了基础。而贝克汉姆在皇马的四年，一座联赛冠军都没有拿到。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ PEAK SEASON ══════ -->
+<section class="section" id="peak">
+  <div class="section-inner">
+    <h2>⚡ 巅峰赛季：2005-2006 — 地球上最好的足球运动员</h2>
+    <p class="sub">不是一年，是一个时代。他让整个欧洲跪下来看魔术</p>
+    <div class="stat-row" style="margin-bottom:1.5rem;">
+      <div class="stat-card"><div class="label">2005金球奖得分</div><div class="value">225</div></div>
+      <div class="stat-card"><div class="label">领先第二名</div><div class="value">77分</div></div>
+      <div class="stat-card"><div class="label">赛季进球+助攻</div><div class="value">47</div></div>
+      <div class="stat-card"><div class="label">欧冠冠军</div><div class="value">✅</div></div>
+    </div>
+    <div class="chapter-text" style="max-width:900px;margin:0 auto;">
+      <p><strong>2005年11月28日，巴黎。</strong>罗纳尔迪尼奥以<strong>225分</strong>的绝对优势夺得2005年金球奖——领先第二名兰帕德77分，在当时是历史最大差距之一。一个月后，他又蝉联了国际足联世界足球先生。他是继罗纳尔多之后，第二位在同一年包揽这两项最高个人荣誉的巴西球员。</p>
+      <p>2005-2006赛季是小罗职业生涯的<strong>绝对巅峰</strong>。联赛26球21次助攻——"双20"数据在当时的欧洲五大联赛中几乎闻所未闻。他在每场比赛中都至少做出一两个让观众从座位上跳起来的动作。诺坎普的球迷们开始了一种新的仪式：在他触球之前就开始起立——因为他们知道，<strong>下一秒就会发生不可思议的事。</strong></p>
+      <p>在欧冠赛场上，他带领巴萨一路杀入决赛。在巴黎法兰西大球场，巴萨在上半场0-1落后阿森纳且少一人的绝境中，小罗用他的传球和串联让全队保持了信念——最终巴萨<strong>2-1逆转夺冠</strong>。14年的等待，诺坎普终于再次听到了欧冠主题曲。小罗跪在草坪上，泪水混着汗水——那是纯粹的喜悦。</p>
+      <p>正是在这个赛季，"<strong>世界最佳球员</strong>"不再有任何争议。他不是最努力的，不是最强壮的，不是最快的——他只是在踢球的时候让所有人相信：<strong>足球应该是快乐的。</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CLASSIC MOMENTS ══════ -->
+<section class="section" id="goals">
+  <div class="section-inner">
+    <h2>🎯 经典时刻 — 那些属于魔法的夜晚</h2>
+    <p class="sub">他创造的不是进球，是让人怀疑自己眼睛的瞬间</p>
+    <div class="goals-grid">
+      <div class="goal-card">
+        <div class="goal-icon">👏</div>
+        <div class="goal-title">伯纳乌的起立致敬</div>
+        <div class="goal-meta">2005年11月19日 · 西甲国家德比</div>
+        <div class="goal-desc">巴萨客场3-0击败皇马。小罗两次<strong>从中线启动、连过数人</strong>破门得分——第一次晃过拉莫斯和埃尔格拉后低射，第二次在左路再次晃倒拉莫斯，小角度射穿卡西利亚斯。当他被换下场时，<strong>伯纳乌的皇马球迷全场起立鼓掌致敬</strong>——这是死敌球迷的最高礼遇。在他之前，只有马拉多纳在伯纳乌享受过这样的待遇。巴萨3-0完胜死敌主场，这在加泰罗尼亚被称为"尊严的一天"。</div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-icon">🏴󠁧󠁢󠁥󠁮󠁧󠁿🎯</div>
+        <div class="goal-title">世界杯超远任意球吊射</div>
+        <div class="goal-meta">2002年6月21日 · 世界杯四分之一决赛</div>
+        <div class="goal-desc">巴西对阵英格兰。第50分钟，巴西在右侧距球门<strong>约38米处</strong>获得任意球。所有人都以为小罗会传中——包括英格兰门将大卫·希曼。他站在球前，右脚内脚背大力搓出一道不可思议的弧线，皮球越过希曼的头顶，坠入球门左上角。2-1！希曼呆若木鸡。这粒进球帮助巴西淘汰英格兰并最终夺冠。20年后小罗承认："<strong>说实话，我本来是想传中的。</strong>"——连他自己都被自己的魔法震惊了。</div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-icon">🦵</div>
+        <div class="goal-title">斯坦福桥的原地摆腿破门</div>
+        <div class="goal-meta">2005年3月8日 · 欧冠八分之一决赛</div>
+        <div class="goal-desc">巴萨客场对阵穆里尼奥执教的切尔西。禁区前沿，小罗背对球门接球，在切尔西三名后卫的包围中——<strong>没有任何助跑、没有摆腿空间</strong>——他原地脚尖一捅，皮球像长了眼睛一样绕过防守球员，贴着立柱滚入球门死角。切尔西门将切赫甚至没有做出扑救动作。穆里尼奥赛后说："<strong>这是一种我无法用战术板解释的东西。</strong>"这粒进球被无数专家称为"足球物理学的不可能事件"。</div>
+      </div>
+    </div>
+    <div class="quiz" id="quiz3" style="margin-top:1.5rem;">
+      <div class="q">🤔 伯纳乌球迷起立为小罗鼓掌——在他之前，只有哪位巴萨球员享受过这一待遇？</div>
+      <div class="options">
+        <div class="opt" onclick="checkQuiz(this,false,'quiz3-fb')">🇧🇷 罗纳尔多（大罗）——因为他的帽子戏法</div>
+        <div class="opt" onclick="checkQuiz(this,true,'quiz3-fb')">🇦🇷 迭戈·马拉多纳——1983年在伯纳乌同样征服了皇马球迷</div>
+        <div class="opt" onclick="checkQuiz(this,false,'quiz3-fb')">🇵🇹 路易斯·菲戈——他曾是巴萨队长后来叛逃到皇马</div>
+      </div>
+      <div class="feedback" id="quiz3-fb">🇦🇷 迭戈·马拉多纳。在全世界足球的图腾圣地伯纳乌，几万名皇马死忠球迷为对手球员起立鼓掌——这种事凤毛麟角。小罗是继马拉多纳之后第二个获此殊荣的巴萨球员。这不是一个统计数字，这是足球最纯粹的感动——当魔法足够耀眼，连仇恨都会被暂时融化。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CH3: Football Magic ══════ -->
+<section class="chapter" id="ch3">
+  <div class="chapter-inner">
+    <div class="chapter-icon">✨</div>
+    <div class="chapter-content">
+      <div class="chapter-num">第三章</div>
+      <h2 class="chapter-title">足球魔法：他让比赛变成艺术</h2>
+      <div class="chapter-text">
+        <p>如果说大多数球员是在"踢"足球，那罗纳尔迪尼奥是在<strong>"跳舞"</strong>——球不是他踢出去的，是从他身上<strong>流淌</strong>出去的。</p>
+        <p>他的<strong>牛尾巴过人（Elástico）</strong>——脚外侧拨球急停，瞬间用脚尖将球弹向反方向——这个动作并非他原创，但他把它打造成了足球世界最著名的商标。后卫们明知他要做牛尾巴，依然会被晃倒。"因为他的身体语言永远在说谎，"一位后卫说，"他的肩膀说左，胯部说右，脚说等一等——然后你已经倒在地上了。"</p>
+        <p>然后是<strong>No-Look Pass（不看人传球）</strong>——他朝一个方向看，球却飞向完全相反的另一边，精准地落在队友脚下。不是表演，是<strong>他用余光看到了你看不到的东西</strong>。统计数据显示，他在巴萨期间的传球成功率超过85%，其中相当一部分是这种"看着别处传过来的"。</p>
+        <p>但小罗最不可思议的，不是任何单项技术——是<strong>他永远在微笑</strong>。赢球在笑，被铲倒也在笑，队友进球他笑得比队友还开心。在一个被战术和纪律榨干灵魂的现代足球时代，小罗提醒了全世界：<strong>足球，说到底，是一个游戏。而游戏是为了快乐。</strong>他踢的不是功利足球，是快乐足球——而这才是足球最原始的样子。</p>
+      </div>
+      <div class="blockquote"><p>我踢球不是为了成为世界最佳。我踢球是因为我爱它。如果哪天踢球不再让我快乐，我就停下来。</p><div class="by">— 罗纳尔迪尼奥，《442》杂志专访</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ MESSI CONNECTION ══════ -->
+<section class="section" id="messi-connection">
+  <div class="section-inner">
+    <h2>🤝 火炬传承 — 国王与王储</h2>
+    <p class="sub">足球史上最美的传承之一：小罗把巴萨交到了梅西手中</p>
+    <div class="chapter-inner" style="max-width:900px;margin:0 auto;display:flex;gap:3rem;align-items:center;flex-wrap:wrap;">
+      <div class="chapter-icon" style="font-size:5rem;">🔥→👑</div>
+      <div class="chapter-content" style="min-width:280px;">
+        <div class="chapter-text">
+          <p><strong>2004年秋天。</strong>一个瘦小的阿根廷少年被升入巴萨一线队。他害羞、安静，在更衣室里几乎不说话。大多数老将对他视而不见——但小罗没有。</p>
+          <p>小罗走到梅西面前，用葡萄牙语说了一句梅西听不懂但永远记住的话。然后他把梅西拉到了自己的餐桌上——在内向者最脆弱的时候给了他一个位置。这是足球界不成文的规矩：<strong>更衣室的餐桌就是权力地图</strong>。小罗用自己的位置告诉所有人："<strong>这个孩子，我罩了。</strong>"</p>
+          <p>2005年5月1日，17岁的梅西打进了他在巴萨一线队的第一个正式比赛进球——<strong>助攻来自小罗</strong>。进球后，小罗跑过去把梅西背了起来。那张照片后来成为了足球史上最著名的画面之一——<strong>一个国王背起了下一个国王。</strong></p>
+          <p>2005年11月19日，伯纳乌，国家德比。18岁的梅西第一次踏上这个世界上最残酷的足球战场。小罗在比赛中两次用妙传找到梅西——而梅西也用一次助攻回报了他。赛后，小罗在混合采访区对所有记者说："<strong>这个孩子会成为比我更好的球员。记住我的话。</strong>"</p>
+          <p>2008年，小罗离开巴萨时，他把10号球衣留给了梅西。不是被迫的——是主动的。多年后梅西在接受采访时被问到小罗，他说了一句话："<strong>如果没有罗纳尔迪尼奥，我可能早就被巴萨的更衣室吞噬了。</strong>"</p>
+          <p style="color:var(--red);font-weight:700;">这可能是小罗留给足球世界最伟大的遗产——不是他的金球奖，不是他的世界杯，而是他保护了那个后来成为历史最佳球员之一的少年。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ SIGNATURE MOVES ══════ -->
+<section class="section" id="moves">
+  <div class="section-inner">
+    <h2>🪄 魔法宝典 — 他的标志性动作</h2>
+    <p class="sub">每一个动作都像一个魔术——你知道他要做，但就是防不住</p>
+    <div class="goals-grid">
+      <div class="goal-card">
+        <div class="goal-icon">🐂</div>
+        <div class="goal-title">牛尾巴过人 · Elástico</div>
+        <div class="goal-meta">注册商标级 · 后人竞相模仿</div>
+        <div class="goal-desc">脚尖外侧推球向右→在球滚出的瞬间用脚尖将球弹回左侧——整套动作在<strong>0.3秒内完成</strong>。后卫的眼睛追不上他的脚踝。这不是假动作，这是对人脑视觉处理速度的物理攻击。小罗不是第一个做这个动作的人，但他是让它成为<strong>足球史上最具辨识度的个人商标</strong>的人。罗纳尔多（大罗）说："我在训练里试过100次，能成功5次就不错了。他能在比赛的第90分钟做——并且每次都成功。"</div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-icon">👀</div>
+        <div class="goal-title">不看人传球 · No-Look Pass</div>
+        <div class="goal-meta">用余光踢球 · 后卫的噩梦</div>
+        <div class="goal-desc">他的头朝一个方向看，球却飞向了完全相反的方向——精准落在40米外队友的脚下。防守球员永远不知道该看他的眼睛还是他的脚。前队友埃托奥回忆："有一次他朝左边看了三秒钟，所有人都往左边跑——结果球从我身后的右边过来了。我差点也没接到，因为连我都被他骗了。<strong>他骗的是全世界。</strong>"</div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-icon">🌈</div>
+        <div class="goal-title">彩虹过人 · Lambreta</div>
+        <div class="goal-meta">街头足球的终极奥义</div>
+        <div class="goal-desc">用双脚夹住球，从身后将球撩过头顶——球像一条彩虹般越过防守者。这不是比赛动作，这是<strong>街头足球的挑衅宣言</strong>。小罗在正式比赛中多次使用，引发了"尊重对手"与"足球艺术"的争论。他的回答："如果我不能在比赛中做我小时候在街上做的事——那我为什么要踢球？"</div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-icon">🎯</div>
+        <div class="goal-title">任意球魔法 · 天外飞仙</div>
+        <div class="goal-meta">2002世界杯成名 · 全球模仿</div>
+        <div class="goal-desc">他的任意球不讲道理——不需要助跑、不需要大力抽射，只需要用脚内侧搓出一道违反直觉的曲线。2002年世界杯对阵英格兰的那一脚是巅峰——用右脚内脚背在38米外将球搓入球门。物理学家后来分析：球的飞行轨迹包含了<strong>三种不同方向的旋转</strong>——"在流体力学中，这就是混沌。"</div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-icon">🔄</div>
+        <div class="goal-title">360度转身 · Roulette</div>
+        <div class="goal-meta">齐达内的招牌 · 小罗的日常</div>
+        <div class="goal-desc">单脚踩球→身体360度旋转→拉球过人。齐达内让"马赛回旋"闻名天下，但小罗把这个动作变成了<strong>他比赛中的日常操作</strong>——在一场比赛里能用3-4次，每次方向不同、节奏不同。"他的版本更快，"一位巴萨教练说，"他在旋转的过程中已经在看下一步了——他的大脑比身体快半秒。"</div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-icon">😁</div>
+        <div class="goal-title">微笑过人 · Sorriso</div>
+        <div class="goal-meta">不是技术动作 · 但比任何技术动作都管用</div>
+        <div class="goal-desc">被铲倒→坐在地上→咧嘴一笑→爬起来继续。这不是一个技术动作，但<strong>这是他最致命的武器</strong>：他让对手的犯规看起来像在欺负一个快乐的孩子。裁判下意识地更倾向于吹罚对方犯规。更重要的是——他让足球<strong>看起来不像战争，像游戏</strong>。在一个人人紧绷的现代足坛，只有他让所有人放松下来。然后——在你放松的瞬间——他用一次牛尾巴过掉了你。</div>
+      </div>
+    </div>
+    <div class="quiz" id="quiz5" style="margin-top:1.5rem;">
+      <div class="q">🤔 小罗的牛尾巴过人——他做这个动作的平均完成时间是多少？</div>
+      <div class="options">
+        <div class="opt" onclick="checkQuiz(this,false,'quiz5-fb')">⏱️ 约1秒——因为需要两次触球</div>
+        <div class="opt" onclick="checkQuiz(this,true,'quiz5-fb')">⚡ 约0.3秒——比人眼做出反应的速度还快</div>
+        <div class="opt" onclick="checkQuiz(this,false,'quiz5-fb')">🕐 约2秒——因为要观察后卫重心</div>
+      </div>
+      <div class="feedback" id="quiz5-fb">⚡ 0.3秒！人类视觉反应时间约0.25秒，做出身体反应需要额外0.2-0.3秒。这意味着当你的眼睛看到他的脚踝在动时，他已经完成了牛尾巴——你的大脑根本来不及命令你的身体做出正确反应。这不是技术，这是对神经科学的精确利用。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ DARKEST MOMENTS ══════ -->
+<section class="section" id="dark">
+  <div class="section-inner">
+    <h2>🌑 至暗时刻 — 精灵坠落人间</h2>
+    <p class="sub">最快的崛起和最突然的坠落，他的一生本身就是一场悲喜剧</p>
+
+    <div class="dark-card">
+      <div class="dark-year">🇩🇪 2006 · 世界杯</div>
+      <div class="dark-title">"魔幻四重奏"的幻灭——从天堂到地狱只需一个月</div>
+      <div class="dark-desc">2006年德国世界杯，巴西队拥有罗纳尔多、罗纳尔迪尼奥、卡卡和阿德里亚诺——被称为"<strong>魔幻四重奏</strong>"。全世界都认为这是巴西史上最强的攻击线，冠军已经提前预订。但现实给了所有人一记响亮的耳光——巴西在四分之一决赛中<strong>0-1不敌法国队</strong>，齐达内犹如时光倒流般统治了比赛。而小罗整届比赛<strong>一球未进、一次助攻也没有</strong>——他在巴萨的魔力在德国完全消失了。没有人能解释为什么。</div>
+      <div class="dark-desc" style="margin-top:0.8rem;">回到巴西后，他在圣保罗的家中竖了一座<strong>7吨重、8米高的铜像</strong>——以庆祝"世界最佳球员"的身份。但愤怒的球迷在铜像上涂鸦、砸石块。一个月之内，它就被<strong>推倒拆除</strong>了。巴西媒体称他为"骗子"——从全民英雄到"国家耻辱"，只用了四场比赛。2006年世界杯不是小罗的失败——是巴西人民<strong>期待的重量</strong>压垮了一个26岁的年轻人。</div>
+      <div class="dark-rise">🔥 他从未公开辩解。多年后他在采访中平静地说："2006年是我踢球最开心的一年——直到世界杯。有时候你不明白为什么，但它就是发生了。足球和生活一样——你不能控制一切。"</div>
+    </div>
+
+    <div class="dark-card">
+      <div class="dark-year">🔴🔵 2007-2008 · 巴萨末年</div>
+      <div class="dark-title">从诺坎普国王到被扫地出门</div>
+      <div class="dark-desc">2007年开始，小罗的状态出现了肉眼可见的下滑。频繁的夜生活——在巴塞罗那的夜店里，人们几乎每晚都能看到他的身影。不规律的作息让他的身体开始背叛他：反复的肌肉拉伤、体重上升、爆发力明显减弱。巴萨新任主帅<strong>瓜迪奥拉</strong>在2008年夏天上任后，做出了一个艰难但果断的决定：<strong>清洗小罗、扶正梅西</strong>。瓜迪奥拉后来在自传中坦言："小罗是巴萨历史上最有天赋的球员，但他的生活方式已经不适合一支需要全员纪律的球队。如果他留下，梅西可能永远无法成为梅西。"2008年夏天，小罗以2100万欧元转会AC米兰——一年前他还是世界最佳，一年后巴萨甚至没有挽留。而他的10号球衣，被一个叫<strong>梅西</strong>的年轻阿根廷人接了过去。那个交接的时刻，既温柔又残酷。</div>
+      <div class="dark-rise">🔥 在AC米兰，小罗短暂焕发过第二春——2010年他以15次助攻夺得当赛季意甲助攻王。但巅峰已经过去了，再也回不来了。</div>
+    </div>
+
+    <div class="dark-card">
+      <div class="dark-year">🇵🇾 2020 · 巴拉圭</div>
+      <div class="dark-title">假护照入狱——足球精灵沦为阶下囚</div>
+      <div class="dark-desc">2020年3月，退役后的小罗和哥哥罗贝托前往巴拉圭参加慈善活动，在入境时被查出使用了<strong>伪造的巴拉圭护照</strong>。两人被当场逮捕，关进亚松森的<strong>特别监狱</strong>。全世界看到了令人心碎的画面——这个曾在伯纳乌接受万人膜拜的精灵，穿着囚服、戴着手铐出现在法庭上。他在监狱中度过了<strong>32天</strong>，随后被软禁在一家四星级酒店长达5个月。他参加了监狱五人制足球赛——赢了冠军，奖品是一头<strong>16公斤的乳猪</strong>。2020年8月，法官最终判处缓刑，罚款20万美元，允许他返回巴西。</div>
+      <div class="dark-rise">🔥 小罗从未为这件事找借口。他说："我做错了，承担了后果。生活就是这样——有高潮也有低谷。重要的是你如何面对。"</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ NUMBERS ══════ -->
+<section class="section" id="numbers">
+  <div class="section-inner">
+    <h2>📊 魔法数字 — 数据里的魔术师</h2>
+    <p class="sub">数字不能定义魔法，但它们能证明魔法确实存在过</p>
+    <div class="stat-row" style="margin-bottom:1.5rem;">
+      <div class="stat-card"><div class="label">职业生涯总进球</div><div class="value">197</div></div>
+      <div class="stat-card"><div class="label">职业生涯总助攻</div><div class="value">161</div></div>
+      <div class="stat-card"><div class="label">为巴西出场</div><div class="value">97场</div></div>
+      <div class="stat-card"><div class="label">国家队进球</div><div class="value">33球</div></div>
+    </div>
+    <div class="stat-row" style="margin-bottom:1.5rem;">
+      <div class="stat-card"><div class="label">巴萨时期进球</div><div class="value">94球</div></div>
+      <div class="stat-card"><div class="label">巴萨时期助攻</div><div class="value">71次</div></div>
+      <div class="stat-card"><div class="label">欧冠进球</div><div class="value">26球</div></div>
+      <div class="stat-card"><div class="label">2005/06巅峰赛季</div><div class="value">26球21助</div></div>
+    </div>
+    <div class="stat-row" style="margin-bottom:1.5rem;">
+      <div class="stat-card"><div class="label">职业生涯总出场</div><div class="value">544场</div></div>
+      <div class="stat-card"><div class="label">直接参与进球</div><div class="value">358</div></div>
+      <div class="stat-card"><div class="label">国家队冠军</div><div class="value">3座</div></div>
+      <div class="stat-card"><div class="label">被犯规次数</div><div class="value">2500+</div></div>
+    </div>
+    <div class="chapter-text" style="max-width:900px;margin:0 auto;">
+      <p>这些数字在今天看来不算惊人——但<strong>数字从来就不能定义小罗</strong>。梅西进球更多，C罗进球更多，但他们都没有做到小罗做的事。小罗的数据是"不可量化"的：他用多少次微笑化解了场上的冲突？他用多少次牛尾巴让一个孩子决定学习踢球？他在诺坎普的阳光下让多少人重新相信——<strong>足球可以美好到让人落泪。</strong></p>
+      <p>有一个统计：<strong>小罗职业生涯中被犯规次数超过2500次</strong>——但他从未对任何对手发过脾气。他爬起来，笑一笑，继续踢。这才是他真正的"魔法数字"。</p>
+    </div>
+    <div class="blockquote" style="margin-top:2rem;">
+      <p>我看小罗踢球的那几年，是我这辈子最爱足球的几年。</p>
+      <div class="by">— 一位中国球迷在知乎上的高赞回答。超过5万人赞同。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CH4: Retirement ══════ -->
+<section class="chapter" id="ch4">
+  <div class="chapter-inner">
+    <div class="chapter-icon">🎸</div>
+    <div class="chapter-content">
+      <div class="chapter-num">第四章</div>
+      <h2 class="chapter-title">退役生活：音乐、慈善与五人制足球</h2>
+      <div class="chapter-text">
+        <p>2018年1月，小罗通过哥哥兼经纪人罗贝托正式宣布退役。他没能像C罗那样把巅峰延续到40岁——但他的退役生活，<strong>却比大多数现役球员还要精彩。</strong>讽刺的是，退役后的小罗看起来比职业生涯后期更快乐、更自由。没有合同约束，没有体能教练安排日程，他终于可以按照自己的节奏生活了。</p>
+        <p>他组建了自己的<strong>乐队"R10"</strong>，自己担任主唱和打击乐手。在巴西的演唱会上，他抱着吉他唱着桑巴，台下几万名球迷跟着摇摆。有记者问他"踢球和唱歌哪个更难"，他笑着说："<strong>唱歌。因为在球场上，没有人会嘘我。</strong>"他的单曲融合了桑巴和放克元素——音乐对他来说不是退役后才开始的爱好。在巴萨更衣室里他就经常敲着椅子打节奏，队友们都叫他"DJ R10"。</p>
+        <p>在慈善方面，小罗从不张扬。他为巴西贫困儿童捐赠了数不清的足球装备，在家乡建立了足球学校，每年为几千个孩子提供免费训练和食宿。他还担任了联合国儿童基金会亲善大使，走访非洲和拉美多个国家。2022年，他亲自前往乌克兰边境为难民儿童送去足球和食物。记者问他为什么这么做，他说："<strong>足球给了我一切，所以我必须把足球给回去。一个孩子有足球踢，就不会拿起枪。</strong>"</p>
+        <p>但小罗最"不可思议"的退役故事发生在<strong>五人制足球</strong>上——这项他从街头学来的运动。退役后他多次参加世界各地举办的五人制足球表演赛，在一场比赛中打进<strong>11球</strong>——他的对手们都是职业球员。有球迷在社交媒体上调侃："<strong>退役后的小罗在五人制足球场上，比90%的现役职业球员还要厉害。</strong>"</p>
+      </div>
+      <div class="stat-row">
+        <div class="stat-card"><div class="label">正式退役</div><div class="value">2018</div></div>
+        <div class="stat-card"><div class="label">乐队名称</div><div class="value">R10 🎸</div></div>
+        <div class="stat-card"><div class="label">足球学校</div><div class="value">阿雷格里港</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ TESTIMONIALS ══════ -->
+<section class="section" id="testimonials">
+  <div class="section-inner">
+    <h2>🗣️ 他们说 — 当传奇谈论传奇</h2>
+    <p class="sub">在足球史上，很少有人能获得如此多伟大球员的集体赞美</p>
+
+    <div class="blockquote"><p>罗纳尔迪尼奥是我见过的最有天赋的球员。他可以在训练中做任何事——用肩膀控球、用后背传球、闭着眼睛射门。他是唯一的，不可复制的。</p><div class="by">— 莱昂内尔·梅西，巴萨队友（2004-2008）</div></div>
+
+    <div class="blockquote"><p>你无法在战术板上画出罗纳尔迪尼奥。他做的一切都来自本能——来自街头、来自快乐、来自一个没有人教过他的世界。</p><div class="by">— 何塞·穆里尼奥，切尔西时任主帅</div></div>
+
+    <div class="blockquote"><p>看小罗踢球，你会想起你为什么爱上足球。在他之后，足球变得更科学、更高效——但也更少微笑了。</p><div class="by">— 安德烈斯·伊涅斯塔，巴萨队友</div></div>
+
+    <div class="blockquote"><p>我去诺坎普签合同那天，看到的第一件事就是小罗在训练场上颠球——用肩膀颠了40次。我对自己说：这不可能。然后他看见我，咧开嘴笑了，把球踢过来："来吧，加入我们。"</p><div class="by">— 蒂埃里·亨利，2007年加盟巴萨时</div></div>
+
+    <div class="blockquote"><p>他是唯一让我觉得自己回到了12岁的人——在伯纳乌的看台上，我不由自主地站起来为他鼓掌。我忘了他是巴萨的球员。我只看到了魔法。</p><div class="by">— 一位皇马球迷在2005年11月19日国家德比后的匿名采访</div></div>
+  </div>
+</section>
+
+<!-- ══════ INFLUENCE ══════ -->
+<section class="section" id="impact">
+  <div class="section-inner">
+    <h2>🌍 全球影响力</h2>
+    <p class="sub">他定义了21世纪最快乐的足球——并且永远改变了它</p>
+
+    <div class="influence-row" style="margin-bottom:2rem;">
+      <div class="influence-stat"><div class="big native-icon">😁</div><div class="desc">永远微笑的足球</div></div>
+      <div class="influence-stat"><div class="big native-icon">🎮</div><div class="desc">FIFA游戏封面之王</div></div>
+      <div class="influence-stat"><div class="big native-icon">👟</div><div class="desc">Nike Tiempo 传奇</div></div>
+      <div class="influence-stat"><div class="big native-icon">🌟</div><div class="desc">一代人的足球初恋</div></div>
+    </div>
+
+    <div class="chapter-text" style="max-width:900px;margin:0 auto;">
+      <p><strong>小罗改变了足球的审美标准。</strong>在他之前，"实用主义"正在慢慢吞噬足球——比赛越来越战术化，个人表演被视为"不职业"。小罗用他的足球提醒了所有人：<strong>足球可以既是竞技也是艺术，既可以赢球也可以让人心跳加速</strong>。他单枪匹马地证明了——美丽足球和胜利足球从来不是矛盾体。</p>
+      <p><strong>他是梅西的引路人。</strong>19岁的梅西在巴萨一线队的第一个进球，助攻来自小罗。小罗在更衣室里把梅西介绍给了所有人："<strong>这个孩子会成为比我更好的球员。</strong>"2005年，他在伯纳乌的传球帮助梅西完成了第一次国家德比。一个国王把权杖递给了下一个国王。梅西后来多次说："没有罗纳尔迪尼奥，就没有今天的我。"</p>
+      <p><strong>他是社交媒体的史前巨星。</strong>在YouTube和Instagram还没有出现的时候，小罗的集锦就已经在全世界流传——人们互相传DVD、在论坛上贴GIF动图。他的牛尾巴过人、他的不看人传球、他那永远上扬的嘴角，构成了<strong>一整个世代球迷对"足球之美"的共同记忆。</strong></p>
+      <p>2006年，他成为了<strong>Nike足球的全球头号代言人</strong>，签下了一份破纪录的赞助合同。他的Nike广告——在训练场上做出一系列不可思议的控球动作，最后发现球根本没有落地——至今仍是YouTube上观看量最高的足球广告之一。Nike为他出了<strong>Tiempo Ronaldinho</strong>专属签名战靴，这是足球鞋历史上最畅销的系列之一。</p>
+      <p>他还是<strong>FIFA电子游戏的旗帜人物</strong>——连续多年出现在FIFA系列游戏的封面上。在那个年代，每个玩FIFA的孩子都想在游戏里复制小罗的牛尾巴过人。EA Sports专门为他设计了特殊的盘带动画——因为用常规动画无法表现出他的独特性。</p>
+      <p>他获得过<strong>"欧洲俱乐部年度最佳球员"（2006年）</strong>、<strong>"金足奖"（2009年）</strong>，入选了<strong>FIFA 100——贝利评选的"在世的最伟大的125名球员"名单</strong>。2016年，由他主演的个人纪录片上映，球场座无虚席。</p>
+      <p>今天的足球更科学、更精密、更高效——但更少微笑。小罗提醒我们：<strong>在数据和战术之上，足球首先是快乐的。</strong>他的影响力不是一座奖杯或一个数字能衡量的——它藏在每一个因为看了他的比赛而开始踢球的孩子心里，藏在每一个在夕阳下的街头做牛尾巴过人的少年脚下。</p>
+      <p style="text-align:center;color:var(--red);font-size:1.1rem;margin-top:1.5rem;font-weight:700;">罗纳尔迪尼奥用他的职业生涯告诉世界：<br>你可以赢得一切——同时享受每一秒。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ QUOTES WALL ══════ -->
+<section class="section" id="quotes">
+  <div class="section-inner">
+    <h2>💬 他说过的话</h2>
+    <p class="sub">精灵的语言，听起来不像运动员——更像诗人</p>
+
+    <div class="blockquote"><p>我踢球不是为了成为世界最佳。我踢球是因为我爱它。如果哪天踢球不再让我快乐，我就停下来。</p><div class="by">— 2013年接受《442》杂志专访</div></div>
+
+    <div class="blockquote"><p>我从来没有想过要成为榜样。我只是做我喜欢的事——踢球。如果有人觉得那是一种榜样，那很好。</p><div class="by">— 被问及是否为年轻球员树立榜样，2006</div></div>
+
+    <div class="blockquote"><p>足球给了我一切。所以我必须把足球给回去。</p><div class="by">— 在阿雷格里港建立足球学校时，2010</div></div>
+
+    <div class="blockquote"><p>我的偶像是我哥哥。他本来可以比我更好——但伤病毁了他的职业生涯。我踢球，也是在替他踢。</p><div class="by">— 谈到哥哥罗贝托（前格雷米奥球员），2005</div></div>
+
+    <div class="blockquote"><p>这个孩子会成为比我更好的球员。记住我的话。</p><div class="by">— 指着19岁的梅西对更衣室里的所有人说，2006</div></div>
+
+    <div class="blockquote"><p>我没有变。变的是人们对我的期待。当我不能满足那些期待的时候，他们就说我变了。</p><div class="by">— 回应"状态下滑"质疑，2009</div></div>
+
+    <div class="quiz" id="quiz4" style="margin-top:2.5rem;">
+      <div class="q">🤔 小罗说"这个孩子会成为比我更好的球员"——他指的是谁？</div>
+      <div class="options">
+        <div class="opt" onclick="checkQuiz(this,false,'quiz4-fb')">🇧🇷 内马尔——后来另一位巴西天才</div>
+        <div class="opt" onclick="checkQuiz(this,true,'quiz4-fb')">🇦🇷 莱昂内尔·梅西——19岁的阿根廷少年</div>
+        <div class="opt" onclick="checkQuiz(this,false,'quiz4-fb')">🇫🇷 姆巴佩——虽然那时姆巴佩才7岁</div>
+      </div>
+      <div class="feedback" id="quiz4-fb">🇦🇷 梅西。2006年，19岁的梅西还在巴萨青训和一线队之间徘徊。是小罗把他"保护"在了更衣室里，给他传球，在所有人面前力挺他。当整个足球世界还不知道梅西是谁的时候，小罗已经看见了未来。这是足球史上最伟大的预言之一——而它发生在一间更衣室里，没有任何观众。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ GLOBAL ICON ══════ -->
+<section class="section" id="global">
+  <div class="section-inner">
+    <h2>🌏 全球偶像 — 超越足球的文化现象</h2>
+    <p class="sub">在社交媒体出现之前，小罗就是世界上最被模仿的运动员</p>
+    <div class="influence-row" style="margin-bottom:2rem;">
+      <div class="influence-stat"><div class="big native-icon">🎮</div><div class="desc">FIFA游戏连续多年封面</div></div>
+      <div class="influence-stat"><div class="big native-icon">📺</div><div class="desc">YouTube早期播放量之王</div></div>
+      <div class="influence-stat"><div class="big native-icon">👟</div><div class="desc">Nike Tiempo Ronaldinho</div></div>
+      <div class="influence-stat"><div class="big native-icon">🌐</div><div class="desc">"O Bruxo"全球绰号</div></div>
+    </div>
+    <div class="chapter-text" style="max-width:900px;margin:0 auto;">
+      <p>在社交媒体尚未统治世界的年代，小罗已经是一个<strong>全球性文化符号</strong>。他的Nike广告——一段他穿着新球鞋连续颠球、射门击中横梁弹回再颠球的视频——在没有YouTube推荐的2005年，依然<strong>在电视上被播放了超过1亿次</strong>。很多人第一次通过这个广告认识了他——不是在足球场上，是在耐克广告里。</p>
+      <p>2008年，他拍摄了一段在训练场上连续<strong>四次击中横梁</strong>然后继续颠球的视频。这段未经剪辑的视频在早期YouTube上获得了<strong>超过3500万次播放</strong>——在当时是一个天文数字。全世界都在争论同一个问题："这是真的还是CGI？"——耐克不得不出面声明：<strong>这是真实的，没有任何特效。</strong></p>
+      <p>"<strong>O Bruxo</strong>"——"巫师"，这是西班牙和拉丁美洲球迷给小罗起的绰号。在巴西，他被称为"<strong>O Gaúcho</strong>"——高乔人，这是对他家乡南大河州文化的致敬。无论走到世界哪个角落，只要有人踢足球，就有人知道这个名字：罗纳尔迪尼奥。他在东京、在拉各斯、在孟买、在洛杉矶——只要有足球的地方，就有模仿他牛尾巴过人的孩子。</p>
+      <p style="text-align:center;color:var(--red);font-size:1rem;margin-top:1.5rem;font-style:italic;">他可能是足球史上最后一个"前社交媒体时代"的全球巨星。<br>但他留下的影响，比任何一个社交媒体时代的巨星都更加纯粹。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FUN FACTS ══════ -->
+<section class="section" id="funfacts">
+  <div class="section-inner">
+    <h2>🎲 趣闻轶事 — 关于精灵你不知道的事</h2>
+    <p class="sub">这些故事和任何奖杯一样，定义了他是谁</p>
+
+    <div class="biz-grid">
+      <div class="biz-card">
+        <div class="biz-icon">🐷</div>
+        <div class="biz-name">监狱金球奖</div>
+        <div class="biz-desc">2020年在巴拉圭监狱期间，小罗参加了监狱五人制足球赛——独进5球并送出6次助攻，率领球队夺冠。奖品是一头16公斤的乳猪。"我依然是最佳，"他出狱后笑着说。这可能是足球史上最离奇的"冠军"奖杯。</div>
+      </div>
+      <div class="biz-card">
+        <div class="biz-icon">⚽</div>
+        <div class="biz-name">Nike横梁挑战</div>
+        <div class="biz-desc">2005年的Nike广告中他连续4次射门击中横梁弹回再颠球——全世界认为是CGI特效。耐克发布声明："没有特效，没有剪辑，这是真实发生的。我们拍了两次——因为他第一次就成功了，我们不敢相信。"</div>
+      </div>
+      <div class="biz-card">
+        <div class="biz-icon">🍕</div>
+        <div class="biz-name">夜店凌晨4点的采访</div>
+        <div class="biz-desc">一位巴西记者回忆："凌晨4点在巴塞罗那最好的夜店里，小罗一只手拿着啤酒，另一只手在颠一个柠檬。柠檬在他脚上、膝盖上、肩膀上跳舞——从没掉过。他对我眨了眨眼，然后继续跳舞。"</div>
+      </div>
+      <div class="biz-card">
+        <div class="biz-icon">🐶</div>
+        <div class="biz-name">为狗取名叫"梅西"</div>
+        <div class="biz-desc">小罗养了一只金毛猎犬，取名叫"Messi"（梅西）。记者问他为什么，他大笑说："因为他是我最好的朋友。"——一语双关，感人又幽默。</div>
+      </div>
+      <div class="biz-card">
+        <div class="biz-icon">🎓</div>
+        <div class="biz-name">被学校劝退</div>
+        <div class="biz-desc">小罗的学校老师曾经对家长说："不用让他来了，他的未来在球场上。"结果一语成谶——22岁那年，他拿到了世界杯冠军。母校后来为他建了一座荣誉墙。</div>
+      </div>
+      <div class="biz-card">
+        <div class="biz-icon">🌟</div>
+        <div class="biz-name">唯一的马拉多纳认证</div>
+        <div class="biz-desc">马拉多纳生前说过唯一一句对小罗的评价："他是这个星球上我唯一愿意花钱买票去看的球员。其他人我可以看电视直播——罗纳尔迪尼奥不行。你必须现场看。"</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ TIMELINE ══════ -->
+<section class="timeline-section">
+  <h2>⏳ 完整时间线</h2>
+  <div class="timeline">
+    <div class="timeline-item"><div class="timeline-year">1980</div><div class="timeline-event">3月21日出生于巴西阿雷格里港，父亲若昂是业余球员，哥哥罗贝托效力格雷米奥</div></div>
+    <div class="timeline-item"><div class="timeline-year">1988</div><div class="timeline-event">8岁，父亲在自家泳池中突发心脏病去世。足球成为他的避难所</div></div>
+    <div class="timeline-item"><div class="timeline-year">1993</div><div class="timeline-event">13岁，在阿雷格里港少年赛中独进23球。颠球大赛连续颠球200+次，名动全城</div></div>
+    <div class="timeline-item"><div class="timeline-year">1997</div><div class="timeline-event">17岁，率领巴西赢得U17世青赛冠军，个人获赛事最佳球员</div></div>
+    <div class="timeline-item"><div class="timeline-year">1998</div><div class="timeline-event">18岁，为格雷米奥完成一线队首秀。首场比赛即上演标志性牛尾巴过人</div></div>
+    <div class="timeline-item"><div class="timeline-year">1999</div><div class="timeline-event">19岁，入选巴西国家队并随队夺得美洲杯冠军。初代"罗纳尔迪尼奥"之名</div></div>
+    <div class="timeline-item"><div class="timeline-year">2001</div><div class="timeline-event">21岁，转会法甲巴黎圣日耳曼。在欧洲赛场上初露锋芒</div></div>
+    <div class="timeline-item"><div class="timeline-year">2002</div><div class="timeline-event"><strong>世界杯冠军！</strong>对阵英格兰38米任意球吊射攻破希曼大门，一战成名</div></div>
+    <div class="timeline-item"><div class="timeline-year">2003</div><div class="timeline-event">23岁，3000万欧元转会巴塞罗那。诺坎普的魔法时代正式开始。9月3日诺坎普首秀</div></div>
+    <div class="timeline-item"><div class="timeline-year">2004</div><div class="timeline-event">春天，诺坎普球迷开始称他为"O Bruxo"（巫师）。赛季末带领巴萨西甲夺冠，终结6年冠军荒</div></div>
+    <div class="timeline-item"><div class="timeline-year">2004</div><div class="timeline-event">24岁，首次获得<strong>国际足联世界足球先生</strong></div></div>
+    <div class="timeline-item"><div class="timeline-year">2005</div><div class="timeline-event">25岁，斩获<strong>金球奖</strong>+蝉联世界足球先生。11月19日伯纳乌两球，皇马球迷起立鼓掌</div></div>
+    <div class="timeline-item"><div class="timeline-year">2005</div><div class="timeline-event">3月8日，欧冠对切尔西原地摆腿破门。穆里尼奥："我无法用战术板解释"</div></div>
+    <div class="timeline-item"><div class="timeline-year">2005</div><div class="timeline-event">带领巴西夺得<strong>联合会杯冠军</strong>，获赛事金球奖。全年近乎完美</div></div>
+    <div class="timeline-item"><div class="timeline-year">2006</div><div class="timeline-event"><strong>欧洲冠军联赛冠军</strong>——决赛2-1逆转阿森纳。巴萨时隔14年再夺欧冠</div></div>
+    <div class="timeline-item"><div class="timeline-year">2006</div><div class="timeline-event">获得<strong>UEFA俱乐部年度最佳球员</strong>。连续两年西甲冠军</div></div>
+    <div class="timeline-item"><div class="timeline-year">2006</div><div class="timeline-event">德国世界杯"魔幻四重奏"失利，巴西0-1法国止步八强。小罗整届零进球，波峰到波谷</div></div>
+    <div class="timeline-item"><div class="timeline-year">2007</div><div class="timeline-event">27岁，伤病和状态下滑初现。尽管仍有精彩表现，但巅峰正在远去</div></div>
+    <div class="timeline-item"><div class="timeline-year">2008</div><div class="timeline-event">28岁，被瓜迪奥拉清洗，2100万欧元转会AC米兰。10号球衣传给19岁的梅西</div></div>
+    <div class="timeline-item"><div class="timeline-year">2009</div><div class="timeline-event">获<strong>金足奖</strong>（Golden Foot）——表彰职业生涯成就的终身荣誉</div></div>
+    <div class="timeline-item"><div class="timeline-year">2010</div><div class="timeline-event">30岁，以15次助攻夺得意甲助攻王。赛季进球+助攻达到两双，短暂焕发第二春</div></div>
+    <div class="timeline-item"><div class="timeline-year">2011</div><div class="timeline-event">31岁，回归巴西加盟弗拉门戈。马拉卡纳球场8万人迎接——落叶归根</div></div>
+    <div class="timeline-item"><div class="timeline-year">2012</div><div class="timeline-event">32岁，转会米内罗竞技，开启职业生涯最后一段高光</div></div>
+    <div class="timeline-item"><div class="timeline-year">2013</div><div class="timeline-event">33岁，随米内罗竞技夺得<strong>南美解放者杯冠军</strong>。世俱杯季军。个人荣誉大满贯的最后拼图</div></div>
+    <div class="timeline-item"><div class="timeline-year">2014</div><div class="timeline-event">34岁，获得南美足球先生第三名。率队夺得南美超级杯</div></div>
+    <div class="timeline-item"><div class="timeline-year">2015</div><div class="timeline-event">35岁，短暂效力弗卢米嫩塞后离开职业足坛。职业生涯总计544场197球161助攻</div></div>
+    <div class="timeline-item"><div class="timeline-year">2016</div><div class="timeline-event">36岁，以自由球员身份参加全球各地五人制足球表演赛。个人纪录片上映</div></div>
+    <div class="timeline-item"><div class="timeline-year">2018</div><div class="timeline-event">38岁，通过经纪人正式宣布退役。组建乐队R10，投入音乐与慈善事业</div></div>
+    <div class="timeline-item"><div class="timeline-year">2020</div><div class="timeline-event">40岁，巴拉圭假护照事件。被拘禁32天+软禁5个月。在监狱五人制足球赛中夺冠</div></div>
+    <div class="timeline-item"><div class="timeline-year" style="color:var(--gold);">∞</div><div class="timeline-event" style="color:var(--red);">足球精灵永不落幕。只要还有人因为踢球而微笑——小罗就还在。</div></div>
+  </div>
+</section>
+
+<!-- ══════ TROPHY WALL ══════ -->
+<section class="trophy-section">
+  <h2>🏆 荣誉殿堂</h2>
+  <p class="sub">足球世界里几乎所有能赢的奖，他都赢过了</p>
+  <div class="trophy-grid">
+    <div class="trophy"><div class="t-icon">🥇</div><div class="t-name">金球奖</div><div class="t-count">×1</div><div class="t-detail">2005</div></div>
+    <div class="trophy"><div class="t-icon">🌍</div><div class="t-name">世界足球先生</div><div class="t-count">×2</div><div class="t-detail">2004/05</div></div>
+    <div class="trophy"><div class="t-icon">🏆</div><div class="t-name">世界杯冠军</div><div class="t-count">×1</div><div class="t-detail">2002 🏆</div></div>
+    <div class="trophy"><div class="t-icon">⭐</div><div class="t-name">欧冠冠军</div><div class="t-count">×1</div><div class="t-detail">2006</div></div>
+    <div class="trophy"><div class="t-icon">🇪🇸</div><div class="t-name">西甲冠军</div><div class="t-count">×2</div><div class="t-detail">05/06</div></div>
+    <div class="trophy"><div class="t-icon">🏆</div><div class="t-name">解放者杯</div><div class="t-count">×1</div><div class="t-detail">2013</div></div>
+    <div class="trophy"><div class="t-icon">🇧🇷</div><div class="t-name">美洲杯</div><div class="t-count">×1</div><div class="t-detail">1999</div></div>
+    <div class="trophy"><div class="t-icon">🏅</div><div class="t-name">联合会杯</div><div class="t-count">×1</div><div class="t-detail">2005 🥇</div></div>
+    <div class="trophy"><div class="t-icon">🇮🇹</div><div class="t-name">意甲助攻王</div><div class="t-count">×1</div><div class="t-detail">2010</div></div>
+    <div class="trophy"><div class="t-icon">👟</div><div class="t-name">UEFA最佳前锋</div><div class="t-count">×1</div><div class="t-detail">2005</div></div>
+    <div class="trophy"><div class="t-icon">⭐</div><div class="t-name">Golden Foot</div><div class="t-count">×1</div><div class="t-detail">2009</div></div>
+    <div class="trophy"><div class="t-icon">🇪🇸</div><div class="t-name">西超杯</div><div class="t-count">×2</div><div class="t-detail">05/06</div></div>
+  </div>
+</section>
+
+<div class="divider">⚽ ✨ ⚽ ✨ ⚽</div>
+
+<!-- ══════ FOOTER ══════ -->
+<footer style="text-align:center;padding:3rem 1rem;color:#555;font-size:0.8rem;border-top:1px solid rgba(255,255,255,0.05);line-height:2;">
+  <p style="font-size:1.2rem;color:var(--red);font-weight:700;">O Bruxo 🧙‍♂️ 🇧🇷 ⚽ ✨</p>
+  <p>🏟️ 体育英雄殿堂 · 罗纳尔迪尼奥篇</p>
+  <p style="color:#aaa;">足球不是一项运动——它是一种魔法。而他，是那个最快乐的魔术师。</p>
+  <p style="color:#777;font-size:0.75rem;">"他让人相信足球可以是快乐的。" —— 这是对罗纳尔迪尼奥最准确的描述。</p>
+  <p style="color:#666;font-size:0.7rem;margin-top:0.8rem;">
+    巴塞罗那 2003-2008 · 巴西国家队 1999-2013 · 金球奖 2005 · 世界足球先生 2004&amp;2005<br>
+    世界杯冠军 2002 · 欧冠冠军 2006 · 美洲杯 1999 · 解放者杯 2013<br>
+    "O Bruxo" · "O Gaúcho" · 罗纳尔迪尼奥 · 足球精灵
+    <br>
+  </p>
+  <p style="margin-top:1rem;"><a href="../" style="color:var(--gold)">← 返回英雄殿堂</a></p>
+</footer>
+
+<script>
+// Quiz engine
+function checkQuiz(el, correct, fbId) {
+  if (el.parentElement.querySelector('.correct')) return;
+  const opts = el.parentElement.querySelectorAll('.opt');
+  const fb = document.getElementById(fbId);
+  opts.forEach(o => { o.style.pointerEvents = 'none'; });
+  if (correct) {
+    el.classList.add('correct');
+    fb.style.display = 'block';
+    if (fbId === 'quiz4-fb') celebrate();
+  } else {
+    el.classList.add('wrong');
+    opts.forEach(o => {
+      if (o !== el && o.getAttribute('onclick') && o.getAttribute('onclick').includes('true')) o.classList.add('correct');
+    });
+    fb.style.display = 'block';
+  }
+}
+
+// Celebration
+function celebrate() {
+  const emojis = ['⚽','🏆','🎉','✨','🌟','🔥','😁','🇧🇷','🔟','🥇','🎸','👏','🦵'];
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 60; i++) {
+    setTimeout(() => {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = (2 + Math.random() * 3) + 's';
+      p.style.animationDelay = Math.random() * 0.6 + 's';
+      container.appendChild(p);
+      setTimeout(() => p.remove(), 4500);
+    }, i * 35);
+  }
+}
+
+// Scroll to chapter
+function scrollToChapter(idx) {
+  const ids = ['ch1','ch2','goals','ch3','moves','dark','numbers','ch4','impact','quotes'];
+  const el = document.getElementById(ids[idx]);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
+// Back to top + nav active
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('backTop');
+  btn.classList.toggle('show', window.scrollY > 400);
+
+  const ids = ['ch1','ch2','goals','ch3','moves','dark','numbers','ch4','impact','quotes'];
+  const navSpans = document.querySelectorAll('#navChapters span');
+  let activeIdx = -1;
+  ids.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      if (rect.top <= 250 && rect.bottom >= 250) activeIdx = i;
+    }
+  });
+  navSpans.forEach((s, i) => s.classList.toggle('active', i === activeIdx));
+});
+
+// Hero click celebrate
+document.querySelector('.hero .scroll-hint').addEventListener('click', () => { celebrate(); });
+
+// Auto-celebrate on quotes section
+const quoteEl = document.getElementById('quotes');
+if (quoteEl) {
+  const obs = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) { setTimeout(celebrate, 600); obs.unobserve(quoteEl); }
+  }, { threshold: 0.3 });
+  obs.observe(quoteEl);
+}
+(function(){var o=new IntersectionObserver(function(e){e.forEach(function(n){if(n.isIntersecting){var t=n.target,c=Array.from(t.parentElement.children).indexOf(t);setTimeout(function(){t.classList.add('is-visible')},c*80);o.unobserve(t)}})},{threshold:0.15,rootMargin:'0px 0px -50px 0px'});document.querySelectorAll('.timeline-item,.stat-card').forEach(function(e){o.observe(e)})})();
+
+</script>
+</body>
