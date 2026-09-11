@@ -1,0 +1,45 @@
+name: news-relay
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: Target URL to fetch
+        required: true
+        type: string
+  push:
+    branches: [main]
+    paths: ['relay/request.md']
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: read url
+        id: url
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            U="${{ inputs.url }}"
+          else
+            U=$(head -1 relay/request.md)
+          fi
+          echo "url=$U" >> $GITHUB_OUTPUT
+      - name: fetch
+        run: |
+          URL="${{ steps.url.outputs.url }}"
+          [ -z "$URL" ] && { echo "No URL"; exit 1; }
+          TS=$(date -u +%Y%m%d_%H%M%S)
+          mkdir -p relay/responses
+          OUT="relay/responses/${TS}_$(echo $URL | sha256sum | head -c 8).txt"
+          curl -sL --max-time 25 -A 'Mozilla/5.0' "$URL" -o "$OUT"
+          { echo "URL: $URL"; echo "HTTP: $(head -1 $OUT 2>/dev/null || echo '?')"; echo "---"; } >> "$OUT"
+      - name: push
+        run: |
+          git config user.name bot && git config user.email bot@x
+          echo "" > relay/request.md
+          git add -A
+          git diff --cached --quiet || { git commit -m "relay"; git push; }
