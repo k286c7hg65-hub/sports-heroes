@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>姚明 · 从上海到世界之巅 | 体育英雄殿堂</title>
+<style>
+:root {
+  --red: #c41e3a; --gold: #ffd700; --dark: #0f0f1a;
+  --card-bg: #1a1a30; --text: #e0e0e0; --text-dim: #999; --accent: #c41e3a;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  background: var(--dark); color: var(--text); line-height: 1.7; overflow-x: hidden;
+}
+
+/* ── Navigation ── */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(15,15,26,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 0.5rem 1rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.nav a { color: var(--gold); text-decoration: none; font-weight: 600; font-size: 0.85rem; flex-shrink: 0; }
+.nav .chapters { display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: flex-end; }
+.nav .chapters span { font-size: 0.7rem; padding: 0.3rem 0.55rem; border-radius: 12px; background: rgba(255,255,255,0.06); color: #888; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+.nav .chapters span:hover, .nav .chapters span.active { background: var(--red); color: #fff; }
+
+/* ── Hero ── */
+.hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 5rem 1rem 3rem; position: relative; }
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(196,30,58,0.15) 0%, transparent 70%); pointer-events: none; }
+.hero .number { font-size: clamp(8rem, 20vw, 14rem); font-weight: 900; background: linear-gradient(180deg, var(--red) 0%, var(--gold) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; opacity: 0.9; line-height: 1; animation: pulse 3s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+.hero .cr7 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; color: #fff; margin: 0.5rem 0 0; letter-spacing: 0.05em; }
+.hero .subtitle { font-size: clamp(1rem, 2.5vw, 1.3rem); color: var(--gold); margin-bottom: 1rem; }
+.hero .tagline { color: #888; max-width: 500px; margin: 0 auto 2rem; font-size: 0.95rem; }
+.hero .scroll-hint { color: #555; font-size: 0.8rem; animation: float 2s ease-in-out infinite; cursor: default; }
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+
+/* ── Chapter Sections ── */
+.chapter { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 5rem 1rem; position: relative; }
+.chapter:nth-child(odd) .chapter-inner { flex-direction: row; }
+.chapter:nth-child(even) .chapter-inner { flex-direction: row-reverse; }
+.chapter-inner { max-width: 1000px; width: 100%; display: flex; gap: 3rem; align-items: center; }
+.chapter-icon { font-size: clamp(4rem, 10vw, 7rem); flex-shrink: 0; animation: float 4s ease-in-out infinite; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.4)); }
+.chapter-content { flex: 1; }
+.chapter-num { font-size: 0.8rem; letter-spacing: 0.15em; color: var(--red); font-weight: 700; margin-bottom: 0.5rem; }
+.chapter-title { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 900; color: #fff; margin-bottom: 1rem; }
+.chapter-text { color: #bbb; font-size: 0.95rem; line-height: 1.8; margin-bottom: 1.5rem; }
+.chapter-text strong { color: var(--gold); }
+.chapter-text .highlight { background: linear-gradient(180deg, transparent 60%, rgba(196,30,58,0.3) 60%); padding: 0 2px; }
+
+/* ── Full-width Sections ── */
+.section { padding: 4rem 1rem; position: relative; }
+.section-inner { max-width: 900px; margin: 0 auto; }
+.section h2 { text-align: center; font-size: clamp(1.6rem, 3vw, 2rem); color: #fff; margin-bottom: 0.5rem; }
+.section .sub { text-align: center; color: #888; margin-bottom: 2.5rem; font-size: 0.9rem; }
+
+/* ── Stat Card ── */
+.stat-card { background: var(--card-bg); border-radius: 16px; padding: 1.2rem; border: 1px solid rgba(255,255,255,0.06); margin-bottom: 1rem; transition: transform 0.3s; }
+.stat-card:hover { transform: translateY(-2px); border-color: rgba(255,215,0,0.2); }
+.stat-card .label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 0.3rem; }
+.stat-card .value { font-size: 1.8rem; font-weight: 900; color: #fff; }
+.stat-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+.stat-row .stat-card { flex: 1; min-width: 120px; }
+
+/* ── Classic Moments Gallery ── */
+.goals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+.goal-card { background: var(--card-bg); border-radius: 16px; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s; cursor: default; }
+.goal-card:hover { transform: translateY(-4px); border-color: rgba(196,30,58,0.3); box-shadow: 0 8px 32px rgba(196,30,58,0.1); }
+.goal-card .goal-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+.goal-card .goal-title { font-weight: 700; color: #fff; margin-bottom: 0.3rem; font-size: 1rem; }
+.goal-card .goal-meta { font-size: 0.75rem; color: var(--gold); margin-bottom: 0.8rem; }
+.goal-card .goal-desc { font-size: 0.85rem; color: #aaa; line-height: 1.6; }
+
+/* ── Dark Moments ── */
+.dark-card { background: linear-gradient(135deg, rgba(196,30,58,0.08), rgba(0,0,0,0.3)); border-left: 3px solid var(--red); border-radius: 0 14px 14px 0; padding: 1.5rem; margin-bottom: 1.2rem; }
+.dark-card .dark-year { color: var(--red); font-weight: 700; font-size: 0.8rem; margin-bottom: 0.3rem; }
+.dark-card .dark-title { color: #fff; font-weight: 700; margin-bottom: 0.5rem; }
+.dark-card .dark-desc { color: #aaa; font-size: 0.9rem; line-height: 1.7; }
+.dark-card .dark-rise { color: var(--gold); font-size: 0.85rem; margin-top: 0.6rem; font-weight: 600; }
+
+/* ── Quiz ── */
+.quiz { background: linear-gradient(135deg, rgba(196,30,58,0.12), rgba(255,215,0,0.08)); border-radius: 16px; padding: 1.5rem; margin-top: 1.5rem; border: 1px solid rgba(196,30,58,0.2); }
+.quiz .q { font-weight: 700; color: #fff; margin-bottom: 0.8rem; font-size: 0.95rem; }
+.quiz .options { display: flex; flex-direction: column; gap: 0.5rem; }
+.quiz .opt { padding: 0.6rem 1rem; border-radius: 10px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); cursor: pointer; transition: all 0.2s; color: #ccc; font-size: 0.9rem; text-align: left; }
+.quiz .opt:hover { background: rgba(255,255,255,0.08); border-color: var(--gold); }
+.quiz .opt.correct { background: rgba(42,157,70,0.2); border-color: #2a9d46; color: #fff; }
+.quiz .opt.wrong { background: rgba(196,30,58,0.2); border-color: var(--red); color: #fff; }
+.quiz .feedback { margin-top: 0.8rem; font-size: 0.85rem; color: var(--gold); display: none; }
+
+/* ── Quote Block ── */
+.blockquote { background: var(--card-bg); border-radius: 16px; padding: 2rem; margin: 1.5rem 0; text-align: center; border: 1px solid rgba(255,255,255,0.06); position: relative; }
+.blockquote::before { content: '"'; position: absolute; top: -0.5rem; left: 1.5rem; font-size: 5rem; color: var(--red); opacity: 0.3; font-family: Georgia, serif; line-height: 1; }
+.blockquote p { font-size: 1.1rem; color: #fff; font-style: italic; line-height: 1.6; position: relative; }
+.blockquote .by { color: var(--gold); margin-top: 0.8rem; font-weight: 600; font-style: normal; }
+
+/* ── Timeline ── */
+.timeline-section { padding: 4rem 1rem; }
+.timeline-section h2 { text-align: center; font-size: 1.8rem; color: #fff; margin-bottom: 3rem; }
+.timeline { position: relative; padding-left: 2rem; max-width: 700px; margin: 0 auto; }
+.timeline::before { content: ''; position: absolute; left: 0.5rem; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--red), var(--gold), var(--red)); }
+.timeline-item { position: relative; margin-bottom: 2.2rem; padding-left: 2rem; }
+.timeline-item::before { content: ''; position: absolute; left: -1.75rem; top: 0.5rem; width: 12px; height: 12px; border-radius: 50%; background: var(--gold); border: 2px solid var(--dark); }
+.timeline-year { font-size: 0.8rem; color: var(--gold); font-weight: 700; margin-bottom: 0.3rem; }
+.timeline-event { color: #ccc; font-size: 0.9rem; }
+
+/* ── Trophy Wall ── */
+.trophy-section { padding: 4rem 1rem 6rem; }
+.trophy-section h2 { text-align: center; font-size: 1.8rem; color: #fff; margin-bottom: 0.5rem; }
+.trophy-section .sub { text-align: center; color: #888; margin-bottom: 2.5rem; }
+.trophy-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.8rem; max-width: 900px; margin: 0 auto; }
+.trophy { background: var(--card-bg); border-radius: 14px; padding: 1rem 0.8rem; border: 1px solid rgba(255,255,255,0.06); transition: transform 0.3s; text-align: center; }
+.trophy:hover { transform: translateY(-4px); border-color: rgba(255,215,0,0.3); }
+.trophy .t-icon { font-size: 2rem; margin-bottom: 0.4rem; }
+.trophy .t-name { font-size: 0.75rem; color: #ccc; font-weight: 600; }
+.trophy .t-count { font-size: 0.85rem; color: var(--gold); font-weight: 900; }
+.trophy .t-detail { font-size: 0.65rem; color: #777; margin-top: 0.15rem; }
+
+/* ── Business/Impact Cards ── */
+.biz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+.biz-card { background: var(--card-bg); border-radius: 16px; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.06); text-align: center; transition: all 0.3s; }
+.biz-card:hover { transform: translateY(-4px); border-color: rgba(255,215,0,0.3); }
+.biz-card .biz-icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
+.biz-card .biz-name { color: #fff; font-weight: 700; margin-bottom: 0.5rem; }
+.biz-card .biz-desc { color: #aaa; font-size: 0.85rem; line-height: 1.5; }
+
+/* ── Influence Stats ── */
+.influence-row { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+.influence-stat { background: var(--card-bg); border-radius: 16px; padding: 1.5rem; text-align: center; border: 1px solid rgba(255,255,255,0.06); min-width: 140px; flex: 1; }
+.influence-stat .big { font-size: 2.2rem; font-weight: 900; background: linear-gradient(135deg, var(--red), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.influence-stat .big.native-icon { background: none; -webkit-background-clip: unset; -webkit-text-fill-color: initial; }
+.influence-stat .desc { color: #aaa; font-size: 0.8rem; margin-top: 0.3rem; }
+
+/* ── Celebration Particles ── */
+.particles { position: fixed; inset: 0; pointer-events: none; z-index: 200; }
+.particle { position: absolute; font-size: 1.5rem; animation: fall linear forwards; }
+@keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(720deg); opacity: 0; } }
+
+/* ── Back to top ── */
+.back-top { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 99; width: 44px; height: 44px; border-radius: 50%; background: var(--red); color: #fff; border: none; font-size: 1.3rem; cursor: pointer; opacity: 0; transform: translateY(20px); transition: all 0.3s; box-shadow: 0 4px 16px rgba(196,30,58,0.4); }
+.back-top.show { opacity: 1; transform: translateY(0); }
+
+/* ── Divider ── */
+.divider { text-align: center; padding: 1rem; color: #333; font-size: 1.5rem; letter-spacing: 0.3em; }
+
+/* ── Rivalry Grid ── */
+.rival-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+.rival-card { background: var(--card-bg); border-radius: 16px; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.06); text-align: center; transition: all 0.3s; }
+.rival-card:hover { transform: translateY(-4px); border-color: rgba(196,30,58,0.3); }
+.rival-card .rival-icon { font-size: 2.2rem; margin-bottom: 0.5rem; }
+.rival-card .rival-name { color: #fff; font-weight: 700; margin-bottom: 0.3rem; }
+.rival-card .rival-stat { font-size: 0.8rem; color: var(--gold); margin-bottom: 0.5rem; }
+.rival-card .rival-desc { color: #aaa; font-size: 0.82rem; line-height: 1.5; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .chapter-inner, .chapter:nth-child(even) .chapter-inner { flex-direction: column !important; gap: 1.5rem; text-align: center; }
+  .chapter-icon { font-size: 4rem; }
+  .chapter { padding: 4rem 1rem; min-height: auto; }
+  .nav .chapters { display: none; }
+  .stat-row { flex-direction: column; }
+  .timeline { padding-left: 1.5rem; }
+  .trophy-grid { grid-template-columns: repeat(2, 1fr); }
+  .goals-grid { grid-template-columns: 1fr; }
+  .biz-grid { grid-template-columns: 1fr 1fr; }
+  .influence-row { flex-direction: column; }
+  .rival-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 400px) {
+  .biz-grid { grid-template-columns: 1fr; }
+  .trophy-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ═══ Scroll Animations ═══ */
+@keyframes fadeSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+@keyframes countUp { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+.timeline-item { opacity: 0; transform: translateX(-15px); transition: all 0.6s ease-out; }
+.timeline-item:nth-child(even) { transform: translateX(15px); }
+.timeline-item.is-visible { opacity: 1; transform: translateX(0); }
+.trophy { position: relative; overflow: hidden; }
+.trophy::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 0%, rgba(255,215,0,0.08) 50%, transparent 100%); background-size: 200% 100%; opacity: 0; transition: opacity 0.3s; }
+.trophy:hover::after { opacity: 1; animation: shimmer 1.5s ease-in-out infinite; }
+.stat-card.is-visible { animation: countUp 0.5s ease-out forwards; }
+
+</style>
+</head>
+<body>
+
+<div class="particles" id="particles"></div>
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<nav class="nav">
+  <a href="../">← 英雄殿堂</a>
+  <div class="chapters" id="navChapters">
+    <span onclick="scrollToChapter(0)">🏠</span>
+    <span onclick="scrollToChapter(1)">🚀</span>
+    <span onclick="scrollToChapter(2)">🌊</span>
+    <span onclick="scrollToChapter(3)">⭐</span>
+    <span onclick="scrollToChapter(4)">🦈</span>
+    <span onclick="scrollToChapter(5)">🇨🇳</span>
+    <span onclick="scrollToChapter(6)">⚔️</span>
+    <span onclick="scrollToChapter(7)">🌑</span>
+    <span onclick="scrollToChapter(8)">🌍</span>
+    <span onclick="scrollToChapter(9)">🔢</span>
+    <span onclick="scrollToChapter(10)">👔</span>
+    <span onclick="scrollToChapter(11)">💬</span>
+  </div>
+</nav>
+
+<!-- ══════ HERO ══════ -->
+<section class="hero" id="top">
+  <div class="number">11</div>
+  <h1 class="cr7">YAO MING</h1>
+  <p class="subtitle">姚明 · 移动长城 · 明王朝</p>
+  <p class="tagline">
+    一个来自上海的篮球少年，以2米26的身躯在两个大陆之间架起了一座桥——<br>
+    让中国看见了世界，也让世界看见了中国。
+  </p>
+  <p class="tagline" style="color:#666;font-size:0.85rem;max-width:600px;">
+    "我不是为了证明中国人能打NBA才来这儿的。<br>
+    我来是因为我想打世界上最好的篮球。"
+  </p>
+  <div class="scroll-hint" onclick="celebrate()">👇 点击开始他的故事</div>
+</section>
+
+<!-- ══════ CH1: Shanghai Childhood ══════ -->
+<section class="chapter" id="ch1">
+  <div class="chapter-inner">
+    <div class="chapter-icon">🏠</div>
+    <div class="chapter-content">
+      <div class="chapter-num">第一章</div>
+      <h2 class="chapter-title">上海滩的篮球少年</h2>
+      <div class="chapter-text">
+        <p><strong>1980年9月12日</strong>，一个注定不同寻常的婴儿在上海第六人民医院诞生——体重超过5公斤，体长接近60厘米。护士们奔走相告："<strong>这孩子的手掌跟大人一样大！</strong>"</p>
+        <p>父母都是职业篮球运动员：父亲<strong>姚志源</strong>身高2米08，曾是上海男篮主力中锋；母亲<strong>方凤娣</strong>身高1米88，曾是中国女篮队长、1976年亚锦赛冠军成员。在这样的家庭里，篮球不是一种选择——<strong>它是一种命运</strong>。4岁时，姚明拿到了人生第一个篮球；10岁时身高已达1米80。</p>
+        <p>但命运也给这个孩子设置了障碍。<strong>8岁时因一次药物过敏，姚明左耳永久失聪</strong>——这意味着在球场上他永远无法像其他球员那样完整地听到教练的指挥和队友的呼喊。当时的少体校教练们看着这个高得离谱、一只耳朵听不见的孩子，纷纷摇头："太高太慢了，不适合打篮球。"</p>
+        <p>姚明用<strong>每天凌晨5点的加练</strong>回应了所有质疑。当其他孩子还在睡觉时，他已经在空无一人的球馆里练习投篮；当其他孩子抱怨太累时，他在反复打磨每一个脚步移动。<strong>1997年，17岁的他正式加入上海大鲨鱼</strong>征战CBA。处子赛季场均10分8篮板——对于一个17岁的少年来说已经足够惊人。</p>
+        <p>真正的爆发在<strong>2001-2002赛季</strong>。22岁的姚明已经完全统治了CBA。常规赛带领上海队打出<strong>23连胜</strong>（仅最后一轮惜败），季后赛一路横扫。总决赛面对拥有刘玉栋、李楠的<strong>六连冠霸主八一队</strong>——这是一个时代的更替。姚明在总决赛第一战<strong>21投全中砍下49分</strong>，整个系列赛场均<strong>41.3分、21个篮板、4.3次盖帽</strong>——这是CBA总决赛历史上最具统治力的个人表现。上海队以3-1终结八一王朝，夺得<strong>队史第一座也是至今唯一一座CBA总冠军</strong>。</p>
+        <p>那一天，姚明站在领奖台上高举冠军奖杯——整个中国篮球界都明白：<strong>这个22岁的上海大男孩，已经准备好去征服更大的世界了。</strong>姚明在CBA的最后一年场均32.1分19篮板4.5盖帽，投篮命中率高达72.1%——这组数据放在任何年代的任何联赛里，都是统治级的。</p>
+      </div>
+      <div class="stat-row">
+        <div class="stat-card"><div class="label">身高</div><div class="value">2.26m</div></div>
+        <div class="stat-card"><div class="label">CBA冠军</div><div class="value">2002</div></div>
+        <div class="stat-card"><div class="label">总决赛场均</div><div class="value">41.3分</div></div>
+        <div class="stat-card"><div class="label">CBA末季数据</div><div class="value" style="font-size:1.1rem;">32.1+19+4.5</div></div>
+      </div>
+      <div class="quiz" id="quiz1">
+        <div class="q">🤔 姚明在2002年CBA总决赛中创造了什么惊人纪录？</div>
+        <div class="options">
+          <div class="opt" onclick="checkQuiz(this,true,'quiz1-fb')">🏀 总决赛第一战21投全中砍下49分，场均41.3分21篮板</div>
+          <div class="opt" onclick="checkQuiz(this,false,'quiz1-fb')">🎯 一场比赛投进20个三分球</div>
+          <div class="opt" onclick="checkQuiz(this,false,'quiz1-fb')">🏆 单赛季场均50分</div>
+        </div>
+        <div class="feedback" id="quiz1-fb">🏀 没错！总决赛G1姚明21投全中狂砍49分——21次出手，21次命中，这是篮球世界里近乎不可能的完美。整个系列赛场均41.3分21篮板4.3盖帽。他才22岁。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CH2: NBA Draft ══════ -->
+<section class="chapter" id="ch2">
+  <div class="chapter-inner">
+    <div class="chapter-icon">🚀</div>
+    <div class="chapter-content">
+      <div class="chapter-num">第二章</div>
+      <h2 class="chapter-title">2002 · 状元！世界屏住了呼吸</h2>
+      <div class="chapter-text">
+        <p><strong>2002年6月26日，纽约麦迪逊广场花园。</strong>NBA总裁大卫·斯特恩走上讲台，打开信封。经过三个月的艰难谈判——中国篮协最初要求姚明每年必须回国打国家队比赛、火箭队支付高额"培养费"——一切终于尘埃落定。</p>
+        <p>"<strong>With the first pick in the 2002 NBA Draft, the Houston Rockets select Yao Ming from Shanghai, China.</strong>"</p>
+        <p>这是NBA历史上<strong>第一位没有任何美国篮球背景的海外状元</strong>。选秀现场，纽约的球迷发出了嘘声——他们不相信一个中国人能成为状元。查尔斯·巴克利在TNT直播中打赌："<strong>如果姚明能在一场比赛中得到19分，我就亲肯尼·史密斯的屁股。</strong>"整个美国篮球界都在等着看笑话。</p>
+        <p>但姚明来到NBA的意义远不止于篮球。他是<strong>中国改革开放后第一个真正走入美国主流文化的中国面孔</strong>——一个活生生的、可以沟通的、让人喜欢的中国文化符号。当时的美国人对中国的了解依然停留在李小龙和熊猫的层面。姚明用他的<strong>幽默感、智慧和真诚</strong>改变了这一切。</p>
+        <p>NBA生涯前七场比赛，姚明场均只有3.3分。巴克利在电视上笑得更大声了。然后——第8场比赛，姚明<strong>9投9中砍下20分</strong>。第10场比赛，他<strong>拿下30分16篮板</strong>。巴克利的赌约到期了。在全美电视直播中，巴克利真的<strong>亲了一头驴的屁股</strong>（史密斯牵来了一头驴作为替代）。</p>
+        <p>姚明后来用他标志性的幽默回应了这件事："如果我早知道他会亲驴屁股，我会更早拿19分的。"<strong>全场大笑。从那一刻起，美国人爱上了这个中国人——不是因为他有多高，而是因为他有多聪明、多有趣。</strong></p>
+        <p>大卫·斯特恩后来总结道："姚明是NBA在中国爆发的引爆点。在他之前，我们在中国30年只做了一点点；在他之后，一切都变了。"</p>
+      </div>
+      <div class="stat-row">
+        <div class="stat-card"><div class="label">选秀年份</div><div class="value">2002</div></div>
+        <div class="stat-card"><div class="label">顺位</div><div class="value">状元 #1</div></div>
+        <div class="stat-card"><div class="label">球队</div><div class="value">休斯顿火箭</div></div>
+        <div class="stat-card"><div class="label">新秀年数据</div><div class="value" style="font-size:1.1rem;">13.5+8.2</div></div>
+      </div>
+      <div class="quiz" id="quiz2">
+        <div class="q">🤔 巴克利因为姚明做了什么惊人的事？</div>
+        <div class="options">
+          <div class="opt" onclick="checkQuiz(this,false,'quiz2-fb')">🏀 发誓再也不看篮球比赛</div>
+          <div class="opt" onclick="checkQuiz(this,true,'quiz2-fb')">🐴 在全美直播中亲了一头驴的屁股——因为他赌姚明拿不到19分</div>
+          <div class="opt" onclick="checkQuiz(this,false,'quiz2-fb')">💸 输掉了100万美元</div>
+        </div>
+        <div class="feedback" id="quiz2-fb">🐴 没错！巴克利打赌姚明单场得不了19分，输了就亲史密斯屁股。姚明在第8场比赛9投9中砍下20分。巴克利在全美直播中亲了驴屁股——姚明幽默回应："早知道他会亲驴，我会更早拿19分的。"</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CH3: NBA Rookie & Rise ══════ -->
+<section class="chapter" id="ch3">
+  <div class="chapter-inner">
+    <div class="chapter-icon">🌊</div>
+    <div class="chapter-content">
+      <div class="chapter-num">第三章</div>
+      <h2 class="chapter-title">从被嘲笑到统治禁区</h2>
+      <div class="chapter-text">
+        <p>姚明NBA生涯的起步比任何人想象的都困难——不是球场上的困难，而是<strong>文化、语言和偏见</strong>。他不会英语，靠翻译沟通；美国中餐和中国菜完全两回事；队友开的玩笑他听不懂，他说的笑话队友也不理解。更残酷的是，<strong>很多对手把对阵姚明当成一种"羞辱测试"</strong>——如果被一个中国人打败了，那将是奇耻大辱。</p>
+        <p>但姚明有一种罕见的品质：<strong>他把每一次挑衅都当成燃料。</strong>当对手在他头上扣篮后故意冲撞他时，他不动声色，下一回合用一记勾手回敬。当媒体质疑他不够"硬"时，他用连续20+10的比赛数据回应。老将莫里斯·泰勒回忆说："我从没见过一个新秀被那么多对手故意挑衅——也从没见过一个新秀那么冷静地把每一次挑衅都变成两分。"</p>
+        <p>2003-04赛季，姚明带领火箭时隔五年重返季后赛，虽然首轮被湖人淘汰，但全联盟都看到了：<strong>这个中国大个子是来真的。</strong>2004-05赛季，他与新队友<strong>特雷西·麦格雷迪</strong>组成了令对手胆寒的"姚麦组合"——一个2米26的中国中锋 + 一个2米03的得分机器，两人一度被认为是<strong>联盟最具统治力的内外线组合</strong>。</p>
+        <p>2005年全明星赛，姚明以<strong>破纪录的255万票当选票王</strong>——比第二名多出近60万票。这是中国人第一次在全球体育盛事中用自己的投票权证明：<strong>我们的人，我们自己挺。</strong>2006年，他再次以234万票蝉联票王。在NBA历史上，还没有哪个海外球员能做到这一点。</p>
+      </div>
+      <div class="blockquote"><p>如果我早知道他会亲驴屁股，我会更早拿19分的。</p><div class="by">— 姚明回应巴克利的赌约，2002</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CH4: Classic Moments ══════ -->
+<section class="section" id="goals">
+  <div class="section-inner">
+    <h2>⭐ 经典战役 — 移动长城的巅峰时刻</h2>
+    <p class="sub">在NBA最强中锋时代，他在禁区里留下了属于自己的印记</p>
+    <div class="goals-grid">
+      <div class="goal-card">
+        <div class="goal-icon">🔥</div>
+        <div class="goal-title">41分生涯最高 · 三加时扼杀老鹰</div>
+        <div class="goal-meta">2004年2月22日 · 火箭 123-121 老鹰（三加时）</div>
+        <div class="goal-desc">姚明出战<strong>50分钟</strong>，21投15中狂砍<strong>41分16篮板7助攻2盖帽</strong>。第三个加时赛他一人包揽火箭前8分——整个加时赛就是"姚明拿球→得分→姚明再来→再得分"的循环。这是自2000年以来NBA最长的比赛之一。ESPN评论员当晚说："今晚移动长城变成了不可阻挡的攻城锤。"</div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-icon">💪</div>
+        <div class="goal-title">27+22篮板 · 联盟第一束手无策</div>
+        <div class="goal-meta">2005年3月11日 · 火箭 127-107 太阳</div>
+        <div class="goal-desc">面对当时联盟战绩第一（47胜14负）的菲尼克斯太阳，姚明第四节独得14分，全场<strong>27分22篮板5次盖帽</strong>——22个篮板中<strong>9个是进攻篮板</strong>，两项均为职业生涯最高。麦迪砍下38分9篮板6助攻。太阳主帅德安东尼赛后说："我们对他毫无办法——他在三秒区里就像一栋楼。"</div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-icon">🛡️</div>
+        <div class="goal-title">28+13+6 · 终结卫冕冠军的不败战绩</div>
+        <div class="goal-meta">2007年11月6日 · 火箭 89-81 马刺</div>
+        <div class="goal-desc">邓肯领衔的卫冕冠军马刺带着不败战绩来到休斯顿。姚明交出<strong>28分13篮板6助攻</strong>的全面表现，带领火箭终结了马刺的连胜。马刺中锋埃尔森赛后说："他让我们很痛苦——太高了，手感太柔了，你根本够不到他的投篮点。"麦迪说："如果每场都这么打，没人能击败我们。"</div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-icon">⭐</div>
+        <div class="goal-title">全明星票王 × 2 · 8次首发</div>
+        <div class="goal-meta">2003-2011 · 连续8年全明星首发</div>
+        <div class="goal-desc">姚明8个完整赛季<strong>全部入选NBA全明星首发</strong>。2005年以<strong>255万票</strong>当选全明星票王，2006年再次以234万票蝉联。在NBA历史上，没有哪个海外球员能做到连续8年全明星首发。中国球迷用每一次点击证明了——"我们的球员，我们自己支持。"</div>
+      </div>
+    </div>
+
+    <div style="margin-top:2rem; text-align:center;">
+      <div class="stat-row" style="max-width:700px;margin:0 auto;">
+        <div class="stat-card"><div class="label">NBA生涯总得分</div><div class="value">9,247</div></div>
+        <div class="stat-card"><div class="label">总篮板</div><div class="value">4,494</div></div>
+        <div class="stat-card"><div class="label">总盖帽</div><div class="value">920</div></div>
+        <div class="stat-card"><div class="label">场均</div><div class="value" style="font-size:1.2rem;">19.0+9.2+1.9</div></div>
+      </div>
+      <p style="color:#666;font-size:0.8rem;margin-top:1rem;">8个完整赛季 · 486场常规赛 · 投篮命中率52.4% · 罚球命中率83.3%（中锋历史顶级）</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CH5: Yao vs Shaq ══════ -->
+<section class="chapter" id="ch4">
+  <div class="chapter-inner">
+    <div class="chapter-icon">🦈</div>
+    <div class="chapter-content">
+      <div class="chapter-num">第四章</div>
+      <h2 class="chapter-title">姚鲨对决：从嘲笑到兄弟</h2>
+      <div class="chapter-text">
+        <p>在姚明进入NBA之前，沙奎尔·奥尼尔是这个星球上最具统治力的中锋——<strong>没有人能挑战他的地位</strong>。当NBA宣布一个中国新人将成为状元时，奥尼尔在电视上模仿中文口音来嘲讽姚明——那是赤裸裸的、带着种族色彩的挑衅。整个美国都等着看这场"鲨鱼吃掉小虾米"的大戏。</p>
+        <p><strong>2003年1月17日——世纪之战。</strong>火箭主场对阵湖人，全球数亿人直播观看。这是NBA历史上炒作最疯狂的新秀对阵超级巨星的对决之一。开场第一回合，奥尼尔背身要球——他要给这个中国新秀一个下马威。招牌式的转身勾手——<strong>姚明直接盖掉。</strong>奥尼尔震惊了。第二回合，奥尼尔再来——<strong>又被帽。</strong>第三次——<strong>再帽。</strong></p>
+        <p>三连帽！而且是在全世界数亿观众的注视下。</p>
+        <p>德维恩·韦德后来回忆那天晚上："赛前奥尼尔在更衣室里说'他们觉得他能跟我一个级别？今晚我让他们看看。'比赛结束后，他只说了一句话：'<strong>这家伙真厉害。</strong>'"</p>
+        <p>姚明全场拿下<strong>10分10篮板6盖帽</strong>——其中3次盖帽送给了奥尼尔。从此以后，"姚鲨对决"不再是笑话——它成了NBA每个赛季<strong>最受期待的中锋世纪大战</strong>。两人职业生涯共交手18次（包括季后赛）：奥尼尔场均21.1分10.6篮板2.6盖帽，姚明场均18.6分10.5篮板2.1盖帽——<strong>在巅峰奥尼尔面前交出几乎对等的答卷</strong>，这本身就是一个不可思议的成就。</p>
+        <p>随着时间流逝，两人的关系从对手变成了兄弟。奥尼尔开始称姚明为"我的中国小兄弟"。2016年姚明入选名人堂时，<strong>奥尼尔亲手为他穿上了名人堂夹克</strong>——NBA历史上最温暖的画面之一。那个曾经在电视上嘲笑姚明的人，成了他最坚定的捍卫者。奥尼尔后来在采访中说："<strong>姚明是唯一一个让我感到真正挑战的中锋。我被遗忘的真正对手——姚明。</strong>"</p>
+      </div>
+      <div class="stat-row">
+        <div class="stat-card"><div class="label">姚鲨交手</div><div class="value">18次</div></div>
+        <div class="stat-card"><div class="label">首次对决</div><div class="value">10+10+6帽</div></div>
+        <div class="stat-card"><div class="label">姚明场均</div><div class="value">18.6+10.5</div></div>
+      </div>
+      <div class="quiz" id="quiz4">
+        <div class="q">🤔 姚明和奥尼尔第一次对决时发生了什么？</div>
+        <div class="options">
+          <div class="opt" onclick="checkQuiz(this,false,'quiz4-fb')">🏀 姚明全场拿了50分</div>
+          <div class="opt" onclick="checkQuiz(this,true,'quiz4-fb')">🛡️ 开场三次盖掉奥尼尔！全场10分10篮板6盖帽</div>
+          <div class="opt" onclick="checkQuiz(this,false,'quiz4-fb')">🤝 两人在场上拥抱了10分钟</div>
+        </div>
+        <div class="feedback" id="quiz4-fb">🛡️ 没错！新秀姚明开场连续三次盖掉巅峰奥尼尔的勾手。6次盖帽，其中3次送给了鲨鱼。从那天起，奥尼尔换了一种眼光看姚明——从嘲笑变成了尊重，从对手变成了兄弟。2016年名人堂，奥尼尔亲手为姚明穿上夹克。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ Olympic Hero ══════ -->
+<section class="section" id="olympics">
+  <div class="section-inner">
+    <h2>🇨🇳 奥运英雄 — 为国而战</h2>
+    <p class="sub">两次奥运旗手，三次率队闯入八强——他用伤痕累累的脚踝扛起了14亿人的期待</p>
+
+    <div class="goals-grid">
+      <div class="goal-card">
+        <div class="goal-icon">🎌</div>
+        <div class="goal-title">2004 雅典奥运会 · 旗手初亮相</div>
+        <div class="goal-meta">中国代表团旗手 · 率男篮闯入八强</div>
+        <div class="goal-desc">23岁的姚明第一次担任中国奥运代表团旗手。赛前他放出豪言——<strong>"不进八强半年不刮胡子。"</strong>小组赛最后一场对阵塞黑——赢则出线，输则回家。姚明全场砍下27分13篮板，中国男篮67-66险胜世界冠军塞黑，闯入八强！赛后姚明说："哈里斯教练用了三个月教会我们一件事——<strong>无论做什么，永远不要放弃。</strong>"他兑现了诺言，也真的蓄了大半年胡子。</div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-icon">🏟️</div>
+        <div class="goal-title">2008 北京奥运会 · 在家门口</div>
+        <div class="goal-meta">再次旗手 · 带伤出战 · 再次闯入八强</div>
+        <div class="goal-desc">奥运会来到中国。姚明在左脚应力性骨折手术后仅仅6个月就站在了鸟巢的开幕式上——<strong>再次担任旗手</strong>，高举五星红旗走进国家体育场。小组赛对阵由诺维茨基领衔的德国队，姚明砍下<strong>25分11篮板</strong>，中国男篮59-55取胜，确保了八强席位。赛后姚明说："2008年北京奥运会是我一生中最难忘的经历——不是之一，就是最难忘的。"</div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:1.5rem;">
+      <div class="stat-row" style="max-width:500px;margin:0 auto;">
+        <div class="stat-card"><div class="label">奥运出场</div><div class="value">3届</div></div>
+        <div class="stat-card"><div class="label">奥运战绩</div><div class="value">3次八强</div></div>
+        <div class="stat-card"><div class="label">奥运场均</div><div class="value" style="font-size:1.1rem;">19.0+8.2</div></div>
+      </div>
+      <p style="color:#666;font-size:0.8rem;margin-top:0.8rem;">2000悉尼·2004雅典·2008北京 | 12场奥运比赛 | 两次中国代表团旗手</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════ The Bridge Builder ══════ -->
+<div class="divider">✦ ✦ ✦</div>
+<section class="section" id="bridge">
+  <div class="section-inner">
+    <h2>🌉 架桥者 — 两块大陆之间的巨人</h2>
+    <p class="sub">姚明最伟大的成就不是任何一个冠军——是他让两个世界的距离缩短了</p>
+    <div class="influence-row" style="margin-bottom:1.5rem;">
+      <div class="influence-stat"><div class="big">2002</div><div class="desc">NBA状元年</div></div>
+      <div class="influence-stat"><div class="big">30+</div><div class="desc">国家/地区直播NBA</div></div>
+      <div class="influence-stat"><div class="big">亿万</div><div class="desc">中国新一代篮球迷</div></div>
+      <div class="influence-stat"><div class="big">∞</div><div class="desc">被改变的人生</div></div>
+    </div>
+    <div class="chapter-text" style="max-width:900px;margin:0 auto;">
+      <p>在姚明之前，中美体育交流是单行道——美国人输出技术和文化，中国人照单全收。姚明改变了这种关系——他证明了<strong>一个来自社会主义国家的运动员不仅可以在最高水平的资本主义体育联赛中立足，还可以成为明星。</strong>这在2002年是一个革命性的概念。</p>
+      <p>他被称为"中国对美国最大的人形出口"。在中国，他是民族骄傲——一个让小学生知道"中国人也能在NBA当状元"的人。在美国，他是文化窗口——一个让德州主妇知道"原来中国人也会说笑话"的人。这种双向的文化传输，没有第二个人做到过。</p>
+      <p>2002年姚明刚去休斯顿时，当地华人社区只有几千人。到他退役时，休斯顿的华人人口增长了<strong>超过两倍</strong>——"姚明效应"让这座城市成为中国人在美国最向往的居住地之一。休斯顿火箭队的中文社交媒体账号拥有数百万粉丝。丰田中心的场边广告牌上出现了中文。</p>
+      <p><strong>这是一个关于"看见"的故事。</strong>姚明让中国市场看见了NBA，让NBA看见了中国的市场潜力，让美国人看见了一个不是功夫片角色的真实中国人，让中国人看见了自己的运动员在世界最高舞台上赢得尊重。</p>
+      <p>在这个意义上，姚明完成的不是一次职业生涯——他完成了一次<strong>文明的握手</strong>。而且他做到了这一切，用一个自己都听不太清的声音（左耳失聪），在异国他乡的深夜，在一遍又一遍的康复训练中，在每一次被撞倒后默默爬起来的瞬间。</p>
+      <p style="color:var(--gold);font-style:italic;text-align:center;margin-top:1.5rem;">"我没有想过要改变世界。<br>我只是想做好自己。"</p>
+    </div>
+  </div>
+</section>
+<!-- ══════ Rivals Grid ══════ -->
+<section class="section" id="rivals">
+  <div class="section-inner">
+    <h2>⚔️ 宿敌与较量</h2>
+    <p class="sub">在NBA最强中锋的黄金时代，姚明与同时代所有伟大内线都交过手</p>
+    <div class="rival-grid">
+      <div class="rival-card">
+        <div class="rival-icon">🦈</div>
+        <div class="rival-name">沙奎尔·奥尼尔</div>
+        <div class="rival-stat">18次交手 · 互有胜负</div>
+        <div class="rival-desc">从嘲笑到尊重——"姚鲨对决"是21世纪NBA最具话题性的中锋对决。从2003年首战三连帽到2016年名人堂夹克，这是篮球史上最美的宿敌变兄弟。奥尼尔后来亲口说："<strong>姚明是我最尊重的对手。他从来没有在我面前退缩过。</strong>"两人最终交手战绩：奥尼尔场均21.1分10.6篮板，姚明场均18.6分10.5篮板。</div>
+      </div>
+      <div class="rival-card">
+        <div class="rival-icon">🗿</div>
+        <div class="rival-name">蒂姆·邓肯</div>
+        <div class="rival-stat">巅峰对决 · 技术流碰撞</div>
+        <div class="rival-desc">"大基本功" VS"移动长城"。邓肯的擦板投篮 vs 姚明的左右手勾手——两人都是最安静但最具杀伤力的内线。邓肯曾评价："<strong>防守姚明时你必须提前决策——因为他接球后的动作太快了，不能等到他拿球再反应。</strong>"作为两个时代的标志性内线，他们的每一次对位都被写进了NBA的历史档案。</div>
+      </div>
+      <div class="rival-card">
+        <div class="rival-icon">🦸</div>
+        <div class="rival-name">德怀特·霍华德</div>
+        <div class="rival-stat">姚明 9胜2负 · 全面压制</div>
+        <div class="rival-desc">年轻一代的"超人"面对成熟的"巨人"——这是NBA历史上最一边倒的"顶级中锋对决"之一。霍华德职业生涯对阵姚明场均仅12.2分9.8篮板，远低于他的生涯平均水平。姚明用身高和技术完全压制了以弹跳著称的霍华德。霍华德后来坦诚："<strong>姚明是我在NBA最害怕对位的人——因为他太高了，技术太好了，我根本够不到他的投篮。</strong>"</div>
+      </div>
+      <div class="rival-card">
+        <div class="rival-icon">🇩🇪</div>
+        <div class="rival-name">德克·诺维茨基</div>
+        <div class="rival-stat">国际球员巅峰碰撞</div>
+        <div class="rival-desc">NBA史上最伟大的两位国际球员之间的对决。姚明在禁区的统治力 vs 德克的投射魔术——每次交手都是两种篮球哲学的碰撞。德克曾说："<strong>姚明是真正的7尺6寸巨人——不是那种虚报身高的高个子。他是真高，而且他还会打球。</strong>"2008年奥运会姚明击败德克的德国队率男篮进八强，是最经典的篇章。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CH6: Darkest Moments ══════ -->
+<section class="section" id="dark">
+  <div class="section-inner">
+    <h2>🌑 至暗时刻 — 被伤病偷走的传奇</h2>
+    <p class="sub">如果不是左脚，他本可以走得更远——但伟大不在于没有跌倒，而在于每一次跌倒后的选择</p>
+
+    <div class="dark-card">
+      <div class="dark-year">🦴 2006 · 胫骨骨折</div>
+      <div class="dark-title">第一次重大伤病</div>
+      <div class="dark-desc">2006年12月24日，火箭客场对阵快船。姚明在封盖蒂姆·托马斯上篮时空中身体接触，落地时<strong>胫骨骨折</strong>——缺席了接下来<strong>32场比赛</strong>。当时火箭正处在一波良好的连胜势头中，这次伤病让球队的上升势头戛然而止。这是姚明职业生涯第一次遭遇需要长期缺阵的伤病——也是第一次让全世界意识到：<strong>2米26的巨人，身体承受着人类极限之外的负荷。</strong></div>
+      <div class="dark-rise">🔥 复出后2007-08赛季打出职业生涯最佳表现：场均22分10.8篮板2.3助攻1.9盖帽。</div>
+    </div>
+
+    <div class="dark-card">
+      <div class="dark-year">💔 2008 · 左脚应力性骨折</div>
+      <div class="dark-title">火箭12连胜中突然宣布赛季报销</div>
+      <div class="dark-desc">2008年2月27日，火箭正处在一波<strong>12连胜</strong>之中。没有任何征兆，球队突然宣布：姚明<strong>左脚舟骨应力性骨折</strong>，赛季报销。整个NBA被震惊——火箭在失去了核心后奇迹般地又赢了10场，创造了<strong>22连胜</strong>的历史纪录。但所有人都知道：<strong>没有姚明的火箭，季后赛走不远。</strong>3月4日，姚明接受修复手术——但他逼自己赶在北京奥运会前复出："奥运会，在我的祖国。我可以错过任何一场比赛，除了这一场。"</div>
+      <div class="dark-rise">🔥 2008年8月8日北京奥运会开幕式——姚明高举五星红旗走进鸟巢，全场沸腾。</div>
+    </div>
+
+    <div class="dark-card">
+      <div class="dark-year">🦵 2009 · 隧道折返与西部半决赛</div>
+      <div class="dark-title">最接近荣耀的一刻，被伤病无情击碎</div>
+      <div class="dark-desc">2009年季后赛，姚明终于带领火箭突破首轮——这是他<strong>职业生涯第一次也是唯一一次进入西部半决赛</strong>。对手是科比的湖人。系列赛第一场，姚明被科比撞伤膝盖<strong>痛苦倒地，队医要求他立即退场</strong>。他在球员通道里<strong>拒绝了退场指令</strong>——在场边做了几个拉伸后，<strong>走回了球场</strong>。全场观众起立疯狂欢呼。姚明全场砍下<strong>28分10篮板</strong>，带领火箭客场击败湖人！"隧道折返"成为NBA季后赛历史上最令人动容的画面之一。但G3中，他左脚骨裂——赛季结束。火箭苦战7场被淘汰。这一战成了姚明NBA生涯的<strong>巅峰，也是终章。</strong></div>
+      <div class="dark-rise">🔥 隧道折返——30秒决定了一代人的记忆。姚明用行动定义了什么叫"为团队战斗到最后一刻"。</div>
+    </div>
+
+    <div class="dark-card">
+      <div class="dark-year">🕯️ 2011 · 退役</div>
+      <div class="dark-title">31岁——一轮太阳提前落山了</div>
+      <div class="dark-desc">2009年手术后，姚明的左脚里留下了<strong>16颗钢钉和钢板</strong>。医生把他的足弓做平——把之前手术的三颗钢钉拔出，把好的骨头打断，再接上。他缺席了整个2009-10赛季。2010-11赛季他还尝试复出，出场5次，场均10.2分5.4篮板。2010年12月16日，左脚踝再次发生<strong>应力性骨折</strong>。这一次，医生的表情告诉了他一切。<strong>2011年7月20日</strong>，姚明在上海召开新闻发布会，宣布退役。<strong>年仅31岁。</strong>他说："我曾经说过，有一天我的职业篮球生涯结束，我希望只是一个逗号，不是一个句号。今天这一天终于到来了，但我没有离开篮球。"</div>
+      <div class="dark-rise">🔥 五年后的2016年——他成为第一位入选奈史密斯篮球名人堂的中国人。逗号之后，是惊叹号。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CH7: Global Impact ══════ -->
+<section class="section" id="impact">
+  <div class="section-inner">
+    <h2>🌍 改变了世界对中国人的认知</h2>
+    <p class="sub">他的影响力超越了篮球——他是一扇窗，让世界看见了现代中国</p>
+
+    <div class="influence-row" style="margin-bottom:2rem;">
+      <div class="influence-stat"><div class="big">3亿+</div><div class="desc">中国NBA观众</div></div>
+      <div class="influence-stat"><div class="big native-icon">🇨🇳→🌍</div><div class="desc">NBA第一位外籍状元</div></div>
+      <div class="influence-stat"><div class="big native-icon">🏛️</div><div class="desc">奈史密斯名人堂</div></div>
+      <div class="influence-stat"><div class="big native-icon">🐘</div><div class="desc">野生救援大使</div></div>
+      <div class="influence-stat"><div class="big">30+</div><div class="desc">姚基金希望小学</div></div>
+    </div>
+
+    <div class="chapter-text" style="max-width:900px;margin:0 auto;">
+      <p>姚明的意义从来不仅限于篮球场。<strong>他是中国改革开放后走向世界的最重要的文化符号之一。</strong>"姚明效应"这个词后来被收入了商学院教材——一个人，如何改变一个产业的全球格局。美国前总统比尔·克林顿评价姚明时说："<strong>He is the single most important Chinese export to the United States.</strong>"（他是中国对美国最重要的单个出口。）这句话包含了深刻的真相——姚明比任何外交活动、任何贸易协定都更有效地让美国人重新认识了中国。</p>
+      <p>在姚明之前，美国人对中国人的印象是刻板而单薄的——功夫、数学好、不善表达、沉默寡言。姚明用他的<strong>幽默感、智慧和风度</strong>彻底击碎了这些偏见。他可以在新闻发布会上用英语讲笑话让全场记者笑翻；他可以在TNT直播中自嘲；他可以一边在NBA禁区里碾压对手，一边在休斯顿大学的课堂上安静地读经济学。《休斯顿纪事报》记者乔纳森·费根跟队报道姚明9年，他说："<strong>我在NBA报道了30年，从未见过任何一个球员像姚明这样努力地去适应、去学习、去融入。</strong>他不仅学会了英语，他学会了美式幽默——这比语言难100倍。"他让美国人第一次看到了一个<strong>立体的、真实的、可爱的中国人</strong>——不是龙，不是功夫，而是一个会笑着调侃巴克利的上海男孩。</p>
+      <p><strong>NBA在中国的爆炸式增长是史无前例的。</strong>2002年姚明进入NBA前，NBA在中国的电视观众大约几十万人。姚明加盟后，这个数字爆发式增长到<strong>超过3亿人</strong>。NBA与中国的转播合同从几乎为零变成<strong>每年数亿美元</strong>。耐克篮球鞋在中国销量暴增。整个中国篮球产业因为这一位球员而被激活——场馆建设、青训体系、校园篮球——每一项都可以追溯到"姚明效应"。</p>
+      <p>几乎每一个90后、00后的中国青少年都是看着姚明打球长大的。<strong>他是一代人的体育启蒙者。</strong>当2008年汶川地震发生后，姚明<strong>个人捐赠200万元人民币</strong>，随后创立了<strong>"姚基金"</strong>——至今已在中国偏远地区建成<strong>超过30所希望小学</strong>，培训了数千名乡村体育教师，为数万名贫困儿童提供了体育教育机会。姚基金"希望小学篮球季"已成为中国最具影响力的乡村体育公益项目之一。</p>
+      <p>他在非洲拍摄野生动物保护纪录片时，说出了那句传遍全球的话：<strong>"When the buying stops, the killing can too."</strong>（没有买卖，就没有杀害。）作为WildAid全球大使，他用自己的知名度对抗象牙和犀牛角贸易——一位篮球运动员，为地球另一端的濒危物种而发声。2014年，联合国环境规划署授予他<strong>"地球卫士奖"</strong>——这是联合国在环境保护领域的最高荣誉。</p>
+      <p style="margin-top:1.5rem;"><strong>姚明的伟大之处在于：</strong>他从来不需要刻意"代表中国"——他只需要做姚明自己。一个幽默的、聪明的、有担当的、愿意学习的人。美国人看着姚明，发现"原来中国人可以这么酷"——不是功夫片里的酷，而是一种安静、智慧、有幽默感的酷。正如《纽约时报》所写："姚明是第一个让美国人觉得'我想和他喝一杯啤酒'的中国人。"这种软实力，比任何外交辞令都更有力量。</p>
+    </div>
+
+    <div class="quiz" id="quiz5" style="margin-top:2rem;">
+      <div class="q">🤔 姚明对NBA在中国的影响力最准确的描述是什么？</div>
+      <div class="options">
+        <div class="opt" onclick="checkQuiz(this,false,'quiz5-fb')">📺 他花钱买下了NBA在中国的转播权</div>
+        <div class="opt" onclick="checkQuiz(this,true,'quiz5-fb')">🚀 他是引爆点——NBA中国观众从几十万飙升至3亿+，整个中国篮球产业因他而激活</div>
+        <div class="opt" onclick="checkQuiz(this,false,'quiz5-fb')">🎮 他开发了一款NBA手游覆盖了中国市场</div>
+      </div>
+      <div class="feedback" id="quiz5-fb">🚀 没错！"姚明效应"是商业史上的经典案例。一个人激活了一个14亿人口大国的篮球市场。这也是他入选名人堂的核心原因之一——不仅因为球场表现，更因为他作为篮球大使无可替代的贡献。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CH8: After Retirement ══════ -->
+<section class="section" id="biz">
+  <div class="section-inner">
+    <h2>👔 退役后的第二人生</h2>
+    <p class="sub">"我的篮球生涯只是一个逗号"——姚明用行动证明了这不止是一句漂亮话</p>
+
+    <div class="biz-grid">
+      <div class="biz-card">
+        <div class="biz-icon">🏛️</div>
+        <div class="biz-name">中国篮协主席</div>
+        <div class="biz-desc">2017年2月，姚明<strong>全票当选</strong>中国篮协主席——历史上最年轻的篮协主席。从"中国最好的球员"变成了"中国篮球的掌舵人"。他推动CBA管办分离、建立校园篮球体系、改革国家队选拔制度。</div>
+      </div>
+      <div class="biz-card">
+        <div class="biz-icon">🏀</div>
+        <div class="biz-name">CBA联赛改革</div>
+        <div class="biz-desc">作为CBA公司董事长，姚明推行了<strong>工资帽制度</strong>、增加常规赛场次、引入选秀制度、规范外援使用等多项改革。他的目标是用NBA学到的管理模式改造中国职业篮球。</div>
+      </div>
+      <div class="biz-card">
+        <div class="biz-icon">🐘</div>
+        <div class="biz-name">野生动物保护</div>
+        <div class="biz-desc">WildAid全球大使，多次前往非洲拍摄反盗猎纪录片。他的那句"When the buying stops, the killing can too"传遍全球。2014年被联合国授予"地球卫士奖"。</div>
+      </div>
+      <div class="biz-card">
+        <div class="biz-icon">🎓</div>
+        <div class="biz-name">姚基金 · 30+所希望小学</div>
+        <div class="biz-desc">2008年汶川地震后创立姚基金。至今已在中国偏远地区建成超过30所希望小学，培训数千名乡村体育教师。"姚基金希望小学篮球季"每年为数万名乡村儿童提供体育教育机会。</div>
+      </div>
+      <div class="biz-card">
+        <div class="biz-icon">🍷</div>
+        <div class="biz-name">姚家族葡萄酒</div>
+        <div class="biz-desc">在加州纳帕谷创立高端葡萄酒品牌"姚家族葡萄酒"（Yao Family Wines），出产屡获大奖的赤霞珠。部分收益捐给慈善事业。从篮球到手艺——他永远在拓展自己的边界。</div>
+      </div>
+      <div class="biz-card">
+        <div class="biz-icon">📚</div>
+        <div class="biz-name">上海交大毕业生</div>
+        <div class="biz-desc">退役后姚明进入上海交通大学安泰经济与管理学院攻读经济学，2018年顺利毕业。他说："篮球场退役了，但脑子不能退役。学习是一个人一生的事情。"</div>
+      </div>
+    </div>
+
+    <div class="quiz" id="quiz6" style="margin-top:2rem;">
+      <div class="q">🤔 姚明退役后最重要的角色是什么？</div>
+      <div class="options">
+        <div class="opt" onclick="checkQuiz(this,true,'quiz6-fb')">🏛️ 中国篮协主席——从"执行者"变成"设计师"，用NBA经验改造中国篮球体系</div>
+        <div class="opt" onclick="checkQuiz(this,false,'quiz6-fb')">🎬 好莱坞电影演员</div>
+        <div class="opt" onclick="checkQuiz(this,false,'quiz6-fb')">💼 全职投资人</div>
+      </div>
+      <div class="feedback" id="quiz6-fb">🏛️ 是的！2017年全票当选中国篮协主席。从在球场上用身体扛起中国篮球，到在管理岗位上用制度扛起中国篮球。他的每一次转身都不是"告别"，而是"升级"。这是从"体育英雄"到"体育建设者"的转型。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ QUOTES WALL ══════ -->
+<section class="section" id="quotes">
+  <div class="section-inner">
+    <h2>💬 他说过的话</h2>
+    <p class="sub">姚明的智慧远不止于身高——他的话语里有超越年龄的思辨和"姚氏幽默"</p>
+
+    <div class="blockquote"><p>努力不一定成功，但放弃一定失败。</p><div class="by">— 姚明的座右铭，无数次在采访中提及</div></div>
+
+    <div class="blockquote"><p>我的身高放在那里，我只是比较好地利用了这个工具。就像你有一台奔四的电脑就不会再去用奔二的——我放着2米多的身高优势不去用，那岂不是太无聊了，太浪费了。</p><div class="by">— 被问到"你是否依赖身高取得成功"，2003</div></div>
+
+    <div class="blockquote"><p>When the buying stops, the killing can too.<br>没有买卖，就没有杀害。</p><div class="by">— 为WildAid拍摄反盗猎公益广告，2006</div></div>
+
+    <div class="blockquote"><p>我曾经说过，有一天我的职业篮球生涯结束，我希望只是一个逗号，不是一个句号。今天这一天终于到来了，但是我没有离开亲爱的篮球。我的生活还在继续，我还是姚明。</p><div class="by">— 退役声明，2011年7月20日·上海</div></div>
+
+    <div class="blockquote"><p>Sports teach you how to be quick. Injuries teach you how to slow down.<br>体育教会你如何加速。伤病教会你如何慢下来。</p><div class="by">— 谈到反复受伤对自己人生态度的改变</div></div>
+
+    <div class="blockquote"><p>A good leader must be fair.<br>一个好的领导者必须公正。</p><div class="by">— 全票当选中国篮协主席后的首次公开讲话，2017</div></div>
+
+    <div class="blockquote"><p>中国队如果打不进八强，我半年不刮胡子！</p><div class="by">— 2004年雅典奥运会前放出的豪言——后来男篮真的打进八强，他也真的蓄了大半年胡子</div></div>
+
+    <div class="blockquote"><p>Because basketball is bigger than a golf ball! I'm lucky I chose basketball.<br>因为篮球比高尔夫球大嘛！我很幸运我选了篮球。</p><div class="by">— 被问到"如果你去打高尔夫会不会成为泰格·伍兹"，2004</div></div>
+
+    <div class="quiz" id="quiz8" style="margin-top:2.5rem;">
+      <div class="q">🤔 姚明最打动你的是哪一种品质？</div>
+      <div class="options">
+        <div class="opt" onclick="checkQuiz(this,false,'quiz8-fb')">随便选一个</div>
+        <div class="opt" onclick="checkQuiz(this,true,'quiz8-fb')">他的全部——球场统治者、文化桥梁、慈善家、管理者、幽默的智者。立体的人格比任何单独成就都更伟大。</div>
+        <div class="opt" onclick="checkQuiz(this,false,'quiz8-fb')">最高那个选项</div>
+      </div>
+      <div class="feedback" id="quiz8-fb">💡 没错！姚明的伟大不是单一维度的。身高让他无法被忽视，但<strong>智慧、幽默、担当和谦逊</strong>才是让他被记住的原因。他从"上海大鲨鱼的中锋"变成了"世界舞台上的中国符号"。这是极少运动员能做到的跨越。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ DIVIDER ══════ -->
+<div class="divider">✦  ✦  ✦</div>
+
+<!-- ══════ BY THE NUMBERS ══════ -->
+<section class="section" id="numbers">
+  <div class="section-inner">
+    <h2>🔢 姚明数据档案</h2>
+    <p class="sub">这些数字无法完全定义他，但它们拼出了一个时代的轮廓</p>
+
+    <div class="influence-row" style="margin-bottom:1.5rem;">
+      <div class="influence-stat"><div class="big">9,247</div><div class="desc">NBA生涯总得分</div></div>
+      <div class="influence-stat"><div class="big">4,494</div><div class="desc">总篮板</div></div>
+      <div class="influence-stat"><div class="big">920</div><div class="desc">总盖帽</div></div>
+      <div class="influence-stat"><div class="big">486</div><div class="desc">NBA出场数</div></div>
+    </div>
+    <div class="influence-row" style="margin-bottom:1.5rem;">
+      <div class="influence-stat"><div class="big">52.4%</div><div class="desc">投篮命中率</div></div>
+      <div class="influence-stat"><div class="big">83.3%</div><div class="desc">罚球命中率</div></div>
+      <div class="influence-stat"><div class="big">8×</div><div class="desc">全明星首发</div></div>
+      <div class="influence-stat"><div class="big">5×</div><div class="desc">最佳阵容</div></div>
+    </div>
+
+    <div style="text-align:center;margin:2rem 0;">
+      <h3 style="color:var(--gold);margin-bottom:1rem;">职业生涯单场最高</h3>
+      <div class="stat-row" style="max-width:700px;margin:0 auto;">
+        <div class="stat-card"><div class="label">得分</div><div class="value">41</div><div class="label" style="margin-top:0.3rem;color:#666;text-transform:none;">2004.2.22 vs 老鹰</div></div>
+        <div class="stat-card"><div class="label">篮板</div><div class="value">22</div><div class="label" style="margin-top:0.3rem;color:#666;text-transform:none;">2005.3.11 vs 太阳</div></div>
+        <div class="stat-card"><div class="label">助攻</div><div class="value">7</div><div class="label" style="margin-top:0.3rem;color:#666;text-transform:none;">2004.2.22 vs 老鹰</div></div>
+        <div class="stat-card"><div class="label">盖帽</div><div class="value">8</div><div class="label" style="margin-top:0.3rem;color:#666;text-transform:none;">2006.12.15 vs 湖人</div></div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin:2rem 0;">
+      <h3 style="color:var(--gold);margin-bottom:1rem;">CBA 最后赛季 (2001-02)</h3>
+      <div class="stat-row" style="max-width:500px;margin:0 auto;">
+        <div class="stat-card"><div class="label">场均得分</div><div class="value">32.1</div></div>
+        <div class="stat-card"><div class="label">篮板</div><div class="value">19.0</div></div>
+        <div class="stat-card"><div class="label">盖帽</div><div class="value">4.5</div></div>
+      </div>
+      <p style="color:#666;font-size:0.8rem;margin-top:0.8rem;">投篮命中率 72.1% · 带队23连胜(常规赛仅1负) · 总决赛4场统治级表现</p>
+    </div>
+
+    <p style="color:#666;font-size:0.85rem;text-align:center;margin-top:2rem;">
+      <strong style="color:var(--gold);"></p>
+  </div>
+</section>
+
+<!-- ══════ DIVIDER ══════ -->
+<div class="divider">✦  ✦  ✦</div>
+
+<!-- ══════ TIMELINE ══════ -->
+<section class="timeline-section">
+  <h2>⏳ 完整时间线</h2>
+  <div class="timeline">
+    <div class="timeline-item"><div class="timeline-year">1980</div><div class="timeline-event">9月12日出生于上海。父亲姚志源（2米08，上海男篮中锋），母亲方凤娣（1米88，中国女篮队长）</div></div>
+    <div class="timeline-item"><div class="timeline-year">1984</div><div class="timeline-event">4岁拿到人生第一个篮球。手掌已经比普通成年人大</div></div>
+    <div class="timeline-item"><div class="timeline-year">1988</div><div class="timeline-event">8岁因药物过敏导致左耳永久失聪——这个残疾伴随了整个职业生涯</div></div>
+    <div class="timeline-item"><div class="timeline-year">1993</div><div class="timeline-event">13岁进入上海徐汇区少体校。身高已超1米90。但因"太高太慢"被部分教练放弃</div></div>
+    <div class="timeline-item"><div class="timeline-year">1997</div><div class="timeline-event">17岁正式加入上海大鲨鱼俱乐部征战CBA。处子赛季场均10分8篮板</div></div>
+    <div class="timeline-item"><div class="timeline-year">1998</div><div class="timeline-event">首次入选中国男篮国家队。在NIKE美国训练营中第一次引起NBA球探注意</div></div>
+    <div class="timeline-item"><div class="timeline-year">2000</div><div class="timeline-event">悉尼奥运会——20岁的姚明首次亮相奥运舞台。场均10.5分6篮板，中国男篮获得第10名</div></div>
+    <div class="timeline-item"><div class="timeline-year">2002.4</div><div class="timeline-event"><strong>率上海大鲨鱼夺得CBA总冠军</strong>！终结八一队六连冠王朝。总决赛场均41.3分21篮板，G1 21投全中49分</div></div>
+    <div class="timeline-item"><div class="timeline-year">2002.6</div><div class="timeline-event"><strong>NBA选秀状元！</strong>休斯顿火箭第一顺位选中。NBA历史上第一位没有美国篮球背景的海外状元</div></div>
+    <div class="timeline-item"><div class="timeline-year">2003.1</div><div class="timeline-event"><strong>姚鲨首次对决：</strong>10分10篮板6盖帽，三连帽奥尼尔。全世界重新认识了这个中国巨人</div></div>
+    <div class="timeline-item"><div class="timeline-year">2004</div><div class="timeline-event">雅典奥运会担任中国代表团旗手。率男篮击败塞黑闯入八强——兑现了"不进八强不刮胡子"的豪言</div></div>
+    <div class="timeline-item"><div class="timeline-year">2004.2</div><div class="timeline-event">对老鹰三加时狂砍41分16篮板7助攻——NBA生涯最高得分。50分钟鏖战，第三个加时包办前8分</div></div>
+    <div class="timeline-item"><div class="timeline-year">2005</div><div class="timeline-event"><strong>首次当选NBA全明星票王</strong>（255万票）。对太阳27分22篮板——生涯最高篮板。与麦迪组成"姚麦组合"</div></div>
+    <div class="timeline-item"><div class="timeline-year">2006</div><div class="timeline-event">胫骨骨折缺席32场。但伤愈后打出统治级表现：当选12月西部月最佳（场均25.7分11.6板）</div></div>
+    <div class="timeline-item"><div class="timeline-year">2008</div><div class="timeline-event">左脚应力性骨折——火箭12连胜期间突然报销。北京奥运会再次出任旗手，率男篮追平八强最佳战绩</div></div>
+    <div class="timeline-item"><div class="timeline-year">2009.5</div><div class="timeline-event"><strong>突破首轮！隧道折返！</strong>西部半决赛G1被撞伤拒绝退场，返回球场砍28分10篮板胜湖人。G3骨裂赛季结束</div></div>
+    <div class="timeline-item"><div class="timeline-year">2011.7</div><div class="timeline-event"><strong>正式宣布退役。</strong>年仅31岁。生涯数据定格：9247分、4494篮板、920盖帽。效力火箭8个完整赛季</div></div>
+    <div class="timeline-item"><div class="timeline-year">2016</div><div class="timeline-event"><strong>入选奈史密斯篮球名人堂。</strong>第一位获此荣誉的中国人。奥尼尔亲手为他穿上名人堂夹克</div></div>
+    <div class="timeline-item"><div class="timeline-year">2017</div><div class="timeline-event">火箭队退役姚明11号球衣。同年全票当选中国篮协主席。担任CBA公司董事长</div></div>
+    <div class="timeline-item"><div class="timeline-year">2023</div><div class="timeline-event">入选<strong>FIBA名人堂</strong>——成为历史上第一位入选FIBA名人堂的中国男篮球员</div></div>
+    <div class="timeline-item"><div class="timeline-year" style="color:var(--gold);">现在</div><div class="timeline-event" style="color:var(--gold);">从上海大鲨鱼到世界舞台再到中国篮协——姚明的故事远未结束。他正在让中国篮球变得更好。</div></div>
+  </div>
+</section>
+
+<!-- ══════ TROPHY WALL ══════ -->
+<section class="trophy-section">
+  <h2>🏆 荣誉殿堂</h2>
+  <p class="sub">篮球场上的巨人，荣誉簿上的传奇</p>
+  <div class="trophy-grid">
+    <div class="trophy"><div class="t-icon">🏆</div><div class="t-name">CBA总冠军</div><div class="t-count">×1</div><div class="t-detail">2002·总决赛MVP</div></div>
+    <div class="trophy"><div class="t-icon">⭐</div><div class="t-name">NBA全明星</div><div class="t-count">×8</div><div class="t-detail">2003–2011全首发</div></div>
+    <div class="trophy"><div class="t-icon">🎫</div><div class="t-name">全明星票王</div><div class="t-count">×2</div><div class="t-detail">2005, 2006</div></div>
+    <div class="trophy"><div class="t-icon">🏅</div><div class="t-name">NBA最佳阵容</div><div class="t-count">×5</div><div class="t-detail">二阵2次·三阵3次</div></div>
+    <div class="trophy"><div class="t-icon">🌱</div><div class="t-name">NBA新秀一阵</div><div class="t-count">×1</div><div class="t-detail">2003</div></div>
+    <div class="trophy"><div class="t-icon">🏛️</div><div class="t-name">奈史密斯名人堂</div><div class="t-count">2016</div><div class="t-detail">首位中国人</div></div>
+    <div class="trophy"><div class="t-icon">🌍</div><div class="t-name">FIBA名人堂</div><div class="t-count">2023</div><div class="t-detail">首位中国球员</div></div>
+    <div class="trophy"><div class="t-icon">🎌</div><div class="t-name">奥运旗手</div><div class="t-count">×2</div><div class="t-detail">2004, 2008</div></div>
+    <div class="trophy"><div class="t-icon">🔢</div><div class="t-name">11号球衣退役</div><div class="t-count">2017</div><div class="t-detail">休斯顿火箭</div></div>
+    <div class="trophy"><div class="t-icon">🏀</div><div class="t-name">生涯总得分</div><div class="t-count">9,247</div><div class="t-detail">场均19.0分</div></div>
+    <div class="trophy"><div class="t-icon">🛡️</div><div class="t-name">生涯总盖帽</div><div class="t-count">920</div><div class="t-detail">火箭队史第二</div></div>
+    <div class="trophy"><div class="t-icon">🦅</div><div class="t-name">CBA盖帽王</div><div class="t-count">×3</div><div class="t-detail">2000–2002</div></div>
+    <div class="trophy"><div class="t-icon">🐘</div><div class="t-name">地球卫士奖</div><div class="t-count">×1</div><div class="t-detail">联合国 2014</div></div>
+    <div class="trophy"><div class="t-icon">🎖️</div><div class="t-name">CBA篮板王</div><div class="t-count">×3</div><div class="t-detail">2000–2002</div></div>
+  </div>
+</section>
+
+<!-- ══════ FOOTER ══════ -->
+<footer style="text-align:center;padding:3rem 1rem;color:#555;font-size:0.8rem;border-top:1px solid rgba(255,255,255,0.05);line-height:2;">
+  <p style="font-size:1.2rem;color:var(--gold);font-weight:700;">🇨🇳🏀 移动长城 · 永远的11号 🏀🇨🇳</p>
+  <p>🏟️ 体育英雄殿堂 · 姚明篇</p>
+  <p style="color:#aaa;max-width:600px;margin:1rem auto;">姚明的职业生涯只有短短9个NBA赛季——但这9年，他让一个拥有14亿人口的国家爱上了篮球，让一代美国人对中国有了全新的认知。他不是NBA历史上最伟大的球员，但他可能是对篮球这项运动全球化贡献最大的球员——只有迈克尔·乔丹和大卫·斯特恩能与他相提并论。</p>
+  <p style="color:#aaa;max-width:600px;margin:1rem auto;">被问到"你希望人们如何记住姚明"时，他说："<strong>我希望他们记住——他是一个努力的人。不是一个高的人，而是一个努力的人。</strong>"</p>
+  <p style="color:#aaa;max-width:600px;margin:1.5rem auto;">用姚明自己的话收尾，再合适不过——因为这就是他的全部。不是天赋，不是身高，不是运气。是每天凌晨5点的加练，是用身体撞开偏见的一次又一次尝试，是隧道里挣扎后走回球场的30秒。在这个世界上，有些人因为天赋而被记住，有些人因为成就而被记住——<strong>姚明因为'努力'而被记住。</strong>而这比任何一项单独的荣誉都更值得尊重。</p>
+  <p style="color:var(--gold);font-weight:700;margin-top:2rem;">身高是天给的，伟大是自己挣的。🦞</p>
+  <p>献给每一个曾被姚明激励过的人——</p>
+  <p style="color:#aaa;">努力不一定成功，但放弃一定失败 · 身高是天给的，伟大是自己挣的 · 他让世界看见了一个真实的中国</p>
+  <p style="margin-top:1rem;"><a href="../" style="color:var(--gold)">← 返回英雄殿堂</a></p>
+</footer>
+
+<script>
+function checkQuiz(el, correct, fbId) {
+  if (el.parentElement.querySelector('.correct')) return;
+  const opts = el.parentElement.querySelectorAll('.opt');
+  const fb = document.getElementById(fbId);
+  opts.forEach(o => { o.style.pointerEvents = 'none'; });
+  if (correct) {
+    el.classList.add('correct');
+    fb.style.display = 'block';
+    if (fbId === 'quiz4-fb') celebrate();
+  } else {
+    el.classList.add('wrong');
+    opts.forEach(o => {
+      const oc = o.getAttribute('onclick');
+      if (oc && oc.includes('true') && o !== el) o.classList.add('correct');
+    });
+    fb.style.display = 'block';
+  }
+}
+function celebrate() {
+  const emojis = ['🏀','🏆','🎉','✨','🇨🇳','⭐','🔥','💪','🦈','🚀','11','🏛️','🐉','😤','🌏'];
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 60; i++) {
+    setTimeout(() => {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = (2 + Math.random() * 3) + 's';
+      p.style.animationDelay = Math.random() * 0.6 + 's';
+      container.appendChild(p);
+      setTimeout(() => p.remove(), 4500);
+    }, i * 35);
+  }
+}
+function scrollToChapter(idx) {
+  const ids = ['ch1','ch2','ch3','goals','ch4','olympics','bridge','rivals','dark','impact','numbers','biz','quotes'];
+  const el = document.getElementById(ids[idx]);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('backTop');
+  btn.classList.toggle('show', window.scrollY > 400);
+  const ids2 = ['ch1','ch2','ch3','goals','ch4','olympics','bridge','rivals','dark','impact','numbers','biz','quotes'];
+  const navSpans = document.querySelectorAll('#navChapters span');
+  let activeIdx = -1;
+  ids.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      if (rect.top <= 250 && rect.bottom >= 250) activeIdx = i;
+    }
+  });
+  navSpans.forEach((s, i) => s.classList.toggle('active', i === activeIdx));
+});
+document.querySelector('.hero .scroll-hint').addEventListener('click', () => { celebrate(); });
+const quoteEl = document.getElementById('quotes');
+if (quoteEl) {
+  const obs = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) { setTimeout(celebrate, 600); obs.unobserve(quoteEl); }
+  }, { threshold: 0.3 });
+  obs.observe(quoteEl);
+}
+(function(){var o=new IntersectionObserver(function(e){e.forEach(function(n){if(n.isIntersecting){var t=n.target,c=Array.from(t.parentElement.children).indexOf(t);setTimeout(function(){t.classList.add('is-visible')},c*80);o.unobserve(t)}})},{threshold:0.15,rootMargin:'0px 0px -50px 0px'});document.querySelectorAll('.timeline-item,.stat-card').forEach(function(e){o.observe(e)})})();
+
+</script>
+</body>
+</html>
