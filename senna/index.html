@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>塞纳 · 雨中诸神之舞 | 体育英雄殿堂</title>
+<style>
+:root {
+  --red: #f7d917; --gold: #009a44; --green: #002776; --dark: #0a0a14;
+  --card-bg: #1a1a2e; --text: #e0e0e0; --text-dim: #999; --accent: #f7d917;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--dark); color: var(--text); line-height: 1.7; overflow-x: hidden;
+}
+
+/* ── Navigation ── */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,10,20,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(247,217,23,0.1); padding: 0.5rem 1rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.nav a { color: var(--gold); text-decoration: none; font-weight: 600; font-size: 0.85rem; flex-shrink: 0; }
+.nav .chapters { display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: flex-end; }
+.nav .chapters span { font-size: 0.7rem; padding: 0.3rem 0.55rem; border-radius: 12px; background: rgba(255,255,255,0.06); color: #888; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+.nav .chapters span:hover, .nav .chapters span.active { background: var(--red); color: #1a1a1a; font-weight: 700; }
+
+/* ── Hero ── */
+.hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 5rem 1rem 3rem; position: relative; }
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(247,217,23,0.12) 0%, rgba(0,154,68,0.06) 50%, transparent 70%); pointer-events: none; }
+.hero .number { font-size: clamp(10rem, 24vw, 16rem); font-weight: 900; background: linear-gradient(180deg, var(--red) 0%, var(--gold) 50%, var(--green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; opacity: 0.95; line-height: 1; animation: pulse 3s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+.hero .cr7 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; color: #fff; margin: 0.5rem 0 0; letter-spacing: 0.05em; }
+.hero .subtitle { font-size: clamp(1rem, 2.5vw, 1.3rem); color: var(--gold); margin-bottom: 1rem; }
+.hero .tagline { color: #888; max-width: 520px; margin: 0 auto 2rem; font-size: 0.95rem; }
+.hero .scroll-hint { color: #555; font-size: 0.8rem; animation: float 2s ease-in-out infinite; cursor: default; }
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+
+/* ── Chapter Sections ── */
+.chapter { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 5rem 1rem; position: relative; }
+.chapter:nth-child(odd) .chapter-inner { flex-direction: row; }
+.chapter:nth-child(even) .chapter-inner { flex-direction: row-reverse; }
+.chapter-inner { max-width: 1000px; width: 100%; display: flex; gap: 3rem; align-items: center; }
+.chapter-icon { font-size: clamp(4rem, 10vw, 7rem); flex-shrink: 0; animation: float 4s ease-in-out infinite; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.4)); }
+.chapter-content { flex: 1; }
+.chapter-num { font-size: 0.8rem; letter-spacing: 0.15em; color: var(--red); font-weight: 700; margin-bottom: 0.5rem; }
+.chapter-title { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 900; color: #fff; margin-bottom: 1rem; }
+.chapter-text { color: #bbb; font-size: 0.95rem; line-height: 1.8; margin-bottom: 1.5rem; }
+.chapter-text strong { color: var(--gold); }
+.chapter-text .highlight { background: linear-gradient(180deg, transparent 60%, rgba(247,217,23,0.3) 60%); padding: 0 2px; }
+
+/* ── Full-width Sections (no icon) ── */
+.section { padding: 4rem 1rem; position: relative; }
+.section-inner { max-width: 900px; margin: 0 auto; }
+.section h2 { text-align: center; font-size: clamp(1.6rem, 3vw, 2rem); color: #fff; margin-bottom: 0.5rem; }
+.section .sub { text-align: center; color: #888; margin-bottom: 2.5rem; font-size: 0.9rem; }
+
+/* ── Stat Card ── */
+.stat-card { background: var(--card-bg); border-radius: 16px; padding: 1.2rem; border: 1px solid rgba(255,255,255,0.06); margin-bottom: 1rem; transition: transform 0.3s; }
+.stat-card:hover { transform: translateY(-2px); border-color: rgba(247,217,23,0.2); }
+.stat-card .label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 0.3rem; }
+.stat-card .value { font-size: 1.8rem; font-weight: 900; color: #fff; }
+.stat-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+.stat-row .stat-card { flex: 1; min-width: 120px; }
+
+/* ── Iconic Moments Gallery ── */
+.goals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+.goal-card { background: var(--card-bg); border-radius: 16px; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s; cursor: default; }
+.goal-card:hover { transform: translateY(-4px); border-color: rgba(247,217,23,0.3); box-shadow: 0 8px 32px rgba(247,217,23,0.1); }
+.goal-card .goal-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+.goal-card .goal-title { font-weight: 700; color: #fff; margin-bottom: 0.3rem; font-size: 1rem; }
+.goal-card .goal-meta { font-size: 0.75rem; color: var(--gold); margin-bottom: 0.8rem; }
+.goal-card .goal-desc { font-size: 0.85rem; color: #aaa; line-height: 1.6; }
+
+/* ── Dark Moments ── */
+.dark-card { background: linear-gradient(135deg, rgba(247,217,23,0.06), rgba(0,0,0,0.3)); border-left: 3px solid var(--red); border-radius: 0 14px 14px 0; padding: 1.5rem; margin-bottom: 1.2rem; }
+.dark-card .dark-year { color: var(--red); font-weight: 700; font-size: 0.8rem; margin-bottom: 0.3rem; }
+.dark-card .dark-title { color: #fff; font-weight: 700; margin-bottom: 0.5rem; }
+.dark-card .dark-desc { color: #aaa; font-size: 0.9rem; line-height: 1.7; }
+.dark-card .dark-rise { color: var(--gold); font-size: 0.85rem; margin-top: 0.6rem; font-weight: 600; }
+
+/* ── Quiz ── */
+.quiz { background: linear-gradient(135deg, rgba(247,217,23,0.12), rgba(0,154,68,0.08)); border-radius: 16px; padding: 1.5rem; margin-top: 1.5rem; border: 1px solid rgba(247,217,23,0.2); }
+.quiz .q { font-weight: 700; color: #fff; margin-bottom: 0.8rem; font-size: 0.95rem; }
+.quiz .options { display: flex; flex-direction: column; gap: 0.5rem; }
+.quiz .opt { padding: 0.6rem 1rem; border-radius: 10px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); cursor: pointer; transition: all 0.2s; color: #ccc; font-size: 0.9rem; text-align: left; }
+.quiz .opt:hover { background: rgba(255,255,255,0.08); border-color: var(--gold); }
+.quiz .opt.correct { background: rgba(0,154,68,0.25); border-color: var(--green); color: #fff; }
+.quiz .opt.wrong { background: rgba(247,217,23,0.15); border-color: var(--red); color: #1a1a1a; }
+.quiz .feedback { margin-top: 0.8rem; font-size: 0.85rem; color: var(--gold); display: none; }
+
+/* ── Quote Block ── */
+.blockquote { background: var(--card-bg); border-radius: 16px; padding: 2rem; margin: 1.5rem 0; text-align: center; border: 1px solid rgba(247,217,23,0.15); position: relative; }
+.blockquote::before { content: '"'; position: absolute; top: -0.5rem; left: 1.5rem; font-size: 5rem; color: var(--red); opacity: 0.3; font-family: Georgia, serif; line-height: 1; }
+.blockquote p { font-size: 1.1rem; color: #fff; font-style: italic; line-height: 1.6; position: relative; }
+.blockquote .by { color: var(--gold); margin-top: 0.8rem; font-weight: 600; font-style: normal; }
+
+/* ── Timeline ── */
+.timeline-section { padding: 4rem 1rem; }
+.timeline-section h2 { text-align: center; font-size: 1.8rem; color: #fff; margin-bottom: 3rem; }
+.timeline { position: relative; padding-left: 2rem; max-width: 700px; margin: 0 auto; }
+.timeline::before { content: ''; position: absolute; left: 0.5rem; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--red), var(--gold), var(--green)); }
+.timeline-item { position: relative; margin-bottom: 2.2rem; padding-left: 2rem; }
+.timeline-item::before { content: ''; position: absolute; left: -1.75rem; top: 0.5rem; width: 12px; height: 12px; border-radius: 50%; background: var(--gold); border: 2px solid var(--dark); }
+.timeline-year { font-size: 0.8rem; color: var(--gold); font-weight: 700; margin-bottom: 0.3rem; }
+.timeline-event { color: #ccc; font-size: 0.9rem; }
+
+/* ── Trophy Wall ── */
+.trophy-section { padding: 4rem 1rem 6rem; }
+.trophy-section h2 { text-align: center; font-size: 1.8rem; color: #fff; margin-bottom: 0.5rem; }
+.trophy-section .sub { text-align: center; color: #888; margin-bottom: 2.5rem; }
+.trophy-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.8rem; max-width: 900px; margin: 0 auto; }
+.trophy { background: var(--card-bg); border-radius: 14px; padding: 1rem 0.8rem; border: 1px solid rgba(255,255,255,0.06); transition: transform 0.3s; text-align: center; }
+.trophy:hover { transform: translateY(-4px); border-color: rgba(247,217,23,0.3); }
+.trophy .t-icon { font-size: 2rem; margin-bottom: 0.4rem; }
+.trophy .t-name { font-size: 0.75rem; color: #ccc; font-weight: 600; }
+.trophy .t-count { font-size: 0.85rem; color: var(--gold); font-weight: 900; }
+.trophy .t-detail { font-size: 0.65rem; color: #777; margin-top: 0.15rem; }
+
+/* ── Safety Revolution Cards ── */
+.biz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+.biz-card { background: var(--card-bg); border-radius: 16px; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.06); text-align: center; transition: all 0.3s; }
+.biz-card:hover { transform: translateY(-4px); border-color: rgba(247,217,23,0.3); }
+.biz-card .biz-icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
+.biz-card .biz-name { color: #fff; font-weight: 700; margin-bottom: 0.5rem; }
+.biz-card .biz-desc { color: #aaa; font-size: 0.85rem; line-height: 1.5; }
+
+/* ── Foundation Stats ── */
+.influence-row { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+.influence-stat { background: var(--card-bg); border-radius: 16px; padding: 1.5rem; text-align: center; border: 1px solid rgba(255,255,255,0.06); min-width: 140px; flex: 1; }
+.influence-stat .big { font-size: 2.2rem; font-weight: 900; background: linear-gradient(135deg, var(--red), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.influence-stat .big.native-icon { background: none; -webkit-background-clip: unset; -webkit-text-fill-color: initial; }
+.influence-stat .desc { color: #aaa; font-size: 0.8rem; margin-top: 0.3rem; }
+
+/* ── Celebration Particles ── */
+.particles { position: fixed; inset: 0; pointer-events: none; z-index: 200; }
+.particle { position: absolute; font-size: 1.5rem; animation: fall linear forwards; }
+@keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(720deg); opacity: 0; } }
+
+/* ── Back to top ── */
+.back-top { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 99; width: 44px; height: 44px; border-radius: 50%; background: var(--red); color: #1a1a1a; border: none; font-size: 1.3rem; cursor: pointer; opacity: 0; transform: translateY(20px); transition: all 0.3s; box-shadow: 0 4px 16px rgba(247,217,23,0.4); }
+.back-top.show { opacity: 1; transform: translateY(0); }
+
+/* ── Divider ── */
+.divider { text-align: center; padding: 1rem; color: #333; font-size: 1.5rem; letter-spacing: 0.3em; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .chapter-inner, .chapter:nth-child(even) .chapter-inner { flex-direction: column !important; gap: 1.5rem; text-align: center; }
+  .chapter-icon { font-size: 4rem; }
+  .chapter { padding: 4rem 1rem; min-height: auto; }
+  .nav .chapters { display: none; }
+  .stat-row { flex-direction: column; }
+  .timeline { padding-left: 1.5rem; }
+  .trophy-grid { grid-template-columns: repeat(2, 1fr); }
+  .goals-grid { grid-template-columns: 1fr; }
+  .biz-grid { grid-template-columns: 1fr 1fr; }
+  .influence-row { flex-direction: column; }
+}
+@media (max-width: 400px) {
+  .biz-grid { grid-template-columns: 1fr; }
+  .trophy-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ═══ Scroll Animations ═══ */
+@keyframes fadeSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+@keyframes countUp { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+.timeline-item { opacity: 0; transform: translateX(-15px); transition: all 0.6s ease-out; }
+.timeline-item:nth-child(even) { transform: translateX(15px); }
+.timeline-item.is-visible { opacity: 1; transform: translateX(0); }
+.trophy { position: relative; overflow: hidden; }
+.trophy::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 0%, rgba(255,215,0,0.08) 50%, transparent 100%); background-size: 200% 100%; opacity: 0; transition: opacity 0.3s; }
+.trophy:hover::after { opacity: 1; animation: shimmer 1.5s ease-in-out infinite; }
+.stat-card.is-visible { animation: countUp 0.5s ease-out forwards; }
+
+</style>
+</head>
+<body>
+
+<div class="particles" id="particles"></div>
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<nav class="nav">
+  <a href="../">← 英雄殿堂</a>
+  <div class="chapters" id="navChapters">
+    <span onclick="scrollToChapter(0)">🏎️</span>
+    <span onclick="scrollToChapter(1)">🌧️</span>
+    <span onclick="scrollToChapter(2)">👑</span>
+    <span onclick="scrollToChapter(3)">⚡</span>
+    <span onclick="scrollToChapter(4)">🌑</span>
+    <span onclick="scrollToChapter(5)">🛡️</span>
+    <span onclick="scrollToChapter(6)">🎓</span>
+    <span onclick="scrollToChapter(7)">🕊️</span>
+    <span onclick="scrollToChapter(8)">💬</span>
+  </div>
+</nav>
+
+<!-- ══════ HERO ══════ -->
+<section class="hero" id="top">
+  <div class="number">S</div>
+  <h1 class="cr7">AYRTON SENNA</h1>
+  <p class="subtitle">埃尔顿 · 塞纳</p>
+  <p class="tagline">巴西国旗的黄色属于黄金与资源，但自从他来过之后——黄色只属于他。在速度的尽头，在理智无法抵达的极限区，只有一个人在那里安静地呼吸。</p>
+  <div class="scroll-hint" onclick="celebrate()">👇 点击开始他的故事</div>
+</section>
+
+<!-- ══════ CH1: São Paulo Childhood ══════ -->
+<section class="chapter" id="ch1">
+  <div class="chapter-inner">
+    <div class="chapter-icon">🏎️</div>
+    <div class="chapter-content">
+      <div class="chapter-num">第一章</div>
+      <h2 class="chapter-title">圣保罗的极速少年</h2>
+      <div class="chapter-text">
+        <p><strong>1960年3月21日</strong>，埃尔顿·塞纳·达·席尔瓦出生在巴西圣保罗一个富裕家庭。父亲米尔顿经营一家金属加工厂和农场，母亲内德是意大利裔。塞纳家族不算大富大贵，但他们给了小埃尔顿一个其他巴西孩子梦寐以求的东西——<strong>一辆卡丁车</strong>。</p>
+        <p>那一年他<strong>只有4岁</strong>。父亲亲手为他造了一台1马力的迷你卡丁车，小塞纳跳上去就不肯下来。圣保罗的乡间土路上，一个还够不到脚踏板的孩子，在尘土中画出了他人生第一条弧线。他天生就知道<strong>什么时候该踩油门，什么时候该打方向</strong>——别的孩子害怕侧滑，他在享受侧滑。</p>
+        <p><strong>13岁</strong>，他开始参加巴西卡丁车锦标赛。对于一个青少年来说，卡丁车赛道就是他的整个世界。他每天早上上学，下午钻进车库调校化油器，晚上在枕头上默背全国每一条赛道的弯道。母亲后来回忆："<strong>他从不说'我想成为赛车手'——他只说'我会成为世界冠军'。</strong>"</p>
+        <p><strong>1978年，18岁。</strong>他第一次离开巴西，远赴欧洲参加世界卡丁车锦标赛。在英国和意大利的赛场上，这个说葡萄牙语、瘦小安静的南美少年，让欧洲人第一次看到了一个像在跳舞一样开卡丁车的人。雨天尤其——<strong>别人减速时他在加速，别人滑水时他在水面上走。</strong></p>
+      </div>
+      <div class="stat-row">
+        <div class="stat-card"><div class="label">出生日期</div><div class="value">1960.03.21</div></div>
+        <div class="stat-card"><div class="label">首次卡丁车</div><div class="value">4岁</div></div>
+        <div class="stat-card"><div class="label">出生地</div><div class="value">圣保罗 🇧🇷</div></div>
+      </div>
+      <div class="quiz" id="quiz1">
+        <div class="q">🤔 塞纳几岁时拥有了人生第一辆卡丁车？</div>
+        <div class="options">
+          <div class="opt" onclick="checkQuiz(this,true,'quiz1-fb')">🏎️ 4岁——父亲亲手为他造了一台1马力的迷你卡丁车</div>
+          <div class="opt" onclick="checkQuiz(this,false,'quiz1-fb')">🏎️ 7岁——在生日那天收到了父母的礼物</div>
+          <div class="opt" onclick="checkQuiz(this,false,'quiz1-fb')">🏎️ 10岁——用攒了一年的零花钱自己买的</div>
+        </div>
+        <div class="feedback" id="quiz1-fb">🏎️ 没错！4岁！在那个多数孩子还在玩玩具车的年纪，塞纳已经握着方向盘在乡间土路上飞驰了。从这一天起，方向盘从未离开过他的手。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CH2: F1 Rise ══════ -->
+<section class="chapter" id="ch2">
+  <div class="chapter-inner">
+    <div class="chapter-icon">🌧️</div>
+    <div class="chapter-content">
+      <div class="chapter-num">第二章</div>
+      <h2 class="chapter-title">雨中加冕：摩纳哥的预言</h2>
+      <div class="chapter-text">
+        <p><strong>1981年，21岁。</strong>塞纳告别巴西，独闯英格兰。他参加了Formula Ford 1600锦标赛，第一年就拿下冠军。然后是Formula Ford 2000——又赢了。1983年，他在英国Formula 3锦标赛中以<strong>12胜</strong>的统治级表现夺冠。全欧洲都在问同一个问题：<strong>这个巴西人是谁？</strong></p>
+        <p><strong>1984年，24岁。</strong>塞纳进入F1，加入了当时的中小车队<strong>托勒曼（Toleman）</strong>。赛季第六站——<strong>摩纳哥大奖赛</strong>。那一天下着倾盆大雨，F1史上最伟大的雨战之一即将上演。塞纳驾驶着性能远逊于前列车队的托勒曼赛车，从第13位起步，在能见度极低的漫天大雨中<strong>疯狂超越一辆又一辆赛车</strong>——他超过了尼基·劳达、超过了科科·罗斯伯格、超过了所有人。</p>
+        <p>当比赛在第31圈——塞纳追至第2位、正以<strong>每圈比领先者快4秒</strong>的速度逼近第1名的阿兰·普罗斯特时——赛事干事挥动了红旗。比赛被终止了。<strong>如果不提前终止，他大概率会夺冠。</strong>普罗斯特后来承认："如果他再跑两圈，我就输了。"</p>
+        <p>那一场比赛，全世界都记住了"<strong>埃尔顿·塞纳</strong>"这个名字。三大车队——莲花、迈凯伦、法拉利——开始疯狂争夺他。他选择了<strong>莲花（Lotus）</strong>，在那里他将完成从天才到冠军的蜕变。</p>
+      </div>
+      <div class="stat-row">
+        <div class="stat-card"><div class="label">F3冠军</div><div class="value">1983</div></div>
+        <div class="stat-card"><div class="label">F1首秀</div><div class="value">1984</div></div>
+        <div class="stat-card"><div class="label">摩纳哥84</div><div class="value">P2 🥈</div></div>
+      </div>
+      <div class="quiz" id="quiz2">
+        <div class="q">🤔 1984年摩纳哥大奖赛中，塞纳为什么没有夺冠？</div>
+        <div class="options">
+          <div class="opt" onclick="checkQuiz(this,false,'quiz2-fb')">⚙️ 赛车机械故障，引擎爆缸了</div>
+          <div class="opt" onclick="checkQuiz(this,true,'quiz2-fb')">🏁 赛事干事因天气恶劣提前挥动红旗终止比赛，当时他正以惊人速度追近第一</div>
+          <div class="opt" onclick="checkQuiz(this,false,'quiz2-fb')">🚩 他犯了一个错误，冲出赛道退赛了</div>
+        </div>
+        <div class="feedback" id="quiz2-fb">🏁 是的！大雨中赛事被提前终止。塞纳从第13位起跑，在雨中超过了一辆又一辆赛车，追到第2位时正以每圈快4秒的速度逼近第1名——然后比赛结束了。这场比赛让世界第一次看到了"雨中神"的诞生。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CH3: McLaren Era ══════ -->
+<section class="chapter" id="ch3">
+  <div class="chapter-inner">
+    <div class="chapter-icon">👑</div>
+    <div class="chapter-content">
+      <div class="chapter-num">第三章</div>
+      <h2 class="chapter-title">迈凯伦时代：三冠王与宿敌</h2>
+      <div class="chapter-text">
+        <p><strong>1988年，塞纳加入迈凯伦。</strong>这支由罗恩·丹尼斯率领的英国车队给了他当时最强大的赛车——<strong>迈凯伦MP4/4</strong>，搭载本田引擎。那一年，这台红白相间的赛车在16场比赛中赢了<strong>15场</strong>——F1史上最霸道的统治赛季。塞纳赢得了<strong>8场</strong>胜利和<strong>13个杆位</strong>（当时的历史纪录），在铃鹿赛道击败队友普罗斯特，拿下了<strong>人生第一个世界冠军</strong>。</p>
+        <p>但迈凯伦的主旋律不是冠军——是<strong>塞纳与普罗斯特</strong>。这是F1史上最伟大的宿敌对决。普罗斯特——法国人，绰号"教授"——计算精确、保守稳健、擅长保存赛车。塞纳——巴西人，绰号"魔术师"——冲动、激进、在极限边缘生活。两个人互相憎恨，但互相成就。<strong>如果没有对方，没有人能逼出最好的自己。</strong></p>
+        <p><strong>1990年</strong>，塞纳在铃鹿的第一个弯角撞向普罗斯特——这是他对1989年同一赛道被普罗斯特"关门"的复仇。两车相撞，双双退赛，塞纳因此确保了<strong>第二座世界冠军</strong>。争议？当然。但塞纳说了一句后来成为赛车名言的话："<strong>If you no longer go for a gap that exists, you are no longer a racing driver.</strong>"</p>
+        <p><strong>1991年</strong>，普罗斯特离开迈凯伦去了法拉利，塞纳以<strong>7场胜利</strong>拿下<strong>第三座世界冠军</strong>。那一年他在巴西主场终于如愿夺冠，但过程堪称炼狱——变速箱故障、肌肉痉挛、在痛苦中坚持到了最后一圈。当他被工作人员从车里拉出来时，<strong>几乎无法站立</strong>。</p>
+      </div>
+      <div class="stat-row">
+        <div class="stat-card"><div class="label">世界冠军</div><div class="value">3次</div></div>
+        <div class="stat-card"><div class="label">分站冠军</div><div class="value">41胜</div></div>
+        <div class="stat-card"><div class="label">杆位</div><div class="value">65次</div></div>
+      </div>
+      <div class="blockquote"><p>如果你不再去争取那个存在的空隙，你就不再是一名赛车手了。</p><div class="by">— 1990年澳大利亚大奖赛采访 — 赛车史上最著名的一句话</div></div>
+      <div class="quiz" id="quiz2b">
+        <div class="q">🤔 塞纳和普罗斯特的恩怨持续了多少年？</div>
+        <div class="options">
+          <div class="opt" onclick="checkQuiz(this,false,'quiz2b-fb')">⚔️ 仅2年——1988和1989</div>
+          <div class="opt" onclick="checkQuiz(this,true,'quiz2b-fb')">⚔️ 1988到1993——跨越6年，贯穿整个迈凯伦时代，两次冠军归属在最后一站以撞车决定</div>
+          <div class="opt" onclick="checkQuiz(this,false,'quiz2b-fb')">⚔️ 他们其实一直都是朋友，竞争没那么激烈</div>
+        </div>
+        <div class="feedback" id="quiz2b-fb">⚔️ 1988-1993！6年恩怨不仅定义了那个时代，还定义了什么叫做"伟大的对手"。普罗斯特退役时说过："我从未真正击败过塞纳——我击败的只是记分牌上的数字。塞纳击败的是物理学。"</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CH4: Iconic Moments ══════ -->
+<section class="section" id="classics">
+  <div class="section-inner">
+    <h2>⚡ 不朽的雨中神话</h2>
+    <p class="sub">塞纳最伟大的比赛，每一场都是人与极限的对话</p>
+    <div class="goals-grid">
+      <div class="goal-card">
+        <div class="goal-icon">🌧️</div>
+        <div class="goal-title">1985葡萄牙大奖赛 · 雨中首胜</div>
+        <div class="goal-meta">1985年4月21日 · 埃斯托利尔赛道</div>
+        <div class="goal-desc">塞纳加盟莲花的第一年。比赛日暴雨倾盆，赛道积水成河。他从杆位起步，在漫天大雨中<strong>全程领先，套圈了除第2名外的所有车手</strong>，以超过1分钟的巨大优势拿下生涯<strong>首场F1胜利</strong>。赛后他站在领奖台上浑身湿透，雨水混合着眼泪。全世界在那一刻明白了：这个巴西人，是雨神派来的。</div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-icon">🏆</div>
+        <div class="goal-title">1988日本大奖赛 · 铃鹿加冕</div>
+        <div class="goal-meta">1988年10月30日 · 铃鹿赛道</div>
+        <div class="goal-desc">赛季倒数第二站，塞纳必须击败队友普罗斯特才能保住冠军希望。起步时他的迈凯伦赛车<strong>突然熄火</strong>，从杆位掉到第16位。当所有人以为比赛结束时——他开始了可能是最疯狂的追击。雨天，他一路狂超，最终赢得比赛并在铃鹿赛道上<strong>夺下生涯第一座世界冠军</strong>。从最后到第一，一场比赛浓缩了他的一生。</div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-icon">⚡</div>
+        <div class="goal-title">1993多宁顿公园 · 诸神之圈</div>
+        <div class="goal-meta">1993年4月11日 · 欧洲大奖赛</div>
+        <div class="goal-desc">这场比赛的开场圈被后人称为"<strong>The Lap of the Gods</strong>"（诸神之圈）。瓢泼大雨中，塞纳驾驶性能明显逊于威廉姆斯的迈凯伦赛车，从第5位起步，在第一圈结束时<strong>已经领先全场</strong>——他在这一个圈里先后超越了<strong>卡尔·温德林格、迈克尔·舒马赫、达蒙·希尔和阿兰·普罗斯特</strong>，四位对手加在一起拥有12个世界冠军头衔。他最终以超过1分23秒的巨大优势获胜。Niki Lauda后来说："他不是在开车——<strong>他是在水面上行走</strong>。"</div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-icon">🇧🇷</div>
+        <div class="goal-title">1991巴西大奖赛 · 浴血主场</div>
+        <div class="goal-meta">1991年3月24日 · 英特拉格斯赛道</div>
+        <div class="goal-desc">塞纳在主场的<strong>第一次——也是唯一一次——胜利</strong>，却把他的身体和精神推到了极限。比赛末段，他的变速箱<strong>先失去了四档，然后是五档，最后是三档</strong>。他不得不用仅剩的<strong>六档</strong>完成最后7圈。更糟的是，赛前系得过紧的安全带导致<strong>肩膀和颈部肌肉严重痉挛</strong>。他在座舱里痛得无法抬头，只能靠本能和肌肉记忆控制赛车。冲线后他几乎无法被从车中拉出来，被送往医疗中心。领奖台上，他<strong>用尽最后的力气举起奖杯</strong>——三个字都说不完整，但整个巴西在为他哭泣。</div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-icon">🏙️</div>
+        <div class="goal-title">1988摩纳哥 · 进入另一个维度</div>
+        <div class="goal-meta">1988年5月15日 · 摩纳哥蒙特卡洛</div>
+        <div class="goal-desc">塞纳在排位赛中跑出了F1史上最传奇的一圈。他后来回忆道："我突然意识到自己不再是有意识地驾驶——<strong>我在一种本能的状态中开车，只是我在一个不同的维度里</strong>。"他比队友普罗斯特快了<strong>1.427秒</strong>——在摩纳哥这种狭窄街道赛道上，这个差距大约是<strong>一辈子的距离</strong>。然而正赛中他在领先巨大优势下过于放松，撞墙退赛。普罗斯特赢了。这场比赛教会塞纳：<strong>在F1，一秒的松懈等于零。</strong></div>
+      </div>
+    </div>
+    <div class="quiz" id="quiz3">
+      <div class="q">🤔 1993年多宁顿公园"诸神之圈"中，塞纳在第一圈超越了多少位未来的世界冠军？</div>
+      <div class="options">
+        <div class="opt" onclick="checkQuiz(this,false,'quiz3-fb')">⚡ 2位——希尔和普罗斯特</div>
+        <div class="opt" onclick="checkQuiz(this,false,'quiz3-fb')">⚡ 3位——希尔、普罗斯特和舒马赫</div>
+        <div class="opt" onclick="checkQuiz(this,true,'quiz3-fb')">⚡ 被超越的所有对手加在一起拥有12个世界冠军——舒马赫(7)、普罗斯特(4)、希尔(1)</div>
+        <div class="opt" onclick="checkQuiz(this,false,'quiz3-fb')">⚡ 这不是真的——没有人能在一条圈超越这么多人</div>
+      </div>
+      <div class="feedback" id="quiz3-fb">⚡ 难以置信但千真万确！舒马赫7个+普罗斯特4个+希尔1个=12个世界冠军头衔，全被塞纳在一条圈内超越。在倾盆大雨中，他驾驶性能较差的赛车做到了没人敢想的事。"他是在水面上行走"——Niki Lauda。</div>
+    </div>
+    <div class="chapter-text" style="margin-top:2rem;">
+      <p>当然，塞纳的伟大不只在雨里。<strong>杆位之王</strong>的称号绝非浪得虚名：他的65个杆位在当时是历史纪录，直到多年后才被舒马赫和汉密尔顿超越。他在摩纳哥的<strong>6次胜利</strong>是这项最苛刻街道赛的历史之最。他连续<strong>8场杆位</strong>（1988西班牙到1989美国）一度被认为是不可打破的神话。</p>
+      <p>但真正让塞纳不朽的不是数字——是<strong>他驾驶赛车的方式</strong>。在车载镜头里你能看到：他的手在方向盘上快得像蜂鸟的翅膀，他的油门控制精准到毫米，他的赛车永远处于微微侧滑——<strong>在抓地力与非抓地力之间的量子态</strong>。物理学家会说那不可能。塞纳只是说："恐惧让我兴奋。"</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CH5: Darkest Moments ══════ -->
+<section class="section" id="dark">
+  <div class="section-inner">
+    <h2>🌑 至暗时刻</h2>
+    <p class="sub">在速度的极致，死亡从未远离</p>
+
+    <div class="dark-card">
+      <div class="dark-year">🇯🇵 1989 · 铃鹿</div>
+      <div class="dark-title">第一次被宿敌"关门"——冠军被夺走</div>
+      <div class="dark-desc">1989年日本大奖赛，塞纳与普罗斯特在争夺世界冠军时在最后一个减速弯发生碰撞。普罗斯特提前切弯关门，两车相撞。普罗斯特退赛退出，塞纳在赛道工作人员的帮助下重新发动赛车、抄近道回到赛道，完成剩余圈数并第一个冲线——但被国际汽联<strong>取消了成绩</strong>，理由是"切弯获得不公平优势"。普罗斯特因此夺得1989年世界冠军。塞纳怒斥FIA主席让-马里·巴雷斯特偏袒普罗斯特。<strong>"这不是比赛——这是政治。"</strong></div>
+      <div class="dark-rise">🔥 一年后同一赛道：塞纳在第一个弯道直接撞向普罗斯特——"这是我应得的。"1990年世界冠军到手。</div>
+    </div>
+
+    <div class="dark-card">
+      <div class="dark-year">🇯🇵 1990 · 铃鹿</div>
+      <div class="dark-title">复仇的代价——他以争议的方式赢回冠军</div>
+      <div class="dark-desc">1990年日本大奖赛，杆位发车位置被放在赛道脏侧（塞纳认为这是FIA再次偏袒普罗斯特）。起步后第一弯，塞纳的迈凯伦<strong>径直撞向普罗斯特的法拉利</strong>——两车双双退赛，但塞纳因此锁定世界冠军。赛后他公开承认自己是故意的——"去年他们就是这样从我这偷走冠军的。<strong>今年我只是拿回来。</strong>"这一事件成为F1史上最大的争议之一，也将两人的宿敌恩怨推向了不可调和的顶点。</div>
+      <div class="dark-rise">🔥 无论争议多大——塞纳的原则从不动摇：比赛必须公平。不公平时，他用自己的方式纠正。</div>
+    </div>
+
+    <div class="dark-card">
+      <div class="dark-year">🇮🇹 1994 · 伊莫拉 —— F1史上最黑暗的周末</div>
+      <div class="dark-title">4月30日：罗兰·拉岑伯格之死</div>
+      <div class="dark-desc"><strong>1994年4月30日，圣马力诺大奖赛排位赛。</strong>奥地利车手罗兰·拉岑伯格驾驶Simtek赛车，在Villeneuve弯以约<strong>314.9公里/小时</strong>的速度冲出赛道，前翼脱落导致赛车失控，径直撞向水泥防护墙。34岁的拉岑伯格成为<strong>F1自1982年以来第一个在比赛周末死亡的赛车手</strong>。塞纳得知后极度震惊，他独自去了事故现场，在那里站了很久。他的朋友后来说："<strong>那天之后，塞纳不再是同一个塞纳了。</strong>"当晚，塞纳打电话给女友说："我不想参加明天的比赛。"但他是车手——车手无法不比赛。</div>
+      <div class="dark-rise">🔥 拉岑伯格的死引发了对F1安全的第一次激烈反思——但改变还不够。真正的改变，需要另一场无法承受的代价。</div>
+    </div>
+
+    <div class="dark-card">
+      <div class="dark-year">🇮🇹 1994年5月1日 · 伊莫拉 —— 14:17</div>
+      <div class="dark-title">坦布雷罗弯：一个时代的终结</div>
+      <div class="dark-desc"><strong>1994年5月1日，圣马力诺大奖赛正赛第7圈。</strong>安全车带领期结束后比赛重新开始。塞纳驾驶威廉姆斯FW16赛车领先迈克尔·舒马赫进入坦布雷罗（Tamburello）弯——一个极高速的左弯，赛车以<strong>约300公里/小时</strong>的速度通过。突然，塞纳的赛车<strong>没有转向</strong>——它直直地冲出赛道，猛烈撞上外侧的混凝土护墙。悬挂断裂的部件穿透了他的头盔面罩，造成致命颅脑损伤。赛道上的医疗团队全力抢救，直升机将他送往博洛尼亚医院。当地时间<strong>18:40</strong>，埃尔顿·塞纳被宣布死亡。他只有<strong>34岁</strong>。那一天，巴西宣布<strong>全国哀悼三天</strong>。超过三百万人走上圣保罗街头为他送行。F1失去的不只是一个车手——它失去了20世纪最伟大的体育灵魂之一。</div>
+      <div class="dark-rise">🔥 塞纳的死，最终迫使F1走上一条前所未有的安全改革之路。31年后，F1再未在比赛周末失去过任何一名车手。</div>
+    </div>
+
+    <div class="quiz" id="quiz4">
+      <div class="q">🤔 1994年伊莫拉黑色周末中，塞纳出事前发生了哪件先兆性悲剧？</div>
+      <div class="options">
+        <div class="opt" onclick="checkQuiz(this,false,'quiz4-fb')">🔧 塞纳的赛车在排位赛中两次引擎爆缸</div>
+        <div class="opt" onclick="checkQuiz(this,true,'quiz4-fb')">💔 奥地利车手罗兰·拉岑伯格在前一天的排位赛中撞车身亡</div>
+        <div class="opt" onclick="checkQuiz(this,false,'quiz4-fb')">🌧️ 比赛当天下了F1史上最大的雨</div>
+      </div>
+      <div class="feedback" id="quiz4-fb">💔 是的。1994年4月30日，拉岑伯格在排位赛中撞车身亡——这是F1自1982年以来首次在比赛周末有车手丧生。塞纳极度震惊，他独自去了事故现场。他不想参加次日的比赛——但在那之前，没有人可以阻止一个车手坐进赛车。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CH6: F1 Safety Revolution ══════ -->
+<section class="section" id="safety">
+  <div class="section-inner">
+    <h2>🛡️ 塞纳之死如何拯救了无数生命</h2>
+    <p class="sub">他最后的礼物：让F1成为世界上最安全的运动之一</p>
+    <div class="chapter-text">
+      <p>塞纳去世后的F1，进行了一场<strong>前所未有的安全革命</strong>。事故调查委员会发现，威廉姆斯赛车的转向柱在赛前被临时修改加长并焊接，这一修改<strong>可能在撞击前已经断裂</strong>——这也是为什么赛车在坦布雷罗弯没有转向。无论最终原因是什么，塞纳的死彻底唤醒了一项沉睡太久的运动。</p>
+    </div>
+
+    <div class="biz-grid">
+      <div class="biz-card">
+        <div class="biz-icon">🧱</div>
+        <div class="biz-name">坦布雷罗弯道改造</div>
+        <div class="biz-desc">事故后FIA立即将坦布雷罗从高速弯改为<strong>减速弯</strong>（chicane）。全赛道混凝土墙被逐步替换为<strong>TecPro吸能护栏</strong>和轮胎墙，极大降低了撞击力。</div>
+      </div>
+      <div class="biz-card">
+        <div class="biz-icon">⛑️</div>
+        <div class="biz-name">HANS头颈支撑系统</div>
+        <div class="biz-desc"><strong>2003年起强制使用</strong>。HANS装置在碰撞时限制头部和颈部的剧烈甩动，防止致命的颅底骨折。塞纳的死直接推动了这个系统的研发和推广。</div>
+      </div>
+      <div class="biz-card">
+        <div class="biz-icon">🧪</div>
+        <div class="biz-name">更强碰撞测试</div>
+        <div class="biz-desc">所有赛车必须通过更严格的前方、侧面和后方碰撞测试。单体壳（monocoque）的强度标准被<strong>大幅提高</strong>，悬挂件的固定方式被重新设计以防止穿透座舱。</div>
+      </div>
+      <div class="biz-card">
+        <div class="biz-icon">🏥</div>
+        <div class="biz-name">赛道医疗标准升级</div>
+        <div class="biz-desc">每场比赛强制配备专业的<strong>医疗直升机、急救团队和赛道医疗中心</strong>。FIA医疗车在暖胎圈后跟随发车——这套系统由Sid Watkins教授在塞纳去世后进一步完善。</div>
+      </div>
+      <div class="biz-card">
+        <div class="biz-icon">🛡️</div>
+        <div class="biz-name">Halo光环系统</div>
+        <div class="biz-desc"><strong>2018年起强制安装</strong>。钛合金光环保护座舱开口，已多次拯救车手生命——包括2020年巴林站罗曼·格罗斯让的烈火奇迹逃生。Halo是塞纳遗产最直接的延续。</div>
+      </div>
+      <div class="biz-card">
+        <div class="biz-icon">🌐</div>
+        <div class="biz-name">FIA安全研究所</div>
+        <div class="biz-desc"><strong>1996年成立</strong>，由塞纳的朋友Sid Watkins教授领导。专注于赛车安全研究，其成果不仅应用于F1，还<strong>辐射到民用汽车安全</strong>——安全带、气囊和碰撞标准。</div>
+      </div>
+    </div>
+
+    <div class="chapter-text" style="margin-top:2rem;">
+      <p><strong>在塞纳之前，F1就是一场死亡轮盘。</strong>1950年至1994年间，<strong>超过40名F1车手</strong>在比赛或测试中丧生。平均每个赛季有近1名车手遇难。赛车手被视为一种"半职业的角斗士"——观众来赛场不只是看速度，也是看风险。塞纳的去世改变了一切。</p>
+      <p>国际汽联（FIA）在事故后成立了<strong>安全顾问专家组</strong>，由塞纳的亲密朋友、F1首席医疗官希德·沃特金斯教授（Prof. Sid Watkins）领导。沃特金斯曾试图在比赛前夜说服塞纳退休去钓鱼——塞纳笑了笑，但拒绝了。沃特金斯后来把自己的余生都献给了赛车安全。</p>
+      <p>改变不止于F1。塞纳研究院的数据驱动教育方法被<strong>OECD和联合国教科文组织</strong>作为发展中国家教育改革的参考案例。塞纳的名字从赛道走进了教室、走进了学术论文、走进了政策文件——这是任何其他运动员都未能达到的影响力维度。</p>
+    </div>
+    <div class="quiz" id="quiz5">
+      <div class="q">🤔 自1994年塞纳去世后，F1正赛中还有几名车手丧生？</div>
+      <div class="options">
+        <div class="opt" onclick="checkQuiz(this,false,'quiz5-fb')">😢 5名——F1永远不可能安全</div>
+        <div class="opt" onclick="checkQuiz(this,true,'quiz5-fb')">😌 1名——2014年儒勒·比安奇在日本大奖赛中因雨天撞上救援吊车</div>
+        <div class="opt" onclick="checkQuiz(this,false,'quiz5-fb')">🤔 3名——我知道有几个</div>
+      </div>
+      <div class="feedback" id="quiz5-fb">😌 自塞纳去世后，F1正赛中只有1名车手丧生——2014年儒勒·比安奇在日本铃鹿的雨中撞上救援吊车。在塞纳之前，F1平均每赛季有1-2名车手死亡。他的死让这项运动从未再如此危险。塞纳拯救了整整一代车手——比安奇的悲剧也触发了虚拟安全车(VSC)和Halo的加速推广。31年来仅1人遇难——这是塞纳留给赛车世界最好的礼物。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ Eternal Legacy ══════ -->
+<section class="section" id="eternal">
+  <div class="section-inner">
+    <h2>🕊️ 永恒：为何塞纳仍然活着</h2>
+    <p class="sub">30多年过去了——人们还在谈论他，还在为他流泪，还在让孩子看他的录像</p>
+    <div class="chapter-text">
+      <p>在F1历史上，出现过许多伟大的冠军——范吉奥、克拉克、斯图尔特、劳达、普罗斯特、舒马赫、汉密尔顿、维斯塔潘——但<strong>没有一个人像塞纳那样被记忆</strong>。舒马赫拿了7个冠军，汉密尔顿追平了7冠并打破了几乎所有塞纳的纪录——但当你问一个F1车迷"谁是最伟大的"，你听到的名字经常和数字无关。</p>
+      <p><strong>1994年5月5日</strong>，圣保罗——超过<strong>300万巴西人</strong>涌入街头，为塞纳送行。这是巴西历史上规模最大的葬礼。巴西政府宣布<strong>全国哀悼三天</strong>。他的灵柩覆盖着巴西国旗，由消防车运送穿过圣保罗的主要街道。路边的人们举着标语，上面写着"塞纳，我们爱你。"</p>
+      <p>塞纳的墓地位于圣保罗莫伦比公墓。墓碑上是他自己的话：<strong>"Nada pode me separar do amor de Deus"</strong>（没有什么能将我与上帝的爱分开）。每年5月1日，来自全世界——<strong>来自日本、英国、德国、意大利</strong>——的车迷们带着鲜花和巴西国旗来到他的墓前。他们中的许多人<strong>从未亲眼见过他比赛</strong>——他们是在他去世后才出生的。</p>
+      <p>为什么一个34年前去世的赛车手，仍然比今天任何一个现役车手更被人铭记？答案可能是——塞纳不只是一个车手。<strong>他是一面镜子，映出了人类对"超越"的一切渴望</strong>：超越恐惧、超越理性、超越竞争对手、超越机器本身的物理极限。他的故事只有一个真正的问题：当一个人把一切都推到极限，他能走多远？塞纳的答案是——<strong>比所有人都远，比所有人都深，直到上帝伸手对他说：够了。</strong></p>
+    </div>
+    <div class="stat-row" style="margin-top:2rem;">
+      <div class="stat-card"><div class="label">葬礼送行者</div><div class="value">300万+</div></div>
+      <div class="stat-card"><div class="label">巴西全国哀悼</div><div class="value">3天</div></div>
+      <div class="stat-card"><div class="label">YouTube最热视频</div><div class="value">千万播放</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CH7: Legacy & Foundation ══════ -->
+<section class="section" id="legacy">
+  <div class="section-inner">
+    <h2>🎓 浴火重生：塞纳的精神遗产</h2>
+    <p class="sub">他说过："我们不能生活在一个被贫困包围的富饶孤岛上。"他死后，他的姐姐实现了他的梦想。</p>
+
+    <div class="influence-row" style="margin-bottom:2rem;">
+      <div class="influence-stat"><div class="big">3600万+</div><div class="desc">受益学生总数</div></div>
+      <div class="influence-stat"><div class="big">30万+</div><div class="desc">受训教师</div></div>
+      <div class="influence-stat"><div class="big">1994</div><div class="desc">基金会成立年份</div></div>
+      <div class="influence-stat"><div class="big">26州</div><div class="desc">覆盖巴西全国</div></div>
+    </div>
+
+    <div class="chapter-text">
+      <p><strong>他从未想过只做一个赛车手。</strong>塞纳去世前不久，曾私下对姐姐维维安说："我想为巴西的孩子们做些什么——特别是教育。贫困不是他们的错，但不给他们机会是我们所有人的错。"这句话成为了塞纳的生命遗言。</p>
+      <p><strong>他去世后仅仅几个月——1994年11月</strong>，维维安·塞纳创立了<strong>埃尔顿·塞纳研究院（Instituto Ayrton Senna）</strong>。这个非营利组织致力于改善巴西公共教育质量——不是简单地捐钱，而是<strong>与政府合作</strong>，培训教师、开发教学方案、推广科学的教育方法。</p>
+      <p>30余年来，塞纳研究院以塞纳的赛车哲学驱动教育——<strong>精准、执着、不放过每一个细节</strong>。它的教学方案已经覆盖巴西<strong>26个州、超过600个城市</strong>，帮助了超过<strong>3600万名学生</strong>，培训了超过<strong>30万名教师</strong>。它整合了神经科学、经济学和认知科学，用证据驱动教育创新。</p>
+      <p>与传统的慈善捐赠不同，塞纳研究院做的是<strong>系统性变革</strong>——培训公立学校教师、开发教学方案、与州政府合作将项目<strong>嵌入公共教育体系</strong>。这是一种"塞纳式"的做事方式：不满足于表面修补，而是从系统深处入手。</p>
+      <p>研究院的合作伙伴名单读起来像一份全球精英名录：<strong>迈凯伦车队、壳牌、普华永道、巴西开发银行</strong>。刘易斯·汉密尔顿在赢得第7个世界冠军后，特意去圣保罗参观塞纳研究院并说："塞纳是我的一切。他让我相信，赛车手可以不只是赛车手。"</p>
+      <p><strong>这在全世界是独一无二的：</strong>一位运动员的精神——不是奖杯，不是纪录——被转化为一场持续30年、覆盖上千万人的<strong>社会变革工程</strong>。塞纳的迈凯伦合作伙伴至今仍向基金会提供支持。F1冠军刘易斯·汉密尔顿在巴西访问塞纳基金会时，在圣保罗一所公立学校的墙前说："<strong>塞纳不只是我的英雄——他是整个巴西的英雄，也是赛车能带给世界什么的证明。</strong>"</p>
+      <p>塞纳的坟墓在圣保罗的莫伦比公墓，墓碑上刻着一句简单的话："<strong>没有什么能比他自己更强大。</strong>"但真正懂他的人知道——他留下的不是一座坟墓，是3600万个正在读书的巴西孩子。</p>
+    </div>
+
+    <div class="quiz" id="quiz6">
+      <div class="q">🤔 塞纳研究院迄今为止帮助了多少名巴西学生？</div>
+      <div class="options">
+        <div class="opt" onclick="checkQuiz(this,false,'quiz6-fb')">📚 约1000万——已经非常了不起了</div>
+        <div class="opt" onclick="checkQuiz(this,false,'quiz6-fb')">📚 约2000万——这是个巨大数字</div>
+        <div class="opt" onclick="checkQuiz(this,true,'quiz6-fb')">📚 超过3600万——覆盖巴西26个州，培训了30万教师</div>
+      </div>
+      <div class="feedback" id="quiz6-fb">📚 3600万+！这不是一个数字——这是3600万个因为塞纳而拥有了更好未来的孩子。他在赛车上的成就是历史级，但他在巴西教育上的贡献是文明级。塞纳最后的价值，不在赛道，在教室。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ QUOTES WALL ══════ -->
+<section class="section" id="quotes">
+  <div class="section-inner">
+    <h2>💬 塞纳说</h2>
+    <p class="sub">每一句话都是他对极限的答案</p>
+
+    <div class="blockquote"><p>如果你不再去争取那个存在的空隙，你就不再是一名赛车手。</p><div class="by">— 1990年澳大利亚大奖赛采访 — 赛车史上最著名的一句话</div></div>
+
+    <div class="blockquote"><p>我没有偶像。我敬佩工作、投入和竞争力。</p><div class="by">— 被问及"你的偶像是谁"时的回答</div></div>
+
+    <div class="blockquote"><p>第二名就是失败者中的第一名。我宁可拼搏后撞车退赛，也不愿安稳地拿第二。</p><div class="by">— 谈到他的赛车哲学</div></div>
+
+    <div class="blockquote"><p>突然之间，我意识到自己不再是有意识地驾驶汽车——我以一种本能的方式开着它，只是我在一个不同的维度里。赛道对我来说像一条隧道，我不断走下去，走得越来越远。</p><div class="by">— 描述1988年摩纳哥排位赛的神奇一圈（杆位，快对手1.4秒）</div></div>
+
+    <div class="blockquote"><p>我们这些富有的人不能生活在被贫困海洋包围的孤岛上。我们都呼吸着同样的空气。我们必须给每个人一个机会——至少一个基本的机会。</p><div class="by">— 去世前几个月对姐姐维维安说的话，直接促成了塞纳研究院的诞生</div></div>
+
+    <div class="blockquote"><p>恐惧让我兴奋。</p><div class="by">— 被问及是否害怕在雨天以300公里时速过弯时</div></div>
+
+    <div class="quiz" id="quiz7" style="margin-top:2.5rem;">
+      <div class="q">🤔 塞纳的哪一面最打动人？</div>
+      <div class="options">
+        <div class="opt" onclick="checkQuiz(this,false,'quiz7-fb')">🏎️ 赛道上的速度和勇气</div>
+        <div class="opt" onclick="checkQuiz(this,false,'quiz7-fb')">🇧🇷 他对巴西和祖国人民的爱</div>
+        <div class="opt" onclick="checkQuiz(this,true,'quiz7-fb')">✨ 以上所有——他不是一个单面的英雄，他是速度、勇气的混合体：赛道上的"魔术师"、祖国巴西的骄傲、3600万孩子的守护者</div>
+      </div>
+      <div class="feedback" id="quiz7-fb">✨ 塞纳不能被单一的标签定义。他是赛道上的神、祖国的骄傲、3600万孩子的守护者。他证明了：一个运动员可以不只是运动员——他可以是变革的力量，可以是用生命让世界更安全的人，可以是在死后30年仍在教室中改变命运的人。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ TIMELINE ══════ -->
+<section class="timeline-section">
+  <h2>⏳ 完整时间线</h2>
+  <div class="timeline">
+    <div class="timeline-item"><div class="timeline-year">1960</div><div class="timeline-event">3月21日出生于巴西圣保罗，取名埃尔顿·塞纳·达·席尔瓦</div></div>
+    <div class="timeline-item"><div class="timeline-year">1964</div><div class="timeline-event">4岁，父亲为他制造第一辆1马力迷你卡丁车——一切开始的地方</div></div>
+    <div class="timeline-item"><div class="timeline-year">1973</div><div class="timeline-event">13岁，首次参加巴西卡丁车锦标赛</div></div>
+    <div class="timeline-item"><div class="timeline-year">1978</div><div class="timeline-event">18岁，首次出国参加世界卡丁车锦标赛，在欧洲崭露头角</div></div>
+    <div class="timeline-item"><div class="timeline-year">1981</div><div class="timeline-event">21岁，独闯英格兰，参加Formula Ford 1600，夺得冠军</div></div>
+    <div class="timeline-item"><div class="timeline-year">1983</div><div class="timeline-event">赢得英国Formula 3锦标赛冠军——12胜统治级表现，全欧洲开始关注这个巴西人</div></div>
+    <div class="timeline-item"><div class="timeline-year">1984</div><div class="timeline-event">F1首秀！加入Toleman车队。摩纳哥雨中一战成名——从第13位追至第2位</div></div>
+    <div class="timeline-item"><div class="timeline-year">1985</div><div class="timeline-event">转会莲花车队。葡萄牙大奖赛雨中拿下生涯<strong>首胜</strong>——全程领先，套圈所有对手</div></div>
+    <div class="timeline-item"><div class="timeline-year">1988</div><div class="timeline-event">加盟迈凯伦，驾驶传奇MP4/4。铃鹿夺冠，<strong>首夺F1世界冠军</strong>。全年8胜13杆位</div></div>
+    <div class="timeline-item"><div class="timeline-year">1989</div><div class="timeline-event">铃鹿与普罗斯特碰撞——被取消成绩，失去冠军。首次宿敌对决以争议告终</div></div>
+    <div class="timeline-item"><div class="timeline-year">1990</div><div class="timeline-event">铃鹿第一弯撞向普罗斯特——<strong>第二座世界冠军</strong>。两种不同方式的两次铃鹿决战</div></div>
+    <div class="timeline-item"><div class="timeline-year">1991</div><div class="timeline-event"><strong>第三座世界冠军</strong>。巴西主场首冠——肌肉痉挛、卡在六档、几乎无法走出赛车</div></div>
+    <div class="timeline-item"><div class="timeline-year">1993</div><div class="timeline-event">多宁顿公园"诸神之圈"——F1史上最伟大的单圈。雨中从第5追至第1，赢得欧洲大奖赛。全年5胜</div></div>
+    <div class="timeline-item"><div class="timeline-year">1994</div><div class="timeline-event">转会威廉姆斯车队。为F1最佳车队之一效力，追逐第四冠</div></div>
+    <div class="timeline-item"><div class="timeline-year">1994.04.30</div><div class="timeline-event">伊莫拉排位赛——奥地利车手罗兰·拉岑伯格撞车身亡。塞纳独自去事故现场</div></div>
+    <div class="timeline-item"><div class="timeline-year">1994.05.01</div><div class="timeline-event"><strong>14:17，伊莫拉正赛第7圈——坦布雷罗弯。34岁。永远的离去。</strong>巴西全国哀悼三天，三百万人在圣保罗为他送行</div></div>
+    <div class="timeline-item"><div class="timeline-year">1994.11</div><div class="timeline-event">维维安·塞纳遵照弟弟遗愿，创立<strong>埃尔顿·塞纳研究院</strong>——遗产开始改变巴西</div></div>
+    <div class="timeline-item"><div class="timeline-year">2025</div><div class="timeline-event">3600万+学生受益。F1再未在比赛周末失去一名车手。巴西的国旗上，黄色永远属于他</div></div>
+  </div>
+</section>
+
+<!-- ══════ TROPHY WALL ══════ -->
+<section class="trophy-section">
+  <h2>🏆 荣誉殿堂</h2>
+  <p class="sub">数字只是他的底线——但他的伟大远在数字之上</p>
+  <div class="trophy-grid">
+    <div class="trophy"><div class="t-icon">🥇</div><div class="t-name">F1世界冠军</div><div class="t-count">×3</div><div class="t-detail">1988/1990/1991</div></div>
+    <div class="trophy"><div class="t-icon">🏁</div><div class="t-name">大奖赛胜利</div><div class="t-count">41</div><div class="t-detail">F1历史第5</div></div>
+    <div class="trophy"><div class="t-icon">⏱️</div><div class="t-name">杆位</div><div class="t-count">65</div><div class="t-detail">当时历史纪录</div></div>
+    <div class="trophy"><div class="t-icon">🥉</div><div class="t-name">领奖台</div><div class="t-count">80</div><div class="t-detail">161场大奖赛</div></div>
+    <div class="trophy"><div class="t-icon">🇲🇨</div><div class="t-name">摩纳哥冠军</div><div class="t-count">6次</div><div class="t-detail">摩纳哥之王</div></div>
+    <div class="trophy"><div class="t-icon">🔄</div><div class="t-name">连胜杆位</div><div class="t-count">8</div><div class="t-detail">1988-89跨季</div></div>
+    <div class="trophy"><div class="t-icon">🚀</div><div class="t-name">单季最多杆位</div><div class="t-count">13</div><div class="t-detail">1988赛季</div></div>
+    <div class="trophy"><div class="t-icon">🇧🇷</div><div class="t-name">巴西大奖赛</div><div class="t-count">2胜</div><div class="t-detail">1991/1993</div></div>
+    <div class="trophy"><div class="t-icon">🌟</div><div class="t-name">英国F3冠军</div><div class="t-count">1983</div><div class="t-detail">12胜统治</div></div>
+    <div class="trophy"><div class="t-icon">👑</div><div class="t-name">南美卡丁冠军</div><div class="t-count">×2</div><div class="t-detail">1977/1980</div></div>
+    <div class="trophy"><div class="t-icon">🎖️</div><div class="t-name">巴西国家功绩勋章</div><div class="t-count">追授</div><div class="t-detail">最高荣誉</div></div>
+    <div class="trophy"><div class="t-icon">📚</div><div class="t-name">塞纳研究院</div><div class="t-count">3600万</div><div class="t-detail">受益学生</div></div>
+  </div>
+</section>
+
+<!-- ══════ FOOTER ══════ -->
+<footer style="text-align:center;padding:3rem 1rem;color:#555;font-size:0.8rem;border-top:1px solid rgba(247,217,23,0.1);line-height:2;">
+  <p style="font-size:1.2rem;color:var(--gold);font-weight:700;">Ayrton Senna · 1960 – 1994 · Forever 🇧🇷🏎️🕊️</p>
+  <p>🏟️ 体育英雄殿堂 · 塞纳篇</p>
+  <p style="color:#aaa;">他不是开得最快的人——他是开得最接近神的人。</p>
+  <p style="color:#aaa;">3600万巴西孩子因为他而有了课堂。31年来没有一个F1车手因为他而白白死去。</p>
+  <p style="margin-top:1rem;"><a href="../" style="color:var(--gold)">← 返回英雄殿堂</a></p>
+</footer>
+
+<script>
+// Quiz engine
+function checkQuiz(el, correct, fbId) {
+  if (el.parentElement.querySelector('.correct')) return;
+  const opts = el.parentElement.querySelectorAll('.opt');
+  const fb = document.getElementById(fbId);
+  opts.forEach(o => { o.style.pointerEvents = 'none'; });
+  if (correct) {
+    el.classList.add('correct');
+    fb.style.display = 'block';
+    if (fbId === 'quiz7-fb') celebrate();
+  } else {
+    el.classList.add('wrong');
+    opts.forEach(o => {
+      const oc = o.getAttribute('onclick');
+      if (oc && oc.includes('true') && o !== el) o.classList.add('correct');
+    });
+    fb.style.display = 'block';
+  }
+}
+
+// Celebration
+function celebrate() {
+  const emojis = ['🏎️','🏆','🇧🇷','🌧️','⭐','💛','💚','👑','🏁','⚡','🎓','🕊️'];
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 60; i++) {
+    setTimeout(() => {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = (2 + Math.random() * 3) + 's';
+      p.style.animationDelay = Math.random() * 0.6 + 's';
+      container.appendChild(p);
+      setTimeout(() => p.remove(), 4500);
+    }, i * 35);
+  }
+}
+
+// Scroll to chapter
+function scrollToChapter(idx) {
+  const ids = ['ch1','ch2','ch3','classics','dark','safety','legacy','eternal','quotes'];
+  const el = document.getElementById(ids[idx]);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
+// Back to top + nav active
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('backTop');
+  btn.classList.toggle('show', window.scrollY > 400);
+
+  const ids = ['ch1','ch2','ch3','classics','dark','safety','legacy','eternal','quotes'];
+  const navSpans = document.querySelectorAll('#navChapters span');
+  let activeIdx = -1;
+  ids.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      if (rect.top <= 250 && rect.bottom >= 250) activeIdx = i;
+    }
+  });
+  navSpans.forEach((s, i) => s.classList.toggle('active', i === activeIdx));
+});
+
+// Hero click celebrate
+document.querySelector('.hero .scroll-hint').addEventListener('click', () => { celebrate(); });
+
+// Auto-celebrate on quotes section
+const quoteEl = document.getElementById('quotes');
+if (quoteEl) {
+  const obs = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) { setTimeout(celebrate, 600); obs.unobserve(quoteEl); }
+  }, { threshold: 0.3 });
+  obs.observe(quoteEl);
+}
+(function(){var o=new IntersectionObserver(function(e){e.forEach(function(n){if(n.isIntersecting){var t=n.target,c=Array.from(t.parentElement.children).indexOf(t);setTimeout(function(){t.classList.add('is-visible')},c*80);o.unobserve(t)}})},{threshold:0.15,rootMargin:'0px 0px -50px 0px'});document.querySelectorAll('.timeline-item,.stat-card').forEach(function(e){o.observe(e)})})();
+
+</script>
+</body>
+</html>
