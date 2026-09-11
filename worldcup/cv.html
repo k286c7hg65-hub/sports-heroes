@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<title>🇨🇻 佛得角 — 53万人的勇气 · 2026世界杯</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f0f0f;--card:#1a1a1a;--card2:#222;--card3:#2a2a2a;
+  --gold:#fbbf24;--green:#10b981;--red:#ef4444;--blue:#3b82f6;--teal:#14b8a6;--rose:#e11d48;
+  --text:#e2e8f0;--dim:#64748b;
+  --font:'Segoe UI',system-ui,-apple-system,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+.container{max-width:1000px;margin:0 auto;padding:0 16px}
+
+/* ===== SCROLL REVEAL ===== */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.reveal.show{opacity:1;transform:translateY(0)}
+
+/* ===== HERO ===== */
+.hero{
+  text-align:center;padding:60px 16px 40px;
+  background:linear-gradient(180deg,#0a1628 0%,#0f0f0f 100%);
+  position:relative;overflow:hidden;min-height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 600px 200px at 50% 20%, rgba(59,130,246,.08) 0%, transparent 70%),
+    radial-gradient(circle 300px at 80% 60%, rgba(251,191,36,.04) 0%, transparent 60%);
+  pointer-events:none;
+}
+.hero-flag{font-size:5rem;line-height:1;position:relative;z-index:1}
+.hero-taxa{
+  display:flex;gap:0;font-size:3rem;line-height:1;font-weight:900;position:relative;z-index:1;
+  letter-spacing:-2px;margin:4px 0;
+}
+.hero-taxa span{
+  display:inline-block;padding:0 6px;border-radius:6px;
+  background:linear-gradient(135deg, #1e3a5f 0%, #0a1628 100%);
+  color:#fbbf24;text-shadow:0 0 20px rgba(251,191,36,.3);
+}
+.hero-title{font-size:clamp(1.8rem,5vw,3rem);font-weight:800;position:relative;z-index:1;margin:8px 0}
+.hero-sub{font-size:clamp(.85rem,2.5vw,1.1rem);color:var(--dim);position:relative;z-index:1;max-width:480px}
+.hero-meta{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;position:relative;z-index:1;margin-top:8px}
+.hero-meta span{font-size:.8rem;color:var(--gold);background:rgba(251,191,36,.1);padding:4px 12px;border-radius:20px;border:1px solid rgba(251,191,36,.2);
+  animation:metaFloat 3s ease-in-out infinite;
+}
+.hero-meta span:nth-child(2){animation-delay:.5s}
+.hero-meta span:nth-child(3){animation-delay:1s}
+@keyframes metaFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+
+/* ===== COVER CARD ===== */
+.cover-card{
+  margin:-40px auto 20px;max-width:340px;
+  background:linear-gradient(145deg,#1a1a2e,#16213e);
+  border:1px solid rgba(59,130,246,.2);border-radius:16px;
+  padding:30px 24px 24px;text-align:center;position:relative;z-index:2;
+  box-shadow:0 8px 40px rgba(0,0,0,.5);
+  animation:coverGlow 3s ease-in-out infinite;
+}
+@keyframes coverGlow{0%,100%{box-shadow:0 8px 40px rgba(0,0,0,.5)}50%{box-shadow:0 8px 60px rgba(251,191,36,.15)}}
+.cover-number{
+  font-size:5rem;font-weight:900;line-height:1;
+  background:linear-gradient(135deg,#fbbf24,#f59e0b);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:numPulse 2s ease-in-out infinite;
+}
+@keyframes numPulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.3)}}
+.cover-icon{font-size:3rem;margin:4px 0 8px}
+.cover-label{font-size:.75rem;color:var(--dim);text-transform:uppercase;letter-spacing:2px;margin-bottom:4px}
+.cover-stats{display:flex;justify-content:center;gap:16px;margin:12px 0 8px;flex-wrap:wrap}
+.cover-stats span{font-size:.8rem;background:rgba(251,191,36,.08);padding:2px 10px;border-radius:12px;color:var(--gold)}
+.cover-name{font-size:.9rem;color:var(--text);font-weight:700;margin-top:4px}
+.cover-pos{font-size:.7rem;color:var(--dim)}
+
+/* ===== FLAG WAVE ===== */
+.flag-bar{
+  display:flex;height:6px;border-radius:3px;overflow:hidden;margin-bottom:16px;
+}
+.flag-bar span{flex:1;animation:flagWave 2.5s ease-in-out infinite}
+.flag-bar span:nth-child(1){animation-delay:0s}
+.flag-bar span:nth-child(2){animation-delay:.2s}
+.flag-bar span:nth-child(3){animation-delay:.4s}
+.flag-bar span:nth-child(4){animation-delay:.6s}
+.flag-bar span:nth-child(5){animation-delay:.8s}
+.flag-bar span:nth-child(6){animation-delay:1s}
+.flag-bar span:nth-child(7){animation-delay:1.2s}
+@keyframes flagWave{0%,100%{transform:scaleY(1);opacity:1}50%{transform:scaleY(.4);opacity:.6}}
+.flag-bar .b{background:#003399}
+.flag-bar .w{background:#fff}
+.flag-bar .r{background:#c8102e}
+.flag-bar .y{background:#f7d116}
+
+/* ===== SECTION ===== */
+.section{
+  margin:32px auto;padding:24px 20px;
+  background:var(--card);border-radius:16px;
+  border:1px solid rgba(255,255,255,.06);
+}
+.section-title{
+  font-size:1.1rem;font-weight:700;margin-bottom:16px;
+  display:flex;align-items:center;gap:8px;
+}
+.section-title .icon{font-size:1.2rem}
+.section-sub{font-size:.8rem;color:var(--dim);margin-bottom:16px}
+
+/* ===== INFO GRID ===== */
+.info-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;
+}
+.info-item{
+  background:var(--card2);padding:12px;border-radius:10px;text-align:center;
+}
+.info-item .val{font-size:1.1rem;font-weight:700;color:var(--gold)}
+.info-item .lbl{font-size:.7rem;color:var(--dim);margin-top:2px}
+
+/* ===== ISLAND MAP ===== */
+.map-wrap{
+  background:linear-gradient(180deg,#0a1628 0%,#1a1a2e 100%);
+  border-radius:14px;padding:24px 20px 20px;text-align:center;
+  border:1px solid rgba(59,130,246,.15);position:relative;overflow:hidden;
+  margin:12px 0 16px;
+}
+.map-wrap::before{
+  content:'🌊';position:absolute;font-size:8rem;opacity:.04;
+  top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;
+}
+.map-title{font-size:.78rem;color:var(--dim);margin-bottom:16px;position:relative}
+.map-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:400px;margin:0 auto;position:relative;
+}
+.map-isle{
+  background:rgba(59,130,246,.08);border-radius:8px;padding:8px 4px;text-align:center;
+  border:1px solid rgba(59,130,246,.12);
+  transition:transform .2s,background .2s;
+  cursor:default;
+}
+.map-isle:hover{transform:scale(1.08);background:rgba(59,130,246,.15)}
+.map-isle .emoji{font-size:1.1rem}
+.map-isle .name{font-size:.65rem;color:var(--text);margin-top:2px}
+.map-isle .note{font-size:.55rem;color:var(--dim);margin-top:1px}
+.map-isle .cap{font-size:.55rem;color:var(--gold)}
+.map-cape{
+  background:rgba(251,191,36,.08);border-color:rgba(251,191,36,.2);
+}
+.map-label{
+  margin-top:12px;font-size:.65rem;color:var(--dim);text-align:center;
+}
+.map-label span{color:var(--gold)}
+
+/* ===== CULTURE CARD ===== */
+.culture-card{
+  background:linear-gradient(135deg,#1a1a2e,#1e293b);
+  border-radius:12px;padding:16px;margin:12px 0;
+  border:1px solid rgba(20,184,166,.12);
+  display:flex;gap:14px;align-items:flex-start;
+}
+.culture-icon{font-size:2.5rem;min-width:48px;text-align:center;line-height:1}
+.culture-body{flex:1}
+.culture-title{font-size:.88rem;font-weight:700;color:var(--teal);margin-bottom:4px}
+.culture-text{font-size:.76rem;color:var(--dim);line-height:1.6}
+.culture-text strong{color:var(--text)}
+
+/* ===== DIASPORA GRID ===== */
+.dia-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin:12px 0;
+}
+.dia-card{
+  background:var(--card2);padding:14px;border-radius:12px;text-align:center;
+  border:1px solid rgba(255,255,255,.04);
+  transition:transform .2s;
+}
+.dia-card:hover{transform:translateY(-2px)}
+.dia-flag{font-size:1.8rem}
+.dia-league{font-size:.72rem;color:var(--dim);margin:4px 0 2px}
+.dia-desc{font-size:.68rem;color:var(--text);line-height:1.5}
+.dia-desc em{color:var(--gold);font-style:normal}
+
+/* ===== MATCH CARDS ===== */
+.match-cards{display:flex;flex-direction:column;gap:10px}
+.match-card{
+  display:flex;align-items:center;gap:10px;
+  background:var(--card2);padding:12px 14px;border-radius:12px;
+  border-left:3px solid var(--gold);
+}
+.match-card.done{border-left-color:var(--green)}
+.match-card.live{border-left-color:var(--red)}
+.match-flag{font-size:1.5rem;min-width:32px;text-align:center}
+.match-score{font-size:1rem;font-weight:700;min-width:60px;text-align:center;color:var(--gold)}
+.match-teams{flex:1;font-size:.85rem}
+.match-detail{font-size:.72rem;color:var(--dim);margin-top:2px}
+
+/* ===== EVENT TIMELINE ===== */
+.event-line{position:relative;padding:4px 0 4px 30px;font-size:.82rem}
+.event-line::before{
+  content:'';position:absolute;left:10px;top:0;bottom:0;width:2px;background:rgba(255,255,255,.06);
+}
+.event-line:last-child::before{display:none}
+.event-line .dot{
+  position:absolute;left:6px;top:8px;width:10px;height:10px;border-radius:50%;
+}
+.event-line .dot.goal{background:var(--gold)}
+.event-line .dot.card{background:var(--red)}
+.event-line .dot.owngoal{background:var(--dim)}
+.event-time{color:var(--gold);font-weight:600}
+.event-team{color:var(--dim);font-size:.72rem}
+
+/* ===== PLAYER GRID ===== */
+.player-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;
+}
+.p-card{
+  background:var(--card2);padding:14px;border-radius:12px;text-align:center;
+  border:1px solid rgba(255,255,255,.04);
+  transition:transform .2s,border-color .2s;
+}
+.p-card:hover{transform:translateY(-2px);border-color:rgba(251,191,36,.2)}
+.p-emoji{font-size:2rem;margin-bottom:4px}
+.p-name{font-size:.85rem;font-weight:600}
+.p-role{font-size:.7rem;color:var(--dim);margin:2px 0}
+.p-stat{font-size:.72rem;color:var(--gold)}
+.p-highlight{font-size:.68rem;color:var(--dim);margin-top:4px;line-height:1.4}
+
+/* ===== STAT RINGS ===== */
+.stat-rings{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;
+  margin:16px 0;
+}
+.stat-ring{
+  text-align:center;padding:14px 8px;background:var(--card2);border-radius:12px;
+}
+.ring-svg{width:72px;height:72px;margin:0 auto 8px;transform:rotate(-90deg)}
+.ring-svg circle{
+  fill:none;stroke-width:6;cx:36;cy:36;r:30;
+}
+.ring-bg{stroke:rgba(255,255,255,.06)}
+.ring-fg{stroke:var(--gold);stroke-linecap:round}
+.ring-val{font-size:1.3rem;font-weight:700;color:var(--gold);margin-top:-56px;margin-bottom:20px}
+.ring-lbl{font-size:.68rem;color:var(--dim)}
+.stat-note{font-size:.72rem;color:var(--dim);text-align:center;margin-top:8px}
+
+/* ===== COMPARISON ===== */
+.comp-row{
+  display:flex;align-items:center;gap:12px;margin:8px 0;
+}
+.comp-label{font-size:.78rem;min-width:80px;color:var(--dim)}
+.comp-bar-wrap{flex:1;height:20px;background:var(--card2);border-radius:10px;overflow:hidden;position:relative}
+.comp-bar{height:100%;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:600;color:#fff;width:0;transition:width .8s ease}
+.comp-bar.a{background:linear-gradient(90deg,#1e3a5f,#3b82f6)}
+.comp-bar.c{background:linear-gradient(90deg,#92400e,#f59e0b)}
+.comp-val{font-size:.72rem;min-width:40px;text-align:right;color:var(--gold)}
+.comp-bar.animate{width:var(--w)!important}
+
+/* ===== FLAG STRIPES ===== */
+.flag-stripes{
+  display:flex;height:40px;border-radius:6px;overflow:hidden;margin:12px 0;
+}
+.flag-stripes span{flex:1}
+.flag-stripes .b{background:#003399}
+.flag-stripes .w{background:#fff}
+.flag-stripes .r{background:#c8102e}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:480px){
+  .hero{padding:40px 12px 30px;min-height:50vh}
+  .hero-flag{font-size:3.5rem}
+  .hero-taxa{font-size:2.2rem}
+  .cover-card{max-width:280px;padding:20px 16px;margin:-30px auto 16px}
+  .cover-number{font-size:3.5rem}
+  .cover-icon{font-size:2.2rem}
+  .section{padding:16px 12px;margin:20px auto}
+  .info-grid{grid-template-columns:repeat(2,1fr)}
+  .player-grid{grid-template-columns:repeat(2,1fr)}
+  .match-card{padding:10px 12px;flex-wrap:wrap}
+  .match-score{min-width:50px;font-size:.9rem}
+  .stat-rings{grid-template-columns:repeat(2,1fr)}
+  .map-grid{grid-template-columns:repeat(2,1fr)}
+  .culture-card{flex-direction:column;align-items:center;text-align:center}
+  .dia-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(min-width:768px){
+  .hero{padding:80px 20px 50px}
+  .match-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .match-card.full{grid-column:1/-1}
+  .player-grid{grid-template-columns:repeat(5,1fr)}
+  .stat-rings{grid-template-columns:repeat(4,1fr)}
+}
+@media(min-width:1024px){
+  .container{padding:0 24px}
+  .hero{padding:100px 20px 60px}
+  .match-cards{grid-template-columns:1fr 1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <div class="hero-flag">🇨🇻</div>
+  <div class="hero-taxa"><span>55</span><span>万</span></div>
+  <h1 class="hero-title">53万人的勇气</h1>
+  <p class="hero-sub">大西洋岛国 · 人口不足中国一个县 · 2026世界杯首秀 · 90分钟逼平阿根廷</p>
+  <div class="hero-meta">
+    <span>🦈 蓝鲨 Tubarões Azuis</span>
+    <span>⚽ 2026首秀</span>
+    <span>🌍 FIFA ~70名</span>
+  </div>
+</section>
+
+<!-- ═══════════════ COVER VOZINHA ═══════════════ -->
+<div class="cover-card">
+  <div class="cover-label">The Last Line</div>
+  <div class="cover-number">40</div>
+  <div class="cover-icon">🧤</div>
+  <div class="cover-stats">
+    <span>2 零封</span>
+    <span>3 场全勤</span>
+    <span>22 扑救</span>
+  </div>
+  <div class="cover-name">Vozinha</div>
+  <div class="cover-pos">Goalkeeper · #1</div>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════ COUNTRY INFO ═══════════════ -->
+<div class="section reveal">
+  <div class="flag-bar"><span class="b"></span><span class="w"></span><span class="r"></span><span class="y"></span><span class="b"></span><span class="w"></span><span class="r"></span></div>
+  <div class="section-title"><span class="icon">🌍</span> 佛得角共和国</div>
+  <p style="font-size:.82rem;color:var(--dim);margin-bottom:16px;line-height:1.7;">
+    佛得角（Cabo Verde），大西洋上的岛国，距离非洲西海岸约570公里。<br>
+    由10个岛屿组成，首都普拉亚（Praia）位于圣地亚哥岛。<br>
+    <strong style="color:var(--text)">人口约53万</strong>（UN 2026年中估计）— 不到中国一个县的人口。<br>
+    葡萄牙语为官方语言。佛得角人遍布全球，海外侨民比国内人口还多。<br>
+    2026年，佛得角国家队首次闯入世界杯决赛圈。
+  </p>
+  <div class="info-grid">
+    <div class="info-item"><div class="val">53万</div><div class="lbl">人口（UN）</div></div>
+    <div class="info-item"><div class="val">10</div><div class="lbl">岛屿数</div></div>
+    <div class="info-item"><div class="val">🇵🇹</div><div class="lbl">官方语言</div></div>
+    <div class="info-item"><div class="val">4033km²</div><div class="lbl">国土面积</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════ GEOGRAPHY ═══════════════ -->
+<div class="section reveal">
+  <div class="section-title"><span class="icon">🏝️</span> 十岛之国</div>
+  <p class="section-sub">火山群岛 · 大西洋上的明珠 · 分向风/背风两组</p>
+
+  <div class="map-wrap">
+    <div class="map-title">🗺️ Cabo Verde — 群岛分布</div>
+    <div class="map-grid">
+      <div class="map-isle map-cape">
+        <div class="emoji">⭐</div>
+        <div class="name">Santiago</div>
+        <div class="cap">首都普拉亚</div>
+        <div class="note">最大岛 · 人口最密</div>
+      </div>
+      <div class="map-isle">
+        <div class="emoji">🏖️</div>
+        <div class="name">Sal</div>
+        <div class="note">旅游胜地 · 白色沙滩</div>
+      </div>
+      <div class="map-isle">
+        <div class="emoji">⛰️</div>
+        <div class="name">S. Vicente</div>
+        <div class="note">文化之都 · Mindelo</div>
+      </div>
+      <div class="map-isle">
+        <div class="emoji">🌋</div>
+        <div class="name">Fogo</div>
+        <div class="note">活火山 · Pico do Fogo</div>
+      </div>
+      <div class="map-isle">
+        <div class="emoji">🌴</div>
+        <div class="name">Boavista</div>
+        <div class="note">棕榈海岸 · 邮轮港</div>
+      </div>
+      <div class="map-isle">
+        <div class="emoji">🌅</div>
+        <div class="name">Santo Antão</div>
+        <div class="note">徒步天堂 · 绿谷</div>
+      </div>
+    </div>
+    <div class="map-label">向风群岛（Sotavento）· 背风群岛（Barlavento）<br>距离非洲西海岸 <span>570km</span> · 国土面积 <span>4033km²</span></div>
+  </div>
+</div>
+
+<!-- ═══════════════ TEAM ═══════════════ -->
+<div class="section reveal">
+  <div class="section-title"><span class="icon">🦈</span> 佛得角国家队 · Tubarões Azuis</div>
+  <p style="font-size:.82rem;color:var(--dim);margin-bottom:16px;line-height:1.7;">
+    「蓝鲨」（Tubarões Azuis）是他们的绰号。<br>
+    佛得角足协成立于1982年，2002年才首次参加世界杯预选赛。<br>
+    经过26年的努力，2026年终于首次杀入世界杯决赛圈——<br>
+    成为本届世界杯<strong style="color:var(--gold)">人口最少的参赛国</strong>。
+  </p>
+  <div class="flag-stripes"><span class="b"></span><span class="w"></span><span class="r"></span><span class="b"></span><span class="w"></span><span class="r"></span></div>
+  <div class="info-grid" style="margin-top:12px">
+    <div class="info-item"><div class="val">🦈</div><div class="lbl">绰号 蓝鲨</div></div>
+    <div class="info-item"><div class="val">⚽</div><div class="lbl">2026首秀</div></div>
+    <div class="info-item"><div class="val">🇨🇻</div><div class="lbl">FIFA 70-80名</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════ DIASPORA ═══════════════ -->
+<div class="section reveal">
+  <div class="section-title"><span class="icon">🌐</span> 为什么53万人能踢世界杯？</div>
+  <p class="section-sub">答案在海外——佛得角侨民比本土人口还多</p>
+  <p style="font-size:.82rem;color:var(--dim);margin-bottom:12px;line-height:1.7;">
+    佛得角全国人口约53万，但海外侨民估计超<strong style="color:var(--gold)">100万</strong>。<br>
+    他们遍布葡萄牙、法国、荷兰、美国、卢森堡——<br>
+    这也是「佛得角足球很强」的真正秘密：<br>
+    <strong style="color:var(--text)">国家队球员几乎全部来自海外联赛</strong>，从小在欧洲青训体系成长。
+  </p>
+  <div class="dia-grid">
+    <div class="dia-card">
+      <div class="dia-flag">🇵🇹</div>
+      <div class="dia-league">葡萄牙联赛 · 最大群体</div>
+      <div class="dia-desc">约<em>12万</em>佛得角裔<br>本菲卡、波尔图、里斯本竞技</div>
+    </div>
+    <div class="dia-card">
+      <div class="dia-flag">🇫🇷</div>
+      <div class="dia-league">法国联赛 · 技术流</div>
+      <div class="dia-desc">约<em>10万</em>佛得角裔<br>法甲多支球队有佛得角球员</div>
+    </div>
+    <div class="dia-card">
+      <div class="dia-flag">🇳🇱</div>
+      <div class="dia-league">荷兰联赛 · 青训出品</div>
+      <div class="dia-desc">阿贾克斯、费耶诺德<br>培养多名佛得角国脚</div>
+    </div>
+    <div class="dia-card">
+      <div class="dia-flag">🇺🇸</div>
+      <div class="dia-league">美国 · MLS</div>
+      <div class="dia-desc">佛得角裔社区<br>波士顿、纽瓦克为主</div>
+    </div>
+  </div>
+  <div style="margin-top:10px;padding:8px 12px;background:var(--card2);border-radius:8px;text-align:center;font-size:.72rem;color:var(--dim);">
+    佛得角 = 人口53万 · 侨民100万+ · 相当于「国家队选材池」超过150万
+  </div>
+</div>
+
+<!-- ═══════════════ GROUP STAGE ═══════════════ -->
+<div class="section reveal">
+  <div class="section-title"><span class="icon">📊</span> H组 · 小组赛不败</div>
+  <p class="section-sub">同组：西班牙 · 乌拉圭 · 沙特阿拉伯 · 佛得角</p>
+
+  <div class="match-cards">
+    <div class="match-card done">
+      <span class="match-flag">🇪🇸</span>
+      <div class="match-score">0-0</div>
+      <div class="match-teams">西班牙 vs 佛得角<div class="match-detail">🟢 零封西班牙！全场8+扑救</div></div>
+    </div>
+    <div class="match-card done">
+      <span class="match-flag">🇺🇾</span>
+      <div class="match-score">2-2</div>
+      <div class="match-teams">乌拉圭 vs 佛得角<div class="match-detail">⚽ Pina 自由球 · Varela 扳平</div></div>
+    </div>
+    <div class="match-card done">
+      <span class="match-flag">🇸🇦</span>
+      <div class="match-score">0-0</div>
+      <div class="match-teams">佛得角 vs 沙特<div class="match-detail">🟢 第二场零封！三战不败</div></div>
+    </div>
+  </div>
+
+  <div style="margin-top:12px;padding:10px 14px;background:var(--card2);border-radius:10px;text-align:center;">
+    <div style="font-size:1.1rem;font-weight:700;color:var(--gold);">0胜3平0负 · 进2失2</div>
+    <div style="font-size:.78rem;color:var(--dim);margin-top:4px;">小组不败 · 第二出线 · 对手零封70%</div>
+  </div>
+</div>
+
+<!-- ═══════════════ ARGENTINA MATCH ═══════════════ -->
+<div class="section reveal">
+  <div class="section-title"><span class="icon">🔥</span> 1/16决赛 · 阿根廷 3-2 佛得角</div>
+  <p class="section-sub">加时赛 · 2026年7月3日 · 迈阿密 64,478人</p>
+
+  <div class="match-card live full" style="border-left-color:var(--red);margin-bottom:12px;">
+    <span class="match-flag">🇦🇷</span>
+    <div class="match-score">3-2</div>
+    <div class="match-teams">阿根廷 vs 佛得角<div class="match-detail">加时赛 · 佛得角两次扳平 · 最终乌龙决胜负</div></div>
+    <span class="match-flag">🇨🇻</span>
+  </div>
+
+  <div style="font-size:.82rem;font-weight:600;margin-bottom:8px;color:var(--dim);">比赛时间线</div>
+  <div style="background:var(--card2);padding:12px;border-radius:10px;">
+    <div class="event-line">
+      <span class="dot goal"></span>
+      <span class="event-time">29'</span> ⚽ <strong>Lionel Messi</strong>，阿根廷 1-0
+      <span class="event-team">🇦🇷</span>
+    </div>
+    <div class="event-line">
+      <span class="dot goal"></span>
+      <span class="event-time">59'</span> ⚽ <strong>Deroy Duarte</strong>，佛得角 <strong>1-1 扳平！</strong>
+      <span class="event-team">🇨🇻</span>
+    </div>
+    <div class="event-line">
+      <span class="dot card"></span>
+      <span class="event-time">68'</span> 🟨 Kevin Pina
+      <span class="event-team">🇨🇻</span>
+    </div>
+    <div style="padding:6px 0 6px 30px;font-size:.78rem;color:var(--gold);font-weight:600;">🔴 90分钟 1-1 → 进入加时赛</div>
+    <div class="event-line">
+      <span class="dot goal"></span>
+      <span class="event-time">92'</span> ⚽ <strong>Lisandro Martínez</strong>，阿根廷 2-1
+      <span class="event-team">🇦🇷</span>
+    </div>
+    <div class="event-line">
+      <span class="dot goal"></span>
+      <span class="event-time">103'</span> ⚽ <strong>Sidny Lopes Cabral</strong>，佛得角 <strong>2-2 再次扳平！！</strong>
+      <span class="event-team">🇨🇻</span>
+    </div>
+    <div class="event-line">
+      <span class="dot owngoal"></span>
+      <span class="event-time">111'</span> ⚽ <strong>Diney Borges</strong>（乌龙），阿根廷 3-2
+      <span class="event-team">⚠️</span>
+    </div>
+    <div class="event-line">
+      <span class="dot card"></span>
+      <span class="event-time">115'</span> 🟨 Gonzalo Montiel
+      <span class="event-team">🇦🇷</span>
+    </div>
+  </div>
+
+  <div style="margin-top:12px;padding:10px 14px;background:rgba(251,191,36,.06);border:1px solid rgba(251,191,36,.15);border-radius:10px;text-align:center;">
+    <div style="font-size:.82rem;color:var(--gold);">「90分钟逼平世界冠军，加时赛两次扳平，最后输在一个乌龙。」</div>
+    <div style="font-size:.72rem;color:var(--dim);margin-top:4px;">这是站着死的。</div>
+  </div>
+</div>
+
+<!-- ═══════════════ KEY PLAYERS ═══════════════ -->
+<div class="section reveal">
+  <div class="section-title"><span class="icon">👥</span> 关键人物</div>
+  <p class="section-sub">这些名字，本届世界杯后你该记住</p>
+  <div class="player-grid">
+    <div class="p-card" style="border-color:rgba(251,191,36,.2)">
+      <div class="p-emoji">🧤</div>
+      <div class="p-name">Vozinha</div>
+      <div class="p-role">门将 · #1 · 40岁</div>
+      <div class="p-stat">3场全勤 · 2场零封</div>
+      <div class="p-highlight">零封西班牙、沙特。<br>面对22脚射门10次射正，<br>只丢2球（不含乌龙）。</div>
+    </div>
+    <div class="p-card">
+      <div class="p-emoji">⚽</div>
+      <div class="p-name">Kevin Pina</div>
+      <div class="p-role">中场 · #6 · 29岁</div>
+      <div class="p-stat">🏆 队史世界杯首球</div>
+      <div class="p-highlight">21' 任意球直接破门<br>对阵乌拉圭<br>佛得角世界杯第一球</div>
+    </div>
+    <div class="p-card">
+      <div class="p-emoji">⚽</div>
+      <div class="p-name">Hélio Varela</div>
+      <div class="p-role">前锋 · #26 · 22岁</div>
+      <div class="p-stat">61' 扳平乌拉圭</div>
+      <div class="p-highlight">被两度领先→两度扳平<br>年轻人的大场面心脏</div>
+    </div>
+    <div class="p-card">
+      <div class="p-emoji">⚽</div>
+      <div class="p-name">Deroy Duarte</div>
+      <div class="p-role">中场 · #14 · 25岁</div>
+      <div class="p-stat">59' 扳平阿根廷</div>
+      <div class="p-highlight">让梅西和全场64000人<br>安静下来的进球</div>
+    </div>
+    <div class="p-card">
+      <div class="p-emoji">⚽</div>
+      <div class="p-name">S. Lopes Cabral</div>
+      <div class="p-role">后卫 · #13 · 28岁</div>
+      <div class="p-stat">103' 加时绝平</div>
+      <div class="p-highlight">加时赛103分钟头球破门<br>让阿根廷再次绝望</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ CULTURE ═══════════════ -->
+<div class="section reveal">
+  <div class="section-title"><span class="icon">🎵</span> 文化之岛</div>
+  <p class="section-sub">佛得角不只是足球——这有世界上最温柔的音乐之一</p>
+
+  <div class="culture-card">
+    <div class="culture-icon">🎤</div>
+    <div class="culture-body">
+      <div class="culture-title">Cesária Évora — 赤脚歌后</div>
+      <div class="culture-text">
+        佛得角最著名的人物。<strong>Cesária Évora</strong>（1941-2011），
+        以赤脚登台演唱闻名，唱的是佛得角传统音乐 <strong>morna</strong>——一种融合葡萄牙法朵和非洲节奏的忧郁歌谣。
+        她的歌声被誉为「大西洋的蓝调」，格莱美获奖，全球专辑销量超500万张。
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+    <div style="background:var(--card2);border-radius:10px;padding:12px;text-align:center;">
+      <div style="font-size:1.6rem">🎶</div>
+      <div style="font-size:.72rem;font-weight:600;margin:4px 0">Morna</div>
+      <div style="font-size:.65rem;color:var(--dim)">传统音乐 · 联合国非遗</div>
+    </div>
+    <div style="background:var(--card2);border-radius:10px;padding:12px;text-align:center;">
+      <div style="font-size:1.6rem">🗣️</div>
+      <div style="font-size:.72rem;font-weight:600;margin:4px 0">Kriolu</div>
+      <div style="font-size:.65rem;color:var(--dim)">佛得角克里奥尔语</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ ECONOMY ═══════════════ -->
+<div class="section reveal">
+  <div class="section-title"><span class="icon">💰</span> 经济命脉</div>
+  <p class="section-sub">旅游业 · 侨汇 · 轻制造业</p>
+
+  <div class="info-grid">
+    <div class="info-item"><div class="val">🌴</div><div class="lbl">旅游业 ~25%直接GDP</div></div>
+    <div class="info-item"><div class="val">💸</div><div class="lbl">侨汇占GDP ~12%</div></div>
+    <div class="info-item"><div class="val">💰</div><div class="lbl">人均$5,800</div></div>
+    <div class="info-item"><div class="val">🇨🇻</div><div class="lbl">GDP ~$30亿</div></div>
+  </div>
+
+  <p style="font-size:.8rem;color:var(--dim);margin-top:12px;line-height:1.7;">
+    佛得角经济以<strong style="color:var(--text)">服务业</strong>为主，旅游业是最大支柱。<br>
+    美丽的海滩、稳定的政局、理想的冲浪和潜水条件吸引了大量欧洲游客。<br>
+    侨汇收入（海外佛得角人寄回的钱）占GDP约12% — 全国第二大外汇来源。<br>
+    货币：佛得角埃斯库多（CVE），与欧元挂钩。<br>
+    数据来源：世界银行 2024-2025
+  </p>
+
+  <div style="margin-top:10px;background:var(--card2);border-radius:10px;padding:10px 14px;">
+    <div style="font-size:.72rem;color:var(--dim);text-align:center;">
+      GDP总量 ~$30亿 · 与中国对比：≈ 中国一个<strong style="color:var(--gold)">百强县</strong>的水平
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ STATS ═══════════════ -->
+<div class="section reveal">
+  <div class="section-title"><span class="icon">📊</span> 数字看佛得角</div>
+
+  <div class="stat-rings" id="stat-rings">
+    <div class="stat-ring">
+      <svg class="ring-svg" viewBox="0 0 72 72">
+        <circle class="ring-bg" cx="36" cy="36" r="30"/>
+        <circle class="ring-fg" cx="36" cy="36" r="30" stroke-dasharray="188.5" stroke-dashoffset="188.5"/>
+      </svg>
+      <div class="ring-val" data-target="67">0%</div>
+      <div class="ring-lbl">零封率</div>
+    </div>
+    <div class="stat-ring">
+      <svg class="ring-svg" viewBox="0 0 72 72">
+        <circle class="ring-bg" cx="36" cy="36" r="30"/>
+        <circle class="ring-fg" style="stroke:var(--green)" cx="36" cy="36" r="30" stroke-dasharray="188.5" stroke-dashoffset="188.5"/>
+      </svg>
+      <div class="ring-val" data-target="50">0%</div>
+      <div class="ring-lbl">不败率</div>
+    </div>
+    <div class="stat-ring">
+      <svg class="ring-svg" viewBox="0 0 72 72">
+        <circle class="ring-bg" cx="36" cy="36" r="30"/>
+        <circle class="ring-fg" style="stroke:var(--blue)" cx="36" cy="36" r="30" stroke-dasharray="188.5" stroke-dashoffset="188.5"/>
+      </svg>
+      <div class="ring-val" data-target="83">0%</div>
+      <div class="ring-lbl">射正扑救率</div>
+    </div>
+    <div class="stat-ring">
+      <svg class="ring-svg" viewBox="0 0 72 72">
+        <circle class="ring-bg" cx="36" cy="36" r="30"/>
+        <circle class="ring-fg" style="stroke:var(--red)" cx="36" cy="36" r="30" stroke-dasharray="188.5" stroke-dashoffset="188.5"/>
+      </svg>
+      <div class="ring-val" data-target="20">0%</div>
+      <div class="ring-lbl">失球率</div>
+    </div>
+  </div>
+  <div class="stat-note">4场比赛进4球（3球员进球+1乌龙），失5球（4对手+1乌龙）</div>
+</div>
+
+<!-- ═══════════════ COMPARISON ═══════════════ -->
+<div class="section reveal">
+  <div class="section-title"><span class="icon">⚖️</span> 53万 vs 4500万</div>
+  <p class="section-sub">佛得角 vs 阿根廷 — 1/16决赛的数据差距</p>
+  <div class="comp-row">
+    <span class="comp-label">人口</span>
+    <div class="comp-bar-wrap">
+      <div class="comp-bar a" style="--w:99%">4500万</div>
+    </div>
+    <span class="comp-val" style="min-width:60px">53万</span>
+  </div>
+  <div class="comp-row">
+    <span class="comp-label">世界杯历史</span>
+    <div class="comp-bar-wrap">
+      <div class="comp-bar a" style="--w:35%">3次冠军</div>
+    </div>
+    <span class="comp-val" style="min-width:60px">首次</span>
+  </div>
+  <div class="comp-row">
+    <span class="comp-label">FIFA排名</span>
+    <div class="comp-bar-wrap">
+      <div class="comp-bar a" style="--w:1.5%">1</div>
+    </div>
+    <span class="comp-val" style="min-width:60px">~75</span>
+  </div>
+  <div class="comp-row">
+    <span class="comp-label">GDP</span>
+    <div class="comp-bar-wrap">
+      <div class="comp-bar a" style="--w:98%">$6400亿</div>
+    </div>
+    <span class="comp-val" style="min-width:60px">$30亿</span>
+  </div>
+  <div style="margin-top:16px;padding:10px;background:var(--card2);border-radius:10px;text-align:center;">
+    <div style="font-size:.82rem;color:var(--dim);">但佛得角在90分钟内，和阿根廷打成了 <strong style="color:var(--gold);">1-1</strong>。</div>
+  </div>
+</div>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<div style="text-align:center;padding:30px 16px 40px;color:var(--dim);font-size:.75rem;line-height:1.8;">
+  <div>🇨🇻 佛得角 · 2026世界杯</div>
+  <div>53万人的勇气 · 首次参赛 · 不败出线 · 加时憾负世界冠军</div>
+  <div style="margin-top:8px;opacity:.5;">数据来源：FIFA官方API · ESPN · 世界银行 · 2026年7月</div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+// ═══════════════ SCROLL REVEAL ═══════════════
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.classList.add('show');
+      observer.unobserve(e.target);
+    }
+  });
+}, {threshold:.15});
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ═══════════════ NUMBER COUNTER ═══════════════
+function animateCounter(el, target){
+  let current = 0;
+  const step = Math.max(1, Math.floor(target / 40));
+  const timer = setInterval(() => {
+    current += step;
+    if(current >= target){
+      current = target;
+      clearInterval(timer);
+    }
+    el.textContent = current + '%';
+  }, 25);
+}
+
+function animateRing(circle, percent){
+  const circumference = 188.5;
+  const offset = circumference - (percent / 100) * circumference;
+  circle.style.strokeDashoffset = offset + '';
+}
+
+// Observe stat section for counter + ring animation
+const statSection = document.getElementById('stat-rings');
+if(statSection){
+  const statObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        statObs.disconnect();
+        // Animate numbers
+        document.querySelectorAll('.ring-val[data-target]').forEach(el => {
+          animateCounter(el, parseInt(el.dataset.target));
+        });
+        // Animate rings
+        document.querySelectorAll('.ring-fg').forEach((circle, i) => {
+          const targets = [67, 50, 83, 20];
+          setTimeout(() => animateRing(circle, targets[i]), i * 200);
+        });
+      }
+    });
+  }, {threshold:.3});
+  statObs.observe(statSection);
+}
+
+// ═══════════════ COMPARISON BARS ═══════════════
+const compBars = document.querySelectorAll('.comp-bar');
+if(compBars.length){
+  const compObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        compObs.disconnect();
+        compBars.forEach((bar, i) => {
+          setTimeout(() => bar.classList.add('animate'), i * 150);
+        });
+      }
+    });
+  }, {threshold:.3});
+  compObs.observe(document.querySelector('.comp-row')?.parentElement || compBars[0]);
+}
+</script>
+</body>
+</html>
