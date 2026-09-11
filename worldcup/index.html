@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>世界杯专区 · 殿堂 | 体育英雄殿堂</title>
+<style>
+:root { --gold: #ffd700; --dark: #0d0d0d; --card-bg: #1a1a1a; --text: #e0e0e0; --accent: #ffd700; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--dark); color: var(--text); line-height: 1.7; overflow-x: hidden;
+}
+
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(13,13,13,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 0.5rem 1rem; display: flex; align-items: center; justify-content: space-between; }
+.nav a { color: var(--gold); text-decoration: none; font-weight: 600; font-size: 0.85rem; }
+
+.hero { min-height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 5rem 1rem 3rem; position: relative; }
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(255,215,0,0.12) 0%, transparent 70%); pointer-events: none; }
+.hero .icon { font-size: clamp(5rem, 12vw, 8rem); animation: pulse 3s ease-in-out infinite; filter: drop-shadow(0 8px 32px rgba(255,215,0,0.3)); }
+@keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.04)} }
+.hero h1 { font-size: clamp(2rem,4vw,3.2rem); font-weight: 900; color: #fff; margin: 0.5rem 0; }
+.hero .sub { color: var(--gold); font-size: 1rem; margin-bottom: 1rem; }
+.hero .countdown { margin: 1.5rem 0; }
+.hero .countdown .cd-num { font-size: 2.5rem; font-weight: 900; color: #fff; font-variant-numeric: tabular-nums; }
+.hero .countdown .cd-label { font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 0.1em; }
+.hero .cd-row { display: flex; gap: 2rem; justify-content: center; }
+.hero .cd-block { text-align: center; min-width: 60px; }
+
+.container { max-width: 960px; margin: 0 auto; padding: 0 1rem 3rem; }
+
+/* Jump cards */
+.jump-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 3rem; }
+.jump-card { background: var(--card-bg); border-radius: 18px; padding: 2rem 1.5rem; border: 1px solid rgba(255,255,255,0.06); text-align: center; text-decoration: none; color: inherit; transition: all 0.3s; }
+.jump-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+.jump-card.gold:hover { border-color: rgba(255,215,0,0.3); }
+.jump-card.fire:hover { border-color: rgba(255,107,53,0.3); }
+.jump-card .j-icon { font-size: 3rem; margin-bottom: 0.8rem; }
+.jump-card .j-title { font-size: 1.3rem; font-weight: 700; color: #fff; margin-bottom: 0.3rem; }
+.jump-card .j-sub { font-size: 0.8rem; color: #888; margin-bottom: 1rem; }
+.jump-card .j-arrow { display: inline-block; padding: 0.5rem 1.5rem; border-radius: 30px; font-weight: 700; font-size: 0.9rem; transition: all 0.3s; }
+.jump-card.gold .j-arrow { background: rgba(255,215,0,0.15); color: var(--gold); }
+.jump-card.fire .j-arrow { background: rgba(255,107,53,0.15); color: #ff6b35; }
+
+/* Section header */
+.sec-title { text-align: center; margin: 3rem 0 1.5rem; }
+.sec-title h2 { font-size: 1.4rem; color: #fff; }
+.sec-title .sub { color: #888; font-size: 0.8rem; margin-top: 0.3rem; }
+
+/* Champion strip */
+.champ-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; margin-bottom: 2.5rem; }
+.champ-mini { background: var(--card-bg); border-radius: 12px; padding: 1rem 0.5rem; text-align: center; border: 1px solid rgba(255,255,255,0.04); transition: all 0.2s; text-decoration: none; color: inherit; display: block; }
+.champ-mini:hover { transform: translateY(-3px); border-color: rgba(255,215,0,0.2); }
+.champ-mini .flag { font-size: 1.8rem; margin-bottom: 0.3rem; }
+.champ-mini .name { font-size: 0.75rem; color: #ccc; font-weight: 600; }
+.champ-mini .stars { font-size: 0.7rem; color: var(--gold); }
+
+/* Highlight cards */
+.hl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0.8rem; margin-bottom: 3rem; }
+.hl-card { background: var(--card-bg); border-radius: 14px; padding: 1.2rem; border: 1px solid rgba(255,255,255,0.05); transition: all 0.2s; text-decoration: none; color: inherit; display: block; }
+.hl-card:hover { transform: translateY(-3px); border-color: rgba(255,215,0,0.15); }
+.hl-card .hl-year { font-size: 0.7rem; color: var(--gold); font-weight: 700; margin-bottom: 0.3rem; }
+.hl-card .hl-title { font-size: 0.95rem; color: #fff; font-weight: 700; margin-bottom: 0.3rem; }
+.hl-card .hl-desc { font-size: 0.8rem; color: #888; line-height: 1.5; }
+
+/* Trivia */
+.trivia { background: linear-gradient(135deg, rgba(255,215,0,0.06), rgba(255,255,255,0.02)); border-radius: 18px; padding: 2rem; border: 1px solid rgba(255,215,0,0.08); text-align: center; margin-bottom: 2rem; }
+.trivia h3 { color: var(--gold); font-size: 0.9rem; letter-spacing: 0.1em; margin-bottom: 1rem; }
+.trivia .fact { color: #ccc; font-size: 0.95rem; line-height: 1.7; }
+.trivia .fact strong { color: #fff; }
+
+.footer { text-align: center; padding: 2rem 0; color: #555; font-size: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05); }
+.footer a { color: var(--gold); text-decoration: none; }
+
+@media (max-width: 768px) {
+  .jump-row { grid-template-columns: 1fr; }
+  .champ-strip { grid-template-columns: repeat(2, 1fr); }
+  .hl-grid { grid-template-columns: 1fr 1fr; }
+  .hero .cd-row { gap: 1rem; }
+  .hero .cd-num { font-size: 1.8rem; }
+}
+@media (max-width: 400px) {
+  .hl-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../">← 英雄殿堂</a>
+</nav>
+
+<section class="hero">
+  <div class="icon">🏆</div>
+  <h1>世界杯专区</h1>
+  <p class="sub">地球上最盛大的体育赛事 · 百年传奇 · 未来已近</p>
+  <div class="countdown">
+    <div class="cd-row">
+      <div class="cd-block"><div class="cd-num" id="cd-years">--</div><div class="cd-label">年</div></div>
+      <div class="cd-block"><div class="cd-num" id="cd-days">--</div><div class="cd-label">天</div></div>
+      <div class="cd-block"><div class="cd-num" id="cd-hours">--</div><div class="cd-label">时</div></div>
+    </div>
+    <p style="color:#888;font-size:0.8rem;margin-top:0.8rem;">距离 2026年6月11日 美加墨世界杯开幕</p>
+  </div>
+</section>
+
+<div class="container">
+  <!-- Jump Cards -->
+  <div class="jump-row">
+    <a href="./history/" class="jump-card gold">
+      <div class="j-icon">📜</div>
+      <div class="j-title">世界杯全史</div>
+      <div class="j-sub">1930 — 2022 · 22届 · 8个冠军国家 · 经典战役 · 传奇进球</div>
+      <span class="j-arrow">探索百年 →</span>
+    </a>
+    <a href="./2026/" class="jump-card fire">
+      <div class="j-icon">🌎</div>
+      <div class="j-title">美加墨 2026</div>
+      <div class="j-sub">48队 · 3国 · 104场 · 16座城市 · 全新赛制</div>
+      <span class="j-arrow">探索未来 →</span>
+    </a>
+  </div>
+
+  <!-- Champion Summary -->
+  <div class="sec-title"><h2>👑 冠军国度</h2><p class="sub">22届世界杯 · 8个国家举起过大力神杯</p></div>
+  <div class="champ-strip">
+    <a href="./history/#champions" class="champ-mini"><div class="flag">🇧🇷</div><div class="name">巴西</div><div class="stars">⭐⭐⭐⭐⭐</div></a>
+    <a href="./history/#champions" class="champ-mini"><div class="flag">🇩🇪</div><div class="name">德国</div><div class="stars">⭐⭐⭐⭐</div></a>
+    <a href="./history/#champions" class="champ-mini"><div class="flag">🇮🇹</div><div class="name">意大利</div><div class="stars">⭐⭐⭐⭐</div></a>
+    <a href="./history/#champions" class="champ-mini"><div class="flag">🇦🇷</div><div class="name">阿根廷</div><div class="stars">⭐⭐⭐</div></a>
+    <a href="./history/#champions" class="champ-mini"><div class="flag">🇫🇷</div><div class="name">法国</div><div class="stars">⭐⭐</div></a>
+    <a href="./history/#champions" class="champ-mini"><div class="flag">🇺🇾</div><div class="name">乌拉圭</div><div class="stars">⭐⭐</div></a>
+    <a href="./history/#champions" class="champ-mini"><div class="flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</div><div class="name">英格兰</div><div class="stars">⭐</div></a>
+    <a href="./history/#champions" class="champ-mini"><div class="flag">🇪🇸</div><div class="name">西班牙</div><div class="stars">⭐</div></a>
+  </div>
+
+  <!-- Recent Highlights -->
+  <div class="sec-title"><h2>🔥 近三届高光</h2><p class="sub">属于这个时代的传奇</p></div>
+  <div class="hl-grid">
+    <a href="./history/#matches" class="hl-card">
+      <div class="hl-year">2022 · 卡塔尔 🇶🇦</div>
+      <div class="hl-title">史上最伟大的决赛</div>
+      <div class="hl-desc">阿根廷 3-3 法国（点球4-2）。梅西vs姆巴佩，97秒两球，帽子戏法，点球决胜负——这剧本编剧都不敢写。</div>
+    </a>
+    <a href="./history/#matches" class="hl-card">
+      <div class="hl-year">2018 · 俄罗斯 🇷🇺</div>
+      <div class="hl-title">法国新王登基</div>
+      <div class="hl-desc">19岁的姆巴佩成为贝利之后在决赛进球的最年轻球员。法国4-2击败克罗地亚第二次夺冠。</div>
+    </a>
+    <a href="./history/#matches" class="hl-card">
+      <div class="hl-year">2014 · 巴西 🇧🇷</div>
+      <div class="hl-title">米内罗惨案</div>
+      <div class="hl-desc">德国7-1巴西——地球上最不可思议的比分。格策加时赛绝杀阿根廷，德国四冠。</div>
+    </a>
+  </div>
+
+  <!-- Trivia -->
+  <div class="trivia">
+    <h3>💡 你知道吗</h3>
+    <div class="fact" id="trivia-fact">
+      世界杯历史上<strong>最快的进球</strong>发生在2002年——土耳其前锋哈坎·苏克在季军战中对韩国队<strong>开球仅11秒</strong>就破门得分。这个纪录至今无人打破。
+    </div>
+  </div>
+
+  <div class="sec-title"><h2>🗂️ 内容索引</h2></div>
+  <div class="hl-grid">
+    <a href="./history/#ch1" class="hl-card"><div class="hl-year">📖 起源</div><div class="hl-title">一个法国人的梦想</div></a>
+    <a href="./history/#champions" class="hl-card"><div class="hl-year">👑 冠军</div><div class="hl-title">8个冠军国家</div></a>
+    <a href="./history/#matches" class="hl-card"><div class="hl-year">⚔️ 经典</div><div class="hl-title">6场不朽战役</div></a>
+    <a href="./history/#goals" class="hl-card"><div class="hl-year">⚽ 进球</div><div class="hl-title">传奇进球合集</div></a>
+    <a href="./history/#legends" class="hl-card"><div class="hl-year">🌟 巨星</div><div class="hl-title">世界杯的诸神</div></a>
+    <a href="./2026/" class="hl-card"><div class="hl-year">🌎 2026</div><div class="hl-title">美加墨专题</div></a>
+    <a href="./terms/" class="hl-card" style="border-color:rgba(251,191,36,0.15);background:linear-gradient(145deg,#1c1917,#292524);"><div class="hl-year">📖 牧童</div><div class="hl-title">足球入门手册</div><div class="hl-desc" style="font-size:.7rem;color:#fbbf24;">用11岁能懂的话解释阵型、位置和战术 🦞</div></a>
+  </div>
+</div>
+
+<div class="footer">
+  <p>🏟️ 世界杯专区 · 体育英雄殿堂</p>
+  <p><a href="../">← 返回首页</a></p>
+</div>
+
+<script>
+// Countdown to 2026-06-11T00:00:00-05:00 (Mexico City time, UTC-5 = UTC 05:00)
+const target = new Date('2026-06-11T05:00:00Z');
+function updateCD() {
+  const now = new Date();
+  let diff = target - now;
+  if (diff < 0) { document.querySelector('.countdown').innerHTML = '<p style="color:var(--gold);font-size:1.5rem;font-weight:700;">⚽ 世界杯正在进行中！⚽</p>'; return; }
+  const d = Math.floor(diff / 86400000); diff -= d*86400000;
+  const h = Math.floor(diff / 3600000); diff -= h*3600000;
+  const m = Math.floor(diff / 60000);
+  const years = Math.floor(d / 365.25);
+  const days = Math.floor(d - years * 365.25);
+  document.getElementById('cd-years').textContent = years;
+  document.getElementById('cd-days').textContent = days;
+  document.getElementById('cd-hours').textContent = h;
+}
+updateCD();
+setInterval(updateCD, 60000);
+
+// Trivia carousel
+const facts = [
+  '世界杯历史上<strong>最快的进球</strong>发生在2002年——土耳其前锋哈坎·苏克在季军战中对韩国队<strong>开球仅11秒</strong>就破门得分。',
+  '第一届世界杯（1930年）只有<strong>13支球队</strong>参赛，其中4支欧洲队坐了3周的船才抵达乌拉圭。决赛中乌拉圭4-2击败阿根廷夺冠。',
+  '1958年世界杯，<strong>17岁的贝利</strong>在决赛中梅开二度，至今仍是世界杯决赛最年轻进球纪录。那个进球后他趴在队友肩上哭泣的照片传遍了世界。',
+  '世界杯单届进球纪录是<strong>13球</strong>——由法国人<strong>朱斯特·方丹</strong>在1958年创造，而且他只踢了6场比赛。这个纪录已经保持了60多年。',
+  '<strong>没有一支球队卫冕成功过</strong>——从1962年巴西之后（意大利1938年除外，中间隔了二战12年）。2010年代的三届冠军（西班牙、德国、法国）全部在下一届小组赛出局。',
+  '1970年世界杯是<strong>第一场彩色电视直播的世界杯决赛</strong>——巴西的黄色球衣和意大利的蓝色球衣在彩色屏幕上第一次被数亿人看到。贝利说："从那天起，足球变成了艺术。"'
+];
+let factIdx = 0;
+setInterval(() => {
+  factIdx = (factIdx + 1) % facts.length;
+  document.getElementById('trivia-fact').innerHTML = facts[factIdx];
+}, 8000);
+</script>
+</body>
+</html>
+ 
