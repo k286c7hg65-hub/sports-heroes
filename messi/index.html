@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>梅西 · 从罗萨里奥到世界之巅 | 体育英雄殿堂</title>
+<style>
+:root {
+  --red: #004a98; --gold: #f5af19; --green: #75aadb; --dark: #0f0f1a;
+  --card-bg: #1a1a30; --text: #e0e0e0; --text-dim: #999; --accent: #004a98;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--dark); color: var(--text); line-height: 1.7; overflow-x: hidden;
+}
+
+/* ── Navigation ── */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(15,15,26,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 0.5rem 1rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.nav a { color: var(--gold); text-decoration: none; font-weight: 600; font-size: 0.85rem; flex-shrink: 0; }
+.nav .chapters { display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: flex-end; }
+.nav .chapters span { font-size: 0.7rem; padding: 0.3rem 0.55rem; border-radius: 12px; background: rgba(255,255,255,0.06); color: #888; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+.nav .chapters span:hover, .nav .chapters span.active { background: var(--red); color: #fff; }
+
+/* ── Hero ── */
+.hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 5rem 1rem 3rem; position: relative; }
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0,74,152,0.15) 0%, transparent 70%); pointer-events: none; }
+.hero .numbers { display: flex; gap: clamp(1rem, 4vw, 2.5rem); align-items: center; justify-content: center; }
+.hero .number { font-size: clamp(7rem, 18vw, 13rem); font-weight: 900; background: linear-gradient(180deg, var(--red) 0%, var(--gold) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; opacity: 0.9; line-height: 1; }
+.hero .number-slash { font-size: clamp(6rem, 15vw, 11rem); font-weight: 300; color: rgba(255,255,255,0.2); line-height: 1; animation: pulse 3s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+.hero .name { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; color: #fff; margin: 0.5rem 0 0; letter-spacing: 0.05em; }
+.hero .subtitle { font-size: clamp(1rem, 2.5vw, 1.3rem); color: var(--gold); margin-bottom: 1rem; }
+.hero .tagline { color: #888; max-width: 520px; margin: 0 auto 2rem; font-size: 0.95rem; }
+.hero .scroll-hint { color: #555; font-size: 0.8rem; animation: float 2s ease-in-out infinite; cursor: default; }
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+
+/* ── Chapter Sections ── */
+.chapter { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 5rem 1rem; position: relative; }
+.chapter:nth-child(odd) .chapter-inner { flex-direction: row; }
+.chapter:nth-child(even) .chapter-inner { flex-direction: row-reverse; }
+.chapter-inner { max-width: 1000px; width: 100%; display: flex; gap: 3rem; align-items: center; }
+.chapter-icon { font-size: clamp(4rem, 10vw, 7rem); flex-shrink: 0; animation: float 4s ease-in-out infinite; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.4)); }
+.chapter-content { flex: 1; }
+.chapter-num { font-size: 0.8rem; letter-spacing: 0.15em; color: var(--red); font-weight: 700; margin-bottom: 0.5rem; }
+.chapter-title { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 900; color: #fff; margin-bottom: 1rem; }
+.chapter-text { color: #bbb; font-size: 0.95rem; line-height: 1.8; margin-bottom: 1.5rem; }
+.chapter-text strong { color: var(--gold); }
+.chapter-text .highlight { background: linear-gradient(180deg, transparent 60%, rgba(0,74,152,0.3) 60%); padding: 0 2px; }
+
+/* ── Full-width Sections ── */
+.section { padding: 4rem 1rem; position: relative; }
+.section-inner { max-width: 900px; margin: 0 auto; }
+.section h2 { text-align: center; font-size: clamp(1.6rem, 3vw, 2rem); color: #fff; margin-bottom: 0.5rem; }
+.section .sub { text-align: center; color: #888; margin-bottom: 2.5rem; font-size: 0.9rem; }
+
+/* ── Stat Card ── */
+.stat-card { background: var(--card-bg); border-radius: 16px; padding: 1.2rem; border: 1px solid rgba(255,255,255,0.06); margin-bottom: 1rem; transition: transform 0.3s; }
+.stat-card:hover { transform: translateY(-2px); border-color: rgba(245,175,25,0.2); }
+.stat-card .label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 0.3rem; }
+.stat-card .value { font-size: 1.8rem; font-weight: 900; color: #fff; }
+.stat-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+.stat-row .stat-card { flex: 1; min-width: 120px; }
+
+/* ── Iconic Goals Gallery ── */
+.goals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+.goal-card { background: var(--card-bg); border-radius: 16px; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s; cursor: default; }
+.goal-card:hover { transform: translateY(-4px); border-color: rgba(0,74,152,0.3); box-shadow: 0 8px 32px rgba(0,74,152,0.1); }
+.goal-card .goal-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+.goal-card .goal-title { font-weight: 700; color: #fff; margin-bottom: 0.3rem; font-size: 1rem; }
+.goal-card .goal-meta { font-size: 0.75rem; color: var(--gold); margin-bottom: 0.8rem; }
+.goal-card .goal-desc { font-size: 0.85rem; color: #aaa; line-height: 1.6; }
+
+/* ── Dark Moments ── */
+.dark-card { background: linear-gradient(135deg, rgba(0,74,152,0.08), rgba(0,0,0,0.3)); border-left: 3px solid var(--red); border-radius: 0 14px 14px 0; padding: 1.5rem; margin-bottom: 1.2rem; }
+.dark-card .dark-year { color: var(--red); font-weight: 700; font-size: 0.8rem; margin-bottom: 0.3rem; }
+.dark-card .dark-title { color: #fff; font-weight: 700; margin-bottom: 0.5rem; }
+.dark-card .dark-desc { color: #aaa; font-size: 0.9rem; line-height: 1.7; }
+.dark-card .dark-rise { color: var(--gold); font-size: 0.85rem; margin-top: 0.6rem; font-weight: 600; }
+
+/* ── Quiz ── */
+.quiz { background: linear-gradient(135deg, rgba(0,74,152,0.12), rgba(245,175,25,0.08)); border-radius: 16px; padding: 1.5rem; margin-top: 1.5rem; border: 1px solid rgba(0,74,152,0.2); }
+.quiz .q { font-weight: 700; color: #fff; margin-bottom: 0.8rem; font-size: 0.95rem; }
+.quiz .options { display: flex; flex-direction: column; gap: 0.5rem; }
+.quiz .opt { padding: 0.6rem 1rem; border-radius: 10px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); cursor: pointer; transition: all 0.2s; color: #ccc; font-size: 0.9rem; text-align: left; }
+.quiz .opt:hover { background: rgba(255,255,255,0.08); border-color: var(--gold); }
+.quiz .opt.correct { background: rgba(117,173,219,0.2); border-color: var(--green); color: #fff; }
+.quiz .opt.wrong { background: rgba(0,74,152,0.3); border-color: var(--red); color: #fff; }
+.quiz .feedback { margin-top: 0.8rem; font-size: 0.85rem; color: var(--gold); display: none; }
+
+/* ── Quote Block ── */
+.blockquote { background: var(--card-bg); border-radius: 16px; padding: 2rem; margin: 1.5rem 0; text-align: center; border: 1px solid rgba(255,255,255,0.06); position: relative; }
+.blockquote::before { content: '"'; position: absolute; top: -0.5rem; left: 1.5rem; font-size: 5rem; color: var(--red); opacity: 0.3; font-family: Georgia, serif; line-height: 1; }
+.blockquote p { font-size: 1.1rem; color: #fff; font-style: italic; line-height: 1.6; position: relative; }
+.blockquote .by { color: var(--gold); margin-top: 0.8rem; font-weight: 600; font-style: normal; }
+
+/* ── Timeline ── */
+.timeline-section { padding: 4rem 1rem; }
+.timeline-section h2 { text-align: center; font-size: 1.8rem; color: #fff; margin-bottom: 3rem; }
+.timeline { position: relative; padding-left: 2rem; max-width: 700px; margin: 0 auto; }
+.timeline::before { content: ''; position: absolute; left: 0.5rem; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--red), var(--gold), var(--green)); }
+.timeline-item { position: relative; margin-bottom: 2.2rem; padding-left: 2rem; }
+.timeline-item::before { content: ''; position: absolute; left: -1.75rem; top: 0.5rem; width: 12px; height: 12px; border-radius: 50%; background: var(--gold); border: 2px solid var(--dark); }
+.timeline-year { font-size: 0.8rem; color: var(--gold); font-weight: 700; margin-bottom: 0.3rem; }
+.timeline-event { color: #ccc; font-size: 0.9rem; }
+
+/* ── Trophy Wall ── */
+.trophy-section { padding: 4rem 1rem 6rem; }
+.trophy-section h2 { text-align: center; font-size: 1.8rem; color: #fff; margin-bottom: 0.5rem; }
+.trophy-section .sub { text-align: center; color: #888; margin-bottom: 2.5rem; }
+.trophy-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.8rem; max-width: 900px; margin: 0 auto; }
+.trophy { background: var(--card-bg); border-radius: 14px; padding: 1rem 0.8rem; border: 1px solid rgba(255,255,255,0.06); transition: transform 0.3s; text-align: center; }
+.trophy:hover { transform: translateY(-4px); border-color: rgba(245,175,25,0.3); }
+.trophy .t-icon { font-size: 2rem; margin-bottom: 0.4rem; }
+.trophy .t-name { font-size: 0.75rem; color: #ccc; font-weight: 600; }
+.trophy .t-count { font-size: 0.85rem; color: var(--gold); font-weight: 900; }
+.trophy .t-detail { font-size: 0.65rem; color: #777; margin-top: 0.15rem; }
+
+/* ── Business Cards ── */
+.biz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+.biz-card { background: var(--card-bg); border-radius: 16px; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.06); text-align: center; transition: all 0.3s; }
+.biz-card:hover { transform: translateY(-4px); border-color: rgba(245,175,25,0.3); }
+.biz-card .biz-icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
+.biz-card .biz-name { color: #fff; font-weight: 700; margin-bottom: 0.5rem; }
+.biz-card .biz-desc { color: #aaa; font-size: 0.85rem; line-height: 1.5; }
+
+/* ── Influence Stats ── */
+.influence-row { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+.influence-stat { background: var(--card-bg); border-radius: 16px; padding: 1.5rem; text-align: center; border: 1px solid rgba(255,255,255,0.06); min-width: 140px; flex: 1; }
+.influence-stat .big { font-size: 2.2rem; font-weight: 900; background: linear-gradient(135deg, var(--red), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.influence-stat .big.native-icon { background: none; -webkit-background-clip: unset; -webkit-text-fill-color: initial; }
+.influence-stat .desc { color: #aaa; font-size: 0.8rem; margin-top: 0.3rem; }
+
+/* ── Philosophy Cards ── */
+.phil-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+.phil-card { background: var(--card-bg); border-radius: 16px; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.06); text-align: center; transition: all 0.3s; }
+.phil-card:hover { transform: translateY(-4px); border-color: rgba(245,175,25,0.2); }
+.phil-card .phil-icon { font-size: 2.2rem; margin-bottom: 0.6rem; }
+.phil-card .phil-name { color: var(--gold); font-weight: 700; margin-bottom: 0.5rem; font-size: 1rem; }
+.phil-card .phil-desc { color: #aaa; font-size: 0.85rem; line-height: 1.5; }
+
+/* ── Celebration Particles ── */
+.particles { position: fixed; inset: 0; pointer-events: none; z-index: 200; }
+.particle { position: absolute; font-size: 1.5rem; animation: fall linear forwards; }
+@keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(720deg); opacity: 0; } }
+
+/* ── Back to top ── */
+.back-top { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 99; width: 44px; height: 44px; border-radius: 50%; background: var(--red); color: #fff; border: none; font-size: 1.3rem; cursor: pointer; opacity: 0; transform: translateY(20px); transition: all 0.3s; box-shadow: 0 4px 16px rgba(0,74,152,0.4); }
+.back-top.show { opacity: 1; transform: translateY(0); }
+
+/* ── Divider ── */
+.divider { text-align: center; padding: 1rem; color: #333; font-size: 1.5rem; letter-spacing: 0.3em; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .chapter-inner, .chapter:nth-child(even) .chapter-inner { flex-direction: column !important; gap: 1.5rem; text-align: center; }
+  .chapter-icon { font-size: 4rem; }
+  .chapter { padding: 4rem 1rem; min-height: auto; }
+  .nav .chapters { display: none; }
+  .stat-row { flex-direction: column; }
+  .timeline { padding-left: 1.5rem; }
+  .trophy-grid { grid-template-columns: repeat(2, 1fr); }
+  .goals-grid { grid-template-columns: 1fr; }
+  .biz-grid { grid-template-columns: 1fr 1fr; }
+  .influence-row { flex-direction: column; }
+  .phil-grid { grid-template-columns: 1fr; }
+  .hero .numbers { flex-direction: column; gap: 0; }
+}
+@media (max-width: 400px) {
+  .biz-grid { grid-template-columns: 1fr; }
+  .trophy-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ═══ Scroll Animations ═══ */
+@keyframes fadeSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+@keyframes countUp { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+.timeline-item { opacity: 0; transform: translateX(-15px); transition: all 0.6s ease-out; }
+.timeline-item:nth-child(even) { transform: translateX(15px); }
+.timeline-item.is-visible { opacity: 1; transform: translateX(0); }
+.trophy { position: relative; overflow: hidden; }
+.trophy::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 0%, rgba(255,215,0,0.08) 50%, transparent 100%); background-size: 200% 100%; opacity: 0; transition: opacity 0.3s; }
+.trophy:hover::after { opacity: 1; animation: shimmer 1.5s ease-in-out infinite; }
+.stat-card.is-visible { animation: countUp 0.5s ease-out forwards; }
+
+</style>
+</head>
+<body>
+
+<div class="particles" id="particles"></div>
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<nav class="nav">
+  <a href="../">← 英雄殿堂</a>
+  <div class="chapters" id="navChapters">
+    <span onclick="scrollToChapter(0)">🌹</span>
+    <span onclick="scrollToChapter(1)">🏫</span>
+    <span onclick="scrollToChapter(2)">🔵</span>
+    <span onclick="scrollToChapter(3)">🎯</span>
+    <span onclick="scrollToChapter(4)">🇦🇷</span>
+    <span onclick="scrollToChapter(5)">🌑</span>
+    <span onclick="scrollToChapter(6)">⭐</span>
+    <span onclick="scrollToChapter(7)">🤝</span>
+    <span onclick="scrollToChapter(8)">🔥</span>
+    <span onclick="scrollToChapter(9)">💬</span>
+  </div>
+</nav>
+
+<!-- ══════ HERO ══════ -->
+<section class="hero" id="top">
+  <div class="numbers">
+    <span class="number">10</span>
+    <span class="number-slash"></span>
+    <span class="number">30</span>
+  </div>
+  <h1 class="name">LIONEL MESSI</h1>
+  <p class="subtitle">里奥 · 梅西</p>
+  <p class="tagline">一个需要在11岁每天给自己注射生长激素的男孩，最终被全世界仰望。他不是天生巨人——他把自己的缺陷变成了独一无二。</p>
+  <div class="scroll-hint" onclick="celebrate()">👇 点击开始他的故事</div>
+</section>
+
+<!-- ══════ CH1: Rosario Childhood ══════ -->
+<section class="chapter" id="ch1">
+  <div class="chapter-inner">
+    <div class="chapter-icon">🌹</div>
+    <div class="chapter-content">
+      <div class="chapter-num">第一章</div>
+      <h2 class="chapter-title">罗萨里奥的瘦小男孩</h2>
+      <div class="chapter-text">
+        <p>1987年6月24日，利昂内尔·安德烈斯·梅西·库奇蒂尼出生在阿根廷<strong>圣菲省罗萨里奥</strong>——一个以革命英雄切·格瓦拉闻名的工业城市。父亲豪尔赫是钢铁厂工人，母亲塞莉亚是清洁工。外婆塞莉亚是他最早的伯乐——4岁时，外婆坚持让教练把这个<strong>矮小得几乎看不见</strong>的孩子放进比赛。教练说"他太小了"，外婆说"让他踢，他能进球的"。他上场不到几分钟就进球了。</p>
+        <p>5岁加入当地的格兰多利俱乐部，6岁转入<strong>纽维尔老男孩</strong>青训营。在那里，他和一群1987年出生的孩子组成了被称为<strong>"87机器"</strong>的传奇少年队——几乎赢了所有比赛，他在6年时间里打进了<strong>近500个进球</strong>。所有人都叫他"小跳蚤"（La Pulga）——因为他个子最小，却没人能从他脚下抢到球。</p>
+        <p>他的外婆塞莉亚是他最早的也是最重要的支持者。每次带梅西去比赛，这位老太太都会对教练说："让他上，他能进球。"4岁那年的一场社区比赛，教练缺一个人——外婆指着场边正在颠橘子的梅西（没有足球，他用橘子练习）说："叫他上。"教练说："他太小了。"外婆坚持——梅西上场不到几分钟就进球了。直到今天，梅西每次进球后都会指向天空——那是给外婆的。她在他10岁时去世，没能看到后来的神话，但她的信念埋在了他的血肉里。</p>
+        <p>但命运在10岁时开了一个残酷的玩笑。他被诊断出<strong>生长激素缺乏症（GHD）</strong>——一种阻碍骨骼生长的疾病。如果不治疗，他的成年身高可能只有<strong>1米4</strong>。治疗方案存在：每天在腿上注射生长激素。但费用高达每月<strong>约900美元</strong>——在1990年代末经济崩溃的阿根廷，这笔钱几乎是一笔巨款。他父亲的工厂削减了医疗补贴，纽维尔老男孩答应资助但最终食言。河床队有兴趣签下他，但也拒绝承担治疗费用。</p>
+        <p>一个11岁的孩子开始自己给自己注射——因为他妈妈不敢看针头。每天晚上，重复同一件事：准备药品、消毒、扎入大腿、推入液体。这个习惯持续了近三年。朋友们出去玩的时候他在打针，同龄人在讨论动画片的时候他在担心一个问题："我还能踢球吗？"</p>
+      </div>
+      <div class="stat-row">
+        <div class="stat-card"><div class="label">出生日期</div><div class="value">1987.06.24</div></div>
+        <div class="stat-card"><div class="label">家乡</div><div class="value">罗萨里奥</div></div>
+        <div class="stat-card"><div class="label">童年绰号</div><div class="value">小跳蚤 🦗</div></div>
+      </div>
+      <div class="quiz" id="quiz0">
+        <div class="q">🤔 梅西为什么被称为"小跳蚤"（La Pulga）？</div>
+        <div class="options">
+          <div class="opt" onclick="checkQuiz(this,false,'quiz0-fb')">🐶 因为他喜欢跳来跳去</div>
+          <div class="opt" onclick="checkQuiz(this,true,'quiz0-fb')">🦗 因为他个子最小，却在场上无处不在——像跳蚤一样抓不住、甩不掉</div>
+          <div class="opt" onclick="checkQuiz(this,false,'quiz0-fb')">🎵 这是他最喜欢的卡通人物</div>
+        </div>
+        <div class="feedback" id="quiz0-fb">🦗 没错！"La Pulga"（小跳蚤）——他可能是场上最矮的，但所有人都防不住他。这个绰号从纽维尔老男孩时代就开始叫了，直到今天，全世界球迷仍然这样亲切地称呼他。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CH2: La Masia ══════ -->
+<section class="chapter" id="ch2">
+  <div class="chapter-inner">
+    <div class="chapter-icon">🏫</div>
+    <div class="chapter-content">
+      <div class="chapter-num">第二章</div>
+      <h2 class="chapter-title">那张改变一切的餐巾纸</h2>
+      <div class="chapter-text">
+        <p><strong>2000年9月，13岁。</strong>梅西的父亲带着儿子飞越大西洋来到巴塞罗那。在一次试训中，这个矮小得惊人的阿根廷孩子把所有人看呆了。但巴萨董事会犹豫了——为一个13岁的外国孩子支付昂贵的激素治疗费？这在俱乐部历史上从未有过先例。梅西的父亲越来越焦虑，两个月过去了，没有任何正式承诺。</p>
+        <p><strong>2000年12月14日，巴塞罗那庞佩亚网球俱乐部。</strong>巴萨体育总监卡尔斯·雷克萨奇正在和经纪人加吉奥利、明盖拉吃午饭。梅西的父亲向雷克萨奇下了最后通牒：要么现在签，要么梅西去皇马。雷克萨奇环顾四周——没有纸。他抓过<strong>一张纸餐巾</strong>，用蓝色圆珠笔写下了足球史上最著名的一段话：</p>
+        <p style="color:var(--gold);font-weight:700;text-align:center;margin:1rem 0;font-size:0.95rem;">"2000年12月14日，在巴塞罗那，在明盖拉和加吉奥利见证下，巴萨体育总监雷克萨奇同意在自己的职责范围内，无论有任何反对意见，按照双方商定好的条件签下利昂内尔·梅西。"</p>
+        <p>一张餐巾纸，几行潦草的字，三位见证人的签名——<strong>足球史上最伟大的签约</strong>就这样完成了。巴萨不仅签下了梅西，还承诺支付全部激素治疗费用。13岁的梅西开始每天给自己注射——"<span class="highlight">我每天晚上给自己打一针，从12岁开始。对我来说这就是家常便饭。</span>"</p>
+        <p>在拉玛西亚青训营，他从Infantil B一路杀到Juvenil A，每个年龄组都是队内最佳射手。<strong>在巴萨青训体系共出场97次，打入89个官方进球</strong>——这个纪录至今矗立。2003年11月16日，年仅<strong>16岁4个月23天</strong>的他穿上了巴萨一线队的球衣，在对波尔图的友谊赛中亮相。</p>
+      </div>
+      <div class="stat-row">
+        <div class="stat-card"><div class="label">签约时</div><div class="value">13岁</div></div>
+        <div class="stat-card"><div class="label">青训进球</div><div class="value">89球/97场</div></div>
+        <div class="stat-card"><div class="label">首秀年龄</div><div class="value">16岁</div></div>
+        <div class="stat-card"><div class="label">激素治疗</div><div class="value">3年+</div></div>
+      </div>
+      <div class="quiz" id="quiz1">
+        <div class="q">🤔 梅西与巴萨的第一份"合同"是用什么写的？</div>
+        <div class="options">
+          <div class="opt" onclick="checkQuiz(this,false,'quiz1-fb')">📄 一张标准的A4打印纸</div>
+          <div class="opt" onclick="checkQuiz(this,true,'quiz1-fb')">🍽️ 一张餐巾纸——雷克萨奇在网球俱乐部吃饭时用蓝色圆珠笔写的</div>
+          <div class="opt" onclick="checkQuiz(this,false,'quiz1-fb')">📱 一条短信</div>
+        </div>
+        <div class="feedback" id="quiz1-fb">🍽️ 没错！一张纸餐巾，蓝色圆珠笔，三位见证人——足球史上最传奇的签约。雷克萨奇后来开玩笑说："那张餐巾纸现在如果拍卖，能换一栋楼。"2024年，这张餐巾纸真的被拍卖了。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CH3: Barcelona Dream Team ══════ -->
+<section class="chapter" id="ch3">
+  <div class="chapter-inner">
+    <div class="chapter-icon">🔵</div>
+    <div class="chapter-content">
+      <div class="chapter-num">第三章</div>
+      <h2 class="chapter-title">红蓝王朝的缔造者</h2>
+      <div class="chapter-text">
+        <p><strong>2005年5月1日。诺坎普。</strong>巴萨对阵阿尔巴塞特，17岁10个月的梅西替补上场。罗纳尔迪尼奥——当时的世界最佳——送出一记挑传，梅西凌空挑射越过门将。进球后，小罗把梅西<strong>扛在背上</strong>，向诺坎普的观众展示这个孩子。那一刻，新王加冕的仪式完成了——世界上最伟大的球员告诉全世界：接下来，看他的。</p>
+        <p>在巴萨的17个赛季里，梅西将俱乐部带到了一个从未有过的高度。<strong>778次出场，672个进球</strong>——俱乐部历史第一射手（比第二名多出近一倍）。他帮助巴萨赢得了<strong>35座奖杯</strong>，包括4座欧冠冠军、10座西甲冠军、7座国王杯。</p>
+        <p><strong>2009年，瓜迪奥拉的梦之队。</strong>巴萨在一年内赢得了所有能赢的6座奖杯：西甲、欧冠、国王杯、西班牙超级杯、欧洲超级杯、世俱杯——<strong>史无前例的六冠王</strong>。22岁的梅西第一次捧起金球奖。他身披10号球衣（继承了罗纳尔迪尼奥留下的号码），在一个赛季中打入38球。那支巴萨被公认为足球史上最伟大的俱乐部球队——哈维和伊涅斯塔的中场、普约尔和皮克的后防、一个22岁的阿根廷少年在前场做着只有他才能理解的事情。2009年欧冠决赛对阵曼联（2-0），梅西打进了那记著名的头球；2011年欧冠决赛再遇曼联（3-1），他在温布利打进了左脚远射——弗格森爵士赛后双手颤抖着说："我们被一支更好的球队击败了，而梅西是最好的那个。"</p>
+        <p><strong>2014-2017年，"MSN"时代。</strong>梅西、苏亚雷斯、内马尔组成的南美三叉戟，是足球史上最令人恐惧的攻击组合之一。2014-15赛季三人合计打进<strong>122球</strong>，帮助巴萨夺得欧冠、西甲、国王杯三冠王——这是巴萨历史上第二次三冠王。2015年，梅西赢得个人<strong>第5座金球奖</strong>。</p>
+        <p>但最不可思议的篇章是<strong>2012年</strong>。那一年，梅西在69场比赛中打进了<strong>91个进球</strong>——79个为巴萨，12个为阿根廷国家队。这一数字打破了德国传奇盖德·穆勒保持了40年的85球纪录。<strong>吉尼斯世界纪录官方认证</strong>。平均每<strong>66分钟</strong>一个进球——这不是足球，这是物理学不允许发生的事情，但他做到了。其中包含9个帽子戏法、7个任意球直接破门、81个左脚进球——数据之全面令人颤栗。</p>
+      </div>
+      <div class="stat-row">
+        <div class="stat-card"><div class="label">巴萨进球</div><div class="value">672</div></div>
+        <div class="stat-card"><div class="label">俱乐部奖杯</div><div class="value">35座</div></div>
+        <div class="stat-card"><div class="label">2012年进球</div><div class="value">91球 🏅</div></div>
+      </div>
+      <div class="quiz" id="quiz2">
+        <div class="q">🤔 2012年梅西创造的"非人类"数据是什么？</div>
+        <div class="options">
+          <div class="opt" onclick="checkQuiz(this,false,'quiz2-fb')">🔄 一场比赛跑动了22公里</div>
+          <div class="opt" onclick="checkQuiz(this,true,'quiz2-fb')">⚽ 69场比赛打进91球，平均每66分钟一球，打破盖德·穆勒保持了40年的世界纪录</div>
+          <div class="opt" onclick="checkQuiz(this,false,'quiz2-fb')">🎯 一个赛季助攻100次</div>
+        </div>
+        <div class="feedback" id="quiz2-fb">⚽ 91球！包括9个帽子戏法、7个任意球直接破门、81个左脚进球。吉尼斯世界纪录认证。13年过去了，这个纪录依然矗立——没有球员能接近它。这不是在进球，这是在改写物理定律。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CLASSIC GOALS ══════ -->
+<section class="section" id="goals">
+  <div class="section-inner">
+    <h2>🎯 那些让人忘记呼吸的进球</h2>
+    <p class="sub">足球史上最美妙的瞬间中，他的名字反复出现</p>
+    <div class="goals-grid">
+      <div class="goal-card">
+        <div class="goal-icon">🪄</div>
+        <div class="goal-title">连过五人 · 赫塔菲</div>
+        <div class="goal-meta">2007年4月18日 · 国王杯半决赛</div>
+        <div class="goal-desc">19岁的梅西在中场拿球，然后做了一个让全世界安静下来的动作——他<strong>一个人过掉了赫塔菲整条防线</strong>：右脚一拨过掉第一个，甩开第二个，变向绕开第三个，扣过出击的门将，在两名后卫回追之前推射入网。这个进球与1986年世界杯马拉多纳对英格兰的"世纪进球"<strong>几乎一模一样</strong>——同样的线路、同样的距离、同样的终结。全世界在那一刻意识到：继承马拉多纳的人，来了。</div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-icon">✈️</div>
+        <div class="goal-title">欧冠决赛头球 · 曼联</div>
+        <div class="goal-meta">2009年5月27日 · 欧冠决赛 罗马奥林匹克球场</div>
+        <div class="goal-desc">巴萨对阵曼联的欧冠决赛。第70分钟，哈维右路传中——通常情况下，身高1米70的梅西不可能顶到头球。但他<strong>高高跃起</strong>，在费迪南德和维迪奇两位高大中卫之间，用后脑勺将球吊过范德萨的头顶，皮球<strong>慢悠悠地飘入球门远角</strong>。这个进球的美妙在于它完全出乎意料——全世界都在等他用脚，他用了头。巴萨2-0锁定胜局，梅西跪地滑向角旗，亲吻了巴萨队徽。</div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-icon">👑</div>
+        <div class="goal-title">世界杯决赛梅开二度</div>
+        <div class="goal-meta">2022年12月18日 · 世界杯决赛 卢赛尔体育场</div>
+        <div class="goal-desc">足球史上最伟大的决赛之一。第23分钟，梅西<strong>点球命中</strong>首开纪录。加时赛第108分钟，劳塔罗射门被扑出，梅西<strong>补射入网</strong>——3-2，阿根廷再次领先。在所有人以为比赛结束时，姆巴佩第118分钟再次扳平。最终点球大战阿根廷4-2获胜。梅西跪在球场中央，仰望天空。这是他等了<strong>整整16年</strong>（从2006年第一次世界杯）才等到的时刻。赛后他说："<span class='highlight'>我梦想这一刻太久了。</span>"</div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-icon">⚡</div>
+        <div class="goal-title">国王杯一条龙 · 毕尔巴鄂</div>
+        <div class="goal-meta">2015年5月30日 · 国王杯决赛</div>
+        <div class="goal-desc">比赛第20分钟，梅西在<strong>右路边线</strong>附近接到阿尔维斯的传球——距离球门超过45米。他晃过第一个防守球员，加速甩开第二个，切入禁区，切过第三个，然后面对第四个和出击的门将，右脚推射远角——球进了。他<strong>从中场附近启动，四秒后球已在网窝</strong>。这个进球不仅帮助巴萨3-1获胜捧杯，更成为国王杯历史上最精彩的进球。解说员只能重复同一句话："怎么可能...怎么可能..."。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ RECORDS ══════ -->
+<section class="section" id="records">
+  <div class="section-inner">
+    <h2>📊 那些只有他打破的纪录</h2>
+    <p class="sub">有些数字已经超越了体育——它们是数学在向天才致敬</p>
+    <div class="stat-row" style="margin-bottom:2rem;">
+      <div class="stat-card"><div class="label">自然年进球纪录</div><div class="value">91球</div><div class="t-detail">2012年 · 69场 · 吉尼斯世界纪录</div></div>
+      <div class="stat-card"><div class="label">单赛季俱乐部进球</div><div class="value">73球</div><div class="t-detail">2011-12 · 60场</div></div>
+      <div class="stat-card"><div class="label">西甲单赛季进球</div><div class="value">50球</div><div class="t-detail">2011-12 · 史上最多</div></div>
+      <div class="stat-card"><div class="label">西甲历史最佳射手</div><div class="value">474球</div><div class="t-detail">遥遥领先</div></div>
+    </div>
+    <div class="stat-row" style="margin-bottom:2rem;">
+      <div class="stat-card"><div class="label">巴萨历史最佳射手</div><div class="value">672球</div><div class="t-detail">778场 · 第二名近一半</div></div>
+      <div class="stat-card"><div class="label">阿根廷历史最佳射手</div><div class="value">109+球</div><div class="t-detail">超越巴蒂斯图塔</div></div>
+      <div class="stat-card"><div class="label">最多金球奖</div><div class="value">8座</div><div class="t-detail">远超第二名</div></div>
+      <div class="stat-card"><div class="label">职业生涯总冠军</div><div class="value">45座</div><div class="t-detail">足球史第一</div></div>
+    </div>
+    <div class="blockquote"><p>他不是在打破纪录——他是在把不可能变成日常。</p><div class="by">— 吉尼斯世界纪录官方对梅西91球纪录的评价</div></div>
+  </div>
+</section>
+
+<!-- ══════ CH4: Argentina Journey ══════ -->
+<section class="chapter" id="ch4">
+  <div class="chapter-inner">
+    <div class="chapter-icon">🇦🇷</div>
+    <div class="chapter-content">
+      <div class="chapter-num">第四章</div>
+      <h2 class="chapter-title">蓝白之痛：16年的等待</h2>
+      <div class="chapter-text">
+        <p>如果说俱乐部生涯是他的神话，<strong>国家队则写满了他的挣扎</strong>。梅西在阿根廷国家队的路，很长一段时间是一条苦路。</p>
+        <p><strong>2006年世界杯</strong>，18岁的梅西第一次踏上世界杯赛场。在对阵塞尔维亚的比赛中替补出场，打进一球，成为阿根廷世界杯历史上最年轻的进球者之一。全世界都在说：这个孩子将来一定会拿世界杯。</p>
+        <p>但"将来"变成了漫长的等待。<strong>2014年世界杯</strong>，27岁的梅西带领阿根廷一路杀入决赛——在里约热内卢的马拉卡纳体育场对阵德国。他拿到了赛事的<strong>金球奖</strong>（最佳球员），但在加时赛中，格策的进球让阿根廷0-1倒下。<strong>梅西走过大力神杯时，侧头看了一眼</strong>——那个画面被摄影师捕捉下来，成为足球史上最令人心碎的照片之一。</p>
+        <p><strong>2015年美洲杯决赛</strong>，阿根廷点球大战输给智利。<strong>2016年美洲杯决赛</strong>，同一个对手，同样的方式——再次倒在点球点前。那是梅西的<strong>连续第三场大赛决赛失利</strong>（2014世界杯+2015美洲杯+2016百年美洲杯）。决赛结束后，他在更衣室里宣布退出国家队："国家队对我而言已经结束了。我尽力了，没有成为冠军的痛苦比什么都大。"全阿根廷在哭泣。马拉多纳公开恳求他留下来。</p>
+      </div>
+      <div class="blockquote"><p>我尽力了。没有成为冠军的痛苦比什么都大。</p><div class="by">— 2016年美洲杯决赛后，宣布退出国家队</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ DARK MOMENTS ══════ -->
+<section class="section" id="dark">
+  <div class="section-inner">
+    <h2>🌑 至暗时刻 — 那些让他成为梅西的伤痕</h2>
+    <p class="sub">伟大从来不是一帆风顺——它是在被击倒后选择重新站起来的勇气</p>
+
+    <div class="dark-card">
+      <div class="dark-year">💉 1997-2000 · 生长激素缺乏症</div>
+      <div class="dark-title">11岁的男孩，每天给自己注射，不知道明天是否还能踢球</div>
+      <div class="dark-desc">诊断结果很清楚：生长激素缺乏症。没有治疗=成年身高仅1米4，职业足球生涯不可能。治疗方案：每天注射，每月约900美元。经济崩溃的阿根廷，父亲的工厂缩减保险，纽维尔老男孩承诺资助然后反悔，河床队也拒绝承担费用。<strong>11岁的梅西开始自己给自己注射</strong>——因为他妈妈不敢看针头。每天晚上，准备药品、消毒、扎入大腿、推入液体。这个习惯持续了将近三年。他后来轻描淡写地说："这就是家常便饭。"但任何一个11岁就学会忍受每天扎针的孩子，都在那一刻提前长大了。他的足球天赋是天生的——他忍受疼痛的能力却是被迫养成的。</div>
+      <div class="dark-rise">🔥 巴萨不仅签下了他——还支付了全部治疗费用（每月约900美元，持续三年多）。他从1米27长到了1米70——足够让全世界仰望。这个曾经连走路都比同龄人慢的孩子，后来成为了足球场上最快的人。</div>
+    </div>
+
+    <div class="dark-card">
+      <div class="dark-year">🏟️ 2014-2016 · 三连亚之痛</div>
+      <div class="dark-title">连续三年输掉三场大赛决赛——被贴上"国家队不行"的标签</div>
+      <div class="dark-desc">2014世界杯决赛负德国、2015美洲杯决赛负智利、2016百年美洲杯决赛再负智利——<strong>三年三次决赛全部失利</strong>。这个世界上最成功的俱乐部球员，在他最爱的蓝白球衣里找不到胜利。阿根廷媒体开始质疑他"不够阿根廷"，球迷焚烧他的球衣。他宣布退出国家队。那一天，整个阿根廷都在哭——包括那些曾经质疑他的人。</div>
+      <div class="dark-rise">🔥 退出国家队两个月后，他改变了决定。2021年，他带领阿根廷夺得美洲杯。2022年，世界杯。2024年，卫冕美洲杯——一届退出，三届冠军。</div>
+    </div>
+
+    <div class="dark-card">
+      <div class="dark-year">🇩🇪 2010 · 世界杯惨败</div>
+      <div class="dark-title">马拉多纳执教，阿根廷0-4惨败德国——梅西的进球荒</div>
+      <div class="dark-desc">2010年南非世界杯，阿根廷在马拉多纳执教下踢得激情四射，一路杀进八强。但在四分之一决赛中，他们被德国队以4-0击溃——这是一场惨不忍睹的溃败。更让阿根廷球迷揪心的是：<strong>梅西第一次以核心身份参加世界杯，却在整个赛事中一球未进</strong>。批评声四起："在巴萨行，在阿根廷不行。"这个标签从那天起开始贴在他身上——直到11年后才在马拉卡纳亲手撕掉。</div>
+      <div class="dark-rise">🔥 12年后的2022年世界杯：7球3助攻，赛事最佳球员，冠军。时间最终给出了答案。</div>
+    </div>
+
+    <div class="dark-card">
+      <div class="dark-year">💔 2021年8月 · 告别巴萨</div>
+      <div class="dark-title">在新闻发布会上泣不成声——"我以为我永远不会说再见"</div>
+      <div class="dark-desc">2021年夏天，梅西度假归来准备签约新合同。但巴萨因西甲工资帽规则——尽管他和俱乐部都同意降薪50%——<strong>无法注册他的合同</strong>。他来到诺坎普的新闻发布厅，还没开口就已经泪流满面。妻子安东内拉递过纸巾。他用颤抖的声音说："<span class='highlight'>我以为我会永远留在巴塞罗那。我从未想过以这种方式离开。我的家人和我都确信我们会留在这里——这里就是我们的家。</span>"全场记者起立鼓掌，鼓掌持续了<strong>三分钟</strong>。21年，从餐巾纸到告别泪——他和巴萨的故事以全世界最意想不到的方式结束了。</div>
+      <div class="dark-rise">🔥 他加盟巴黎圣日耳曼，然后转会迈阿密国际——在新的土地上开启了新的传奇。2025年，他被美国总统拜登授予总统自由勋章。</div>
+    </div>
+
+    <div class="dark-card">
+      <div class="dark-year">💉 2006-2015 · 伤病阴影</div>
+      <div class="dark-title">多次重伤差点毁掉这个天才——但他每次都回来了</div>
+      <div class="dark-desc">2006年，19岁的梅西在欧冠对阵切尔西时<strong>肌肉撕裂</strong>，错过了欧冠决赛（巴萨夺冠但他坐在看台上）。2008年，再次肌肉伤势——这让他开始重新思考自己的身体管理方式。2013年，连续多次腿筋伤病威胁到了他的速度和爆发力。每一次，外界都在说："这个靠速度吃饭的孩子完蛋了。"每一次，他不仅回来了——而且回来得更强。他聘请了私人营养师、改变了饮食结构（戒掉了他最爱的阿根廷烤肉和可乐）、建立了系统性的恢复流程。2015年后的梅西，几乎再也没有遭遇过严重伤病。</div>
+      <div class="dark-rise">🔥 从"玻璃人"到铁人——他用职业态度把身体的缺陷转化为了优势。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CH5: Redemption ══════ -->
+<section class="section" id="redemption-pre">
+  <div class="section-inner">
+    <h2>🇦🇷 2021美洲杯 · 破茧</h2>
+    <p class="sub">在马拉卡纳——那个2014年世界杯决赛让他心碎的地方——命运给了他赎回的机会</p>
+    <div class="chapter-inner" style="max-width:900px;margin:0 auto;display:flex;gap:3rem;align-items:center;flex-wrap:wrap;">
+      <div class="chapter-icon" style="font-size:5rem;">🦋</div>
+      <div class="chapter-content" style="min-width:280px;">
+        <div class="chapter-text">
+          <p>2021年美洲杯在巴西举行——<strong>在宿敌的主场</strong>。阿根廷队的晋级之路并不轻松，但梅西打出了他在国家队最好的大赛表现：4球5助攻，赛事最佳球员和最佳射手。队友们围绕着他形成了一个从未有过的紧密阵容——德保罗几乎寸步不离地保护他，迪马利亚负责致命一击，马丁内斯把守球门。</p>
+          <p><strong>决赛：阿根廷 vs 巴西，马拉卡纳。</strong>同一座体育场，7年前他在这里看着德国人举起世界杯。第22分钟，迪马利亚接到德保罗的长传，一脚精妙的吊射越过门将埃德松——1-0。当终场哨声响起，<strong>梅西跪在地上，双手捂脸。</strong>队友们从球场的每一个角落向他奔跑过来——奥塔门迪、德保罗、帕雷德斯……所有人把他压在身下。阿根廷球迷在看台上高唱：<span class='highlight'>"梅西，梅西，梅西——你就是阿根廷！"</span></p>
+          <p>那是他国家队生涯的转折点。从那一刻起，所有的质疑都消失了。他不再是"在巴萨很好但在国家队不行"的梅西——<strong>他是阿根廷的梅西。</strong>内马尔赛后在场边与他紧紧拥抱了五分钟——两个在南美足球宿命对决中成长起来的朋友，一个在哭，一个在安慰。</p>
+        </div>
+      </div>
+    </div>
+    <div class="blockquote"><p>这是我一生中最美好的时刻之一。我等待了太久太久。感谢上帝给了我这个机会。我知道他会给我的。</p><div class="by">— 2021年美洲杯夺冠后</div></div>
+  </div>
+</section>
+
+<!-- ══════ CH5: Redemption ══════ -->
+<section class="chapter" id="ch5">
+  <div class="chapter-inner">
+    <div class="chapter-icon">⭐</div>
+    <div class="chapter-content">
+      <div class="chapter-num">第五章</div>
+      <h2 class="chapter-title">终偿夙愿：给阿根廷的三冠王朝</h2>
+      <div class="chapter-text">
+        <p><strong>2021年7月10日，里约热内卢马拉卡纳。</strong>美洲杯决赛，阿根廷对阵东道主巴西。迪马利亚禁区外一记吊射——1-0。当终场哨响起，梅西跪在草坪上，队友们从四面八方向他飞奔过来，把他淹没在人堆里。<strong>34岁，他终于在蓝白球衣里尝到了冠军的滋味。</strong>这是他16年国家队生涯的第一座大赛冠军。他哭了——但不是痛苦的泪，是放下了16年重担的泪。</p>
+        <p><strong>2022年12月18日，卡塔尔卢赛尔体育场。</strong>88866名观众见证了一场被认为是<strong>世界杯历史上最伟大的决赛</strong>。阿根廷3-3法国，梅西梅开二度（第23分钟点球+第108分钟补射），姆巴佩帽子戏法。点球大战阿根廷4-2获胜。当蒙铁尔罚进最后一粒点球，梅西<strong>双膝跪地，仰天张开双臂</strong>——8.9万名现场观众和超过15亿电视观众同时见证了这一刻。他穿着卡塔尔埃米尔为他披上的黑色金边长袍，将大力神杯高高举过头顶。从2006到2022——<strong>16年的等待，5届世界杯，终于在最后一届圆梦。</strong></p>
+        <p>但那届世界杯的旅程并非童话——它是一场磨难。小组赛首战，阿根廷<strong>1-2不敌沙特阿拉伯</strong>——世界杯历史上最大的冷门之一。全世界都在嘲笑："梅西要小组出局了。"接下来是对墨西哥的生死战——阿根廷前63分钟无法进球，整个国家屏住呼吸。第64分钟，梅西在禁区外用左脚兜出一记贴地远射——皮球绕过三个防守球员钻入底角。那是他用魔法把阿根廷从悬崖边拉回来的瞬间。随后恩佐·费尔南德斯的弧线球锁定了胜局。从那一刻起，阿根廷像被点燃了一样——四分之一决赛对荷兰（2-2点球胜）、半决赛对克罗地亚（3-0，梅西一球一助攻并上演"世纪过人"戏耍格瓦迪奥尔）、最终在决赛完成了史诗。梅西在那届世界杯7场比赛<strong>7球3助攻</strong>，获得了赛事<strong>金球奖</strong>。</p>
+        <p><strong>2024年7月14日，迈阿密硬石体育场。</strong>美洲杯决赛，阿根廷对阵哥伦比亚。第65分钟，梅西因脚踝受伤被迫下场——他在替补席上掩面哭泣。但劳塔罗·马丁内斯在第112分钟打进绝杀球——阿根廷1-0卫冕成功。<strong>阿根廷以16座美洲杯冠军超越乌拉圭，成为美洲杯历史上夺冠最多的国家。</strong>梅西流着泪捧起了他职业生涯的第45座冠军——足球史上夺得冠军最多的球员。从2021到2024——<strong>连续三届大赛冠军（美洲杯→世界杯→美洲杯），阿根廷王朝，梅西加冕。</strong></p>
+        <p>而在俱乐部层面，梅西选择在2023年夏天加盟美国职业足球大联盟的<strong>迈阿密国际</strong>——一个当时排名垫底的球队。他的到来引发了美国体育史上罕见的"梅西狂热"：门票价格翻了10倍，球衣销量破历史纪录，每场比赛变成好莱坞名流的社交场所。他在加盟后的7场联赛杯比赛中打进<strong>10球</strong>，带领垫底球队夺得队史首冠。2025年，时任美国总统拜登授予他<strong>总统自由勋章</strong>——美国授予平民的最高荣誉，表彰他"在球场内外的卓越贡献"。一个从罗萨里奥铁皮屋走出来的孩子，在美国总统手中接过了自由勋章——这是连他自己都做梦不敢想象的旅程。</p>
+      </div>
+      <div class="stat-row">
+        <div class="stat-card"><div class="label">国家队冠军</div><div class="value">3大赛</div></div>
+        <div class="stat-card"><div class="label">职业总冠军</div><div class="value">45座</div></div>
+        <div class="stat-card"><div class="label">世界杯进球</div><div class="value">13球</div></div>
+      </div>
+      <div class="quiz" id="quiz3">
+        <div class="q">🤔 2022年世界杯决赛为什么被称为"历史最佳决赛"？</div>
+        <div class="options">
+          <div class="opt" onclick="checkQuiz(this,false,'quiz3-fb')">🏟️ 因为观众人数超过10万</div>
+          <div class="opt" onclick="checkQuiz(this,true,'quiz3-fb')">⚔️ 阿根廷3-3法国（点球4-2）：梅西梅开二度，姆巴佩帽子戏法，两位GOAT（史上最佳）在世界杯决赛正面对决，加时赛最后一分钟还在进球</div>
+          <div class="opt" onclick="checkQuiz(this,false,'quiz3-fb')">⏱️ 因为打了两个小时</div>
+        </div>
+        <div class="feedback" id="quiz3-fb">⚔️ 这就是为什么他们称它为"史上最伟大的决赛"！当世界第一和第二的球员在世界杯决赛相遇，比分从2-0到2-2，再到3-2和3-3——没有人知道下一秒会发生什么。梅西在加时赛的进球让阿根廷再次领先，姆巴佩在118分钟的点球又把比赛拖入点球大战。这不是足球，这是荷马史诗在现代的重演。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ BUSINESS & CHARITY ══════ -->
+<section class="section" id="biz">
+  <div class="section-inner">
+    <h2>🤝 商业与慈善</h2>
+    <p class="sub">他的影响力远超球场——但和别人不同的是，他把影响力变成了无数孩子的希望</p>
+
+    <div class="stat-row" style="margin-bottom:2rem;">
+      <div class="stat-card"><div class="label">Adidas终身合同(2017)</div><div class="value">~$10亿+</div></div>
+      <div class="stat-card"><div class="label">Ins粉丝数</div><div class="value">5亿+</div></div>
+      <div class="stat-card"><div class="label">年收入</div><div class="value">$1.3亿+</div></div>
+    </div>
+
+    <div class="biz-grid">
+      <div class="biz-card">
+        <div class="biz-icon">👟</div>
+        <div class="biz-name">Adidas 终身合同</div>
+        <div class="biz-desc">2017年2月，梅西与Adidas签署了体育营销史上最重大的协议之一——终身合同。年收入约2000-2500万美元，退休后转为特许权使用费和品牌大使角色。梅西系列球鞋是全球最畅销的足球鞋之一。</div>
+      </div>
+      <div class="biz-card">
+        <div class="biz-icon">🏨</div>
+        <div class="biz-name">MiM 酒店品牌</div>
+        <div class="biz-desc">Majestic i Messi（MiM）——与马德里品牌Majestic合作的连锁精品酒店。第一家位于锡切斯（巴塞罗那附近），后续扩展至伊比沙岛、马略卡岛和安道尔。融入了梅西的品味和风格。</div>
+      </div>
+      <div class="biz-card">
+        <div class="biz-icon">🍿</div>
+        <div class="biz-name">Messi Brand</div>
+        <div class="biz-desc">通过与品牌管理公司MGO合作，梅西推出了自有服装和生活方式品牌。涵盖休闲装、正装、配饰。2023年与硬石国际合作推出梅西联名汉堡（Messi Chicken Sandwich）。</div>
+      </div>
+      <div class="biz-card">
+        <div class="biz-icon">🎗️</div>
+        <div class="biz-name">梅西基金会</div>
+        <div class="biz-desc">2007年创立，总部在巴塞罗那和罗萨里奥。核心使命：改善全球弱势儿童的<strong>健康、教育和运动机会</strong>。在阿根廷建学校、在西班牙资助儿童癌症治疗、在肯尼亚支持UNICEF净水项目、在叙利亚提供人道主义援助。</div>
+      </div>
+      <div class="biz-card">
+        <div class="biz-icon">👶</div>
+        <div class="biz-name">UNICEF 大使</div>
+        <div class="biz-desc">自2010年起担任联合国儿童基金会亲善大使，是UNICEF历史上最活跃的运动员大使之一。多次前往非洲和海地等地区探访弱势儿童。2020年COVID-19疫情期间捐款100万欧元用于医疗物资。</div>
+      </div>
+      <div class="biz-card">
+        <div class="biz-icon">📱</div>
+        <div class="biz-name">数字影响力</div>
+        <div class="biz-desc">Instagram粉丝5亿+（全球第二多，仅次于C罗）。2022世界杯夺冠帖子成为<strong>Instagram史上点赞最多的帖子</strong>（超过7500万）。但他的社交媒体极其克制——几乎不发营销内容，大多数只是球场和家人的照片。</div>
+      </div>
+    </div>
+
+    <div class="quiz" id="quiz4">
+      <div class="q">🤔 梅西的慈善事业最与众不同的地方是什么？</div>
+      <div class="options">
+        <div class="opt" onclick="checkQuiz(this,false,'quiz4-fb')">📸 他每次捐款都发新闻稿</div>
+        <div class="opt" onclick="checkQuiz(this,true,'quiz4-fb')">🤫 他极其低调——2007年基金会创立至今，大部分捐助从未公开报道。他12岁时得到过帮助，于是把一生都用来帮助和他当年一样的孩子</div>
+        <div class="opt" onclick="checkQuiz(this,false,'quiz4-fb')">🏦 他的基金会规模全球最大</div>
+      </div>
+      <div class="feedback" id="quiz4-fb">🤫 是的！大多数人对梅西的慈善工作知之甚少——这正是他想要的方式。2007年创立基金会，资助无数儿童手术、教育项目、体育设施，却极少在媒体上谈论。一个11岁时需要帮助的男孩，长大后默默成为了无数孩子的救星。这比任何金球奖都更值得尊敬。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FOOTBALL PHILOSOPHY ══════ -->
+<section class="section" id="spirit">
+  <div class="section-inner">
+    <h2>🔥 足球哲学：纯粹、低调、用脚说话</h2>
+    <p class="sub">他从不谈论自己有多伟大——他的脚替他回答了一切</p>
+
+    <div class="chapter-inner" style="max-width:900px;margin:0 auto;display:flex;gap:3rem;align-items:center;flex-wrap:wrap;">
+      <div class="chapter-icon" style="font-size:5rem;">💭</div>
+      <div class="chapter-content" style="min-width:280px;">
+        <div class="chapter-text">
+          <p>理解梅西的足球哲学，必须先理解一个事实：<strong>他可能是足球史上最安静的天才。</strong>他不咆哮、不挑衅、不在社交媒体上夸耀自己。他在场上的表情几乎永远平静——即使刚被粗暴地踢倒，他爬起来继续跑。这种极致的内向，恰恰是他足球力量的来源。</p>
+          <p><strong>他的比赛不是演的——是看的。</strong>梅西在场上做的第一件事永远是"观察"：观察对手的站位、空隙、重心的倾斜方向。阿根廷人称之为"la pausa"——那一瞬间的停顿。他不知道自己在做什么理论分析，他只是看到了别人看不到的空间。瓜迪奥拉说过："<span class='highlight'>梅西是唯一的那个——他不解读比赛，他就是比赛。</span>"</p>
+          <p><strong>他的低调不是软弱——是选择的聚焦。</strong>当整个世界都在讨论"梅西vs C罗"时，他在干什么？练任意球。当社交媒体上掀起辩论狂潮时，他在和儿子蒂亚戈踢足球。这是一种近乎禅修的自律：他的能量只流向足球本身，不浪费在任何噪音上。</p>
+          <p><strong>他把弱点变成了风格。</strong>身高1米70——在足球世界这是明显的"劣势"。但梅西把低重心转化为了他最大的武器：更快的变向、更灵活的转身、更难以被断球的控球。物理学家分析过他的盘带：他的重心变化频率和幅度是人类运动科学的极限。那些他11岁时注射进大腿的生长激素，在他24岁时变成了对手坠入噩梦的物理原因。这也是为什么那么多比他高大强壮的防守球员永远防不住他——他们在防守一个违反了物理直觉的存在。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="phil-grid">
+      <div class="phil-card">
+        <div class="phil-icon">👁️</div>
+        <div class="phil-name">观察者</div>
+        <div class="phil-desc">每次拿球前先扫视全场。他的大脑在接球前已经完成了对场上15个人的位置分析。这就是为什么他总是看起来"慢"——其实他在想。</div>
+      </div>
+      <div class="phil-card">
+        <div class="phil-icon">🤲</div>
+        <div class="phil-name">团队第一</div>
+        <div class="phil-desc">"我更喜欢和球队一起赢得冠军，而不是个人奖项或比别人进更多球。"他在17岁时就说了这句话，此后从来没有变过。</div>
+      </div>
+      <div class="phil-card">
+        <div class="phil-icon">💎</div>
+        <div class="phil-name">以简驭繁</div>
+        <div class="phil-desc">他不做花哨的动作——他做正确的动作。他的盘带看起来简单，因为他是最直接的。不必要的触球=浪费时间。</div>
+      </div>
+      <div class="phil-card">
+        <div class="phil-icon">🌱</div>
+        <div class="phil-name">永远进化</div>
+        <div class="phil-desc">从边路突破手到"伪9号"到组织核心——他在职业生涯的不同阶段扮演了完全不同的角色。每个版本都是世界最佳。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ QUOTES ══════ -->
+<section class="section" id="quotes">
+  <div class="section-inner">
+    <h2>💬 他说过的话</h2>
+    <p class="sub">每一句背后都是一颗安静而滚烫的心</p>
+
+    <div class="blockquote"><p>我更喜欢和球队一起赢得冠军，而不是个人奖项或者比别人进更多的球。我更在意的是做一个好人，而不是世界上最好的足球运动员。当一切都结束的时候，我希望人们记住我是一个正直的人。</p><div class="by">— 多次采访中的一贯立场，是梅西价值观最凝练的表达</div></div>
+
+    <div class="blockquote"><p>我每天晚上给自己打一针，从12岁开始。对我来说这就是家常便饭。</p><div class="by">— 谈到生长激素治疗，América TV 采访</div></div>
+
+    <div class="blockquote"><p>我梦想这一刻太久了。我太渴望它了。我知道上帝会把它给我的。我终于得到了。</p><div class="by">— 2022年世界杯夺冠后，跪在卢赛尔球场上说的话</div></div>
+
+    <div class="blockquote"><p>我从来不认为我是最好的。我是我自己的批评者——我第一个知道自己什么时候做错了。</p><div class="by">— 被问及是否认为自己是史上最佳时的回答</div></div>
+
+    <div class="blockquote"><p>努力终有回报。看起来像是运气的东西，其实是你牺牲了无数个日夜换来的。成功需要天赋，更需要牺牲、奉献和自信。</p><div class="by">— 对年轻球员的忠告</div></div>
+
+    <div class="blockquote"><p>我永远不会停止为阿根廷踢球。只要我还能跑，我就会穿上这身球衣。</p><div class="by">— 2024年美洲杯夺冠后，回应关于从国家队退役的猜测</div></div>
+
+    <div class="blockquote"><p>钱从来不是我的动力。钱不会让我兴奋，也不会让我踢得更好。有球在脚下我就快乐。如果没有人付钱让我踢球，我也会心甘情愿地免费踢。</p><div class="by">— 被问及财富和成功对他人生的影响</div></div>
+
+    <h2 style="margin-top:3rem;">🗣️ 他们说过的关于梅西的话</h2>
+    <p class="sub">世界上最懂足球的人，在试图描述梅西时都感到词穷</p>
+
+    <div class="blockquote"><p>不要把梅西和任何人比较。他不是这个星球的人。他是来自另一个维度的生物，被送到人间来定义什么是美。他让足球变成了艺术。</p><div class="by">— 瓜迪奥拉（Pep Guardiola），梅西在巴萨的主教练</div></div>
+
+    <div class="blockquote"><p>我见过马拉多纳，我见过贝利。梅西比他们都好。在足球历史上，没有人能做到他做到的事情。而且他是以最谦逊的方式做到的。</p><div class="by">— 豪尔赫·巴尔达诺（Jorge Valdano），1986年世界杯冠军成员</div></div>
+
+    <div class="blockquote"><p>对我来说，看着梅西踢球是一种纯粹的快乐。他做的事情我从来没见过。我希望他永远不会退役——足球需要他。</p><div class="by">— 罗纳尔迪尼奥（Ronaldinho），梅西的导师</div></div>
+
+    <div class="blockquote"><p>在这个星球上，梅西就是最好的。没有之一。我有幸和他并肩作战——每天在训练场上看着他做那些不可能的事情，然后第二天他又做了更不可能的事。</p><div class="by">— 路易斯·苏亚雷斯（Luis Suárez），MSN三叉戟成员</div></div>
+
+    <div class="quiz" id="quiz5" style="margin-top:2.5rem;">
+      <div class="q">🤔 这些名言中，哪一句最能揭示梅西之所以是梅西？</div>
+      <div class="options">
+        <div class="opt" onclick="checkQuiz(this,false,'quiz5-fb')">🤷 选哪句都一样，反正都是好听的</div>
+        <div class="opt" onclick="checkQuiz(this,true,'quiz5-fb')">💚 "我更在意的是做一个好人，而不是世界上最好的足球运动员"——这句话解释了一切：他11岁时的痛苦、他踢球的纯粹、他从不炫耀的慈善、以及为什么全世界都爱他</div>
+        <div class="opt" onclick="checkQuiz(this,false,'quiz5-fb')">🥇 选世界杯那句，因为冠军最重要</div>
+      </div>
+      <div class="feedback" id="quiz5-fb">💚 这就是梅西的密码。伟大是通过成为伟大的人来实现的，而不只是伟大的球员。这句话不是公关——这就是他过了三十多年的人生。一个11岁的男孩在疼痛中学会了注射，然后花了一生来确保别的孩子不需要独自承受痛苦。这才是梅西真正踢赢的决赛。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ TIMELINE ══════ -->
+<section class="timeline-section">
+  <h2>⏳ 完整时间线</h2>
+  <div class="timeline">
+    <div class="timeline-item"><div class="timeline-year">1987</div><div class="timeline-event">6月24日出生于阿根廷罗萨里奥，父亲钢铁厂工人，母亲清洁工。外婆是他最早的伯乐。</div></div>
+    <div class="timeline-item"><div class="timeline-year">1993</div><div class="timeline-event">5岁，加入格兰多利俱乐部。外号"小跳蚤"——个子最小，但没人能从他脚下抢到球。</div></div>
+    <div class="timeline-item"><div class="timeline-year">1994</div><div class="timeline-event">6岁，转入纽维尔老男孩青训。加入"87机器"少年队——6年内打进近500球。</div></div>
+    <div class="timeline-item"><div class="timeline-year">1997</div><div class="timeline-event"><strong>10岁，诊断出生长激素缺乏症</strong>。治疗费用每月约900美元，家庭无法承担。</div></div>
+    <div class="timeline-item"><div class="timeline-year">2000</div><div class="timeline-event">13岁，飞往巴塞罗那试训。12月14日——<strong>雷克萨奇在餐巾纸上写下签约承诺</strong>。巴萨全额支付激素治疗费。</div></div>
+    <div class="timeline-item"><div class="timeline-year">2003</div><div class="timeline-event">11月16日，16岁4个月，身穿巴萨一线队球衣在对波尔图的友谊赛中<strong>首次亮相</strong>。</div></div>
+    <div class="timeline-item"><div class="timeline-year">2005</div><div class="timeline-event">5月1日，17岁10个月，<strong>打入巴萨一线队首球</strong>（对阵阿尔巴塞特），罗纳尔迪尼奥助攻并把他扛在背上庆祝。</div></div>
+    <div class="timeline-item"><div class="timeline-year">2008</div><div class="timeline-event"><strong>北京奥运会男足金牌</strong>——阿根廷夺冠，梅西在半决赛和决赛中打入关键进球。这是他国家队生涯的第一座冠军奖杯。</div></div>
+    <div class="timeline-item"><div class="timeline-year">2009</div><div class="timeline-event">22岁。<strong>巴萨六冠王</strong>——史无前例。首获金球奖。欧冠决赛头球攻破曼联。</div></div>
+    <div class="timeline-item"><div class="timeline-year">2012</div><div class="timeline-event"><strong>69场比赛91球</strong>——打破盖德·穆勒保持40年的85球世界纪录。吉尼斯世界纪录认证。第四座金球奖。</div></div>
+    <div class="timeline-item"><div class="timeline-year">2014</div><div class="timeline-event">世界杯决赛负德国——<strong>走过大力神杯的凝望</strong>。被评为赛事最佳球员（金球奖），但心碎。</div></div>
+    <div class="timeline-item"><div class="timeline-year">2015</div><div class="timeline-event"><strong>MSN三叉戟横扫欧洲</strong>——欧冠+西甲+国王杯三冠王。第五座金球奖。国王杯决赛对毕尔巴鄂打进"一条龙"神球。</div></div>
+    <div class="timeline-item"><div class="timeline-year">2016</div><div class="timeline-event">百年美洲杯决赛再负智利。连续三年决赛失利。<strong>宣布退出国家队</strong>——全阿根廷哭泣。</div></div>
+    <div class="timeline-item"><div class="timeline-year">2019</div><div class="timeline-event"><strong>第六座金球奖</strong>——打破纪录（超越C罗的5座）。同年带领阿根廷夺得美洲杯季军。</div></div>
+    <div class="timeline-item"><div class="timeline-year">2021</div><div class="timeline-event">7月10日——<strong>34岁，首夺美洲杯</strong>！在巴西主场马拉卡纳1-0击败东道主。16年国家队首冠。8月——<strong>含泪告别巴萨</strong>，加盟巴黎圣日耳曼。11月——<strong>第七座金球奖</strong>。</div></div>
+    <div class="timeline-item"><div class="timeline-year">2022.06</div><div class="timeline-event"><strong>欧美杯冠军</strong>——阿根廷3-0击败欧洲杯冠军意大利。梅西两记助攻。</div></div>
+    <div class="timeline-item"><div class="timeline-year">2022.12</div><div class="timeline-event">12月18日——<strong>世界杯冠军！</strong>决赛对阵法国梅开二度（23'点球 + 108'补射），点球大战4-2获胜。赛事7球3助攻，世界杯金球奖。一代球王的终极加冕。</div></div>
+    <div class="timeline-item"><div class="timeline-year">2023</div><div class="timeline-event"><strong>第八座金球奖</strong>——史无前例。转会迈阿密国际，首秀任意球绝杀，引发"梅西狂热"席卷美国。</div></div>
+    <div class="timeline-item"><div class="timeline-year">2024</div><div class="timeline-event"><strong>卫冕美洲杯！</strong>阿根廷第16座美洲杯——史上最多。梅西虽然决赛伤退，依然以队长身份捧起职业生涯第45座冠军。</div></div>
+    <div class="timeline-item"><div class="timeline-year">2025</div><div class="timeline-event">被美国总统拜登授予<strong>总统自由勋章</strong>（Presidential Medal of Freedom）——美国平民最高荣誉。</div></div>
+    <div class="timeline-item"><div class="timeline-year" style="color:var(--gold);">∞</div><div class="timeline-event" style="color:var(--gold);">从罗萨里奥的瘦小男孩到GOAT——他的故事，将在一代代踢球的孩子心中继续……</div></div>
+  </div>
+</section>
+
+<!-- ══════ TROPHY WALL ══════ -->
+<section class="trophy-section">
+  <h2>🏆 荣誉殿堂</h2>
+  <p class="sub">他用无数奖杯填满了一座博物馆——但在梅西本人看来，最好的奖杯是别人的笑脸</p>
+  <div class="trophy-grid">
+    <div class="trophy"><div class="t-icon">🥇</div><div class="t-name">金球奖</div><div class="t-count">×8</div><div class="t-detail">09/10/11/12/15/19/21/23</div></div>
+    <div class="trophy"><div class="t-icon">🏆</div><div class="t-name">欧冠冠军</div><div class="t-count">×4</div><div class="t-detail">06/09/11/15</div></div>
+    <div class="trophy"><div class="t-icon">🇪🇸</div><div class="t-name">西甲冠军</div><div class="t-count">×10</div><div class="t-detail">史上最多之一</div></div>
+    <div class="trophy"><div class="t-icon">🏅</div><div class="t-name">世俱杯</div><div class="t-count">×3</div><div class="t-detail">09/11/15</div></div>
+    <div class="trophy"><div class="t-icon">🌍</div><div class="t-name">世界杯</div><div class="t-count">×1</div><div class="t-detail">2022 🏆</div></div>
+    <div class="trophy"><div class="t-icon">🇦🇷</div><div class="t-name">美洲杯</div><div class="t-count">×2</div><div class="t-detail">21/24</div></div>
+    <div class="trophy"><div class="t-icon">👟</div><div class="t-name">欧洲金靴</div><div class="t-count">×6</div><div class="t-detail">史上最多</div></div>
+    <div class="trophy"><div class="t-icon">⚽</div><div class="t-name">欧冠金靴</div><div class="t-count">×6</div><div class="t-detail">史上最多</div></div>
+    <div class="trophy"><div class="t-icon">🎖️</div><div class="t-name">世界杯金球</div><div class="t-count">×2</div><div class="t-detail">14/22</div></div>
+    <div class="trophy"><div class="t-icon">🏛️</div><div class="t-name">总统自由勋章</div><div class="t-count">×1</div><div class="t-detail">2025 美国</div></div>
+    <div class="trophy"><div class="t-icon">⭐</div><div class="t-name">FIFA最佳</div><div class="t-count">×3</div><div class="t-detail">19/22/23</div></div>
+    <div class="trophy"><div class="t-icon">🔢</div><div class="t-name">生涯总进球</div><div class="t-count">800+</div><div class="t-detail">助攻350+</div></div>
+  </div>
+</section>
+
+<!-- ══════ FOOTER ══════ -->
+
+<!-- ══════ 2022 WORLD CUP DEEP DIVE ══════ -->
+<section class="section" id="wc2022">
+  <div class="section-inner">
+    <h2>🏆 2022世界杯之路 — 从地狱到天堂</h2>
+    <p class="sub">那一届世界杯的旅程是一部不可复制的戏剧</p>
+    <div class="dark-card">
+      <div class="dark-year">⚡ 小组赛第一场 · 2022年11月22日</div>
+      <div class="dark-title">阿根廷 1-2 沙特阿拉伯 — 世界杯史上最大冷门之一</div>
+      <div class="dark-desc">全世界都傻了。阿根廷36场不败的记录，在世界杯首战被排名第51位的沙特阿拉伯终结。梅西点球首开纪录，但下半场沙特在5分钟内连进两球。赛后梅西沉默了很久，然后说："<span class='highlight'>我们不会放弃。请继续相信我们。</span>" 全世界都在嘲笑，但阿根廷球迷涌向卡塔尔的每一场小组赛——从那天起，每场都是决赛。</div>
+    </div>
+    <div class="dark-card">
+      <div class="dark-year">🔥 小组赛第二场 · 2022年11月26日</div>
+      <div class="dark-title">阿根廷 2-0 墨西哥 — 梅西的魔法时刻</div>
+      <div class="dark-desc">63分钟过去了，比分仍是0-0。阿根廷面临小组出局的边缘。然后迪马利亚把球传给禁区外的梅西——他几乎没有抬头看球门，左脚贴地远射，皮球绕过三个防守球员和门将的指尖钻入死角。这是用魔法把国家队从悬崖边拉回来的进球。进球后，梅西跑向看台，亲吻了阿根廷队徽。恩佐·费尔南德斯随后打入一粒华丽的弧线球锁定胜局。那一天，阿根廷人开始相信奇迹。</div>
+    </div>
+    <div class="dark-card">
+      <div class="dark-year">🦾 四分之一决赛 · 2022年12月9日</div>
+      <div class="dark-title">阿根廷 2-2 荷兰（点球4-3）— 火药桶之战</div>
+      <div class="dark-desc">梅西一传一射建立2-0领先，但荷兰在最后时刻连进两球（第101分钟任意球战术扳平）强行拖入加时赛和点球大战。这场比赛打出了创世界杯纪录的<strong>18张黄牌</strong>。梅西赛后罕见暴怒——对着荷兰教练范加尔和前锋韦霍斯特怒吼。但当马丁内斯扑出两个点球、劳塔罗罚进制胜球时，梅西跪在地上，眼泪和雨水混在一起。这是他第一次让人看到他内心的烈火——安静的人也有爆发的时刻。</div>
+    </div>
+    <div class="dark-card">
+      <div class="dark-year">🎨 半决赛 · 2022年12月13日</div>
+      <div class="dark-title">阿根廷 3-0 克罗地亚 — 世纪过人</div>
+      <div class="dark-desc">第69分钟，梅西在右路接球面对克罗地亚20岁的天才后卫格瓦迪奥尔——当今世界最好的中后卫之一。梅西先假装往底线走，然后突然变向内切，连续三次变向，把格瓦迪奥尔晃得失去重心，然后在底线送出倒三角助攻阿尔瓦雷斯破门。解说员只能重复一句话："<strong>他戏耍了格瓦迪奥尔……他在戏耍格瓦迪奥尔！</strong>"这个助攻瞬间传遍全球，被称为"世界杯历史上最不尊重的助攻"——不是不尊重人，是不尊重物理定律。</div>
+      <div class="dark-rise">🔥 决赛：阿根廷 3-3 法国（点球4-2）。卢赛尔之夜。加冕。</div>
+    </div>
+  </div>
+</section>
+
+<footer style="text-align:center;padding:3rem 1rem;color:#555;font-size:0.8rem;border-top:1px solid rgba(255,255,255,0.05);line-height:2;">
+  <p style="font-size:1.2rem;color:var(--gold);font-weight:700;">¡Vamos Leo! 🇦🇷⚽🐐</p>
+  <p>🏟️ 体育英雄殿堂 · 梅西篇</p>
+  <p>献给牧童——愿你从梅西的故事中汲取力量：</p>
+  <p style="color:#aaa;">身体可以弱小 · 意志不可以 · 安静的人也能改变世界</p>
+  <p style="margin-top:1rem;"><a href="../" style="color:var(--gold)">← 返回英雄殿堂</a></p>
+  <p style="margin-top:1.5rem;color:#444;font-size:0.75rem;line-height:1.8;">
+    
+    
+    © 2026 体育英雄殿堂 · 献给牧童——这里没有虚构，只有真实存在的伟大。
+  </p>
+</footer>
+
+<script>
+// Quiz engine
+function checkQuiz(el, correct, fbId) {
+  if (el.parentElement.querySelector('.correct')) return;
+  const opts = el.parentElement.querySelectorAll('.opt');
+  const fb = document.getElementById(fbId);
+  opts.forEach(o => { o.style.pointerEvents = 'none'; });
+  if (correct) {
+    el.classList.add('correct');
+    fb.style.display = 'block';
+    if (fbId === 'quiz5-fb') celebrate();
+  } else {
+    el.classList.add('wrong');
+    opts.forEach(o => {
+      const oc = o.getAttribute('onclick');
+      if (oc && oc.includes('true') && o !== el) o.classList.add('correct');
+    });
+    fb.style.display = 'block';
+  }
+}
+
+// Celebration
+function celebrate() {
+  const emojis = ['⚽','🏆','🎉','✨','🌟','🇦🇷','10','🥇','👑','🐐','⭐','💙','🤍'];
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 60; i++) {
+    setTimeout(() => {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = (2 + Math.random() * 3) + 's';
+      p.style.animationDelay = Math.random() * 0.6 + 's';
+      container.appendChild(p);
+      setTimeout(() => p.remove(), 4500);
+    }, i * 35);
+  }
+}
+
+// Scroll to chapter
+function scrollToChapter(idx) {
+  const ids = ['ch1','ch2','ch3','goals','ch4','dark','ch5','biz','spirit','quotes'];
+  const el = document.getElementById(ids[idx]);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
+// Back to top + nav active
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('backTop');
+  btn.classList.toggle('show', window.scrollY > 400);
+
+  const ids = ['ch1','ch2','ch3','goals','ch4','dark','ch5','biz','spirit','quotes'];
+  const navSpans = document.querySelectorAll('#navChapters span');
+  let activeIdx = -1;
+  ids.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      if (rect.top <= 250 && rect.bottom >= 250) activeIdx = i;
+    }
+  });
+  navSpans.forEach((s, i) => s.classList.toggle('active', i === activeIdx));
+});
+
+// Hero click celebrate
+document.querySelector('.hero .scroll-hint').addEventListener('click', () => { celebrate(); });
+
+// Auto-celebrate on quotes section
+const quoteEl = document.getElementById('quotes');
+if (quoteEl) {
+  const obs = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) { setTimeout(celebrate, 600); obs.unobserve(quoteEl); }
+  }, { threshold: 0.3 });
+  obs.observe(quoteEl);
+}
+(function(){var o=new IntersectionObserver(function(e){e.forEach(function(n){if(n.isIntersecting){var t=n.target,c=Array.from(t.parentElement.children).indexOf(t);setTimeout(function(){t.classList.add('is-visible')},c*80);o.unobserve(t)}})},{threshold:0.15,rootMargin:'0px 0px -50px 0px'});document.querySelectorAll('.timeline-item,.stat-card').forEach(function(e){o.observe(e)})})();
+
+</script>
+
+<!-- ══════ EXTRA: Olympic Glory ══════ -->
+<section class="section" id="olympic">
+  <div class="section-inner">
+    <h2>🥇 北京2008 — 一切开始的地方</h2>
+    <p class="sub">在成为世界杯冠军之前，他先成为了奥运冠军</p>
+    <div class="chapter-inner" style="max-width:900px;margin:0 auto;display:flex;gap:3rem;align-items:center;flex-wrap:wrap;">
+      <div class="chapter-icon" style="font-size:5rem;">🥇</div>
+      <div class="chapter-content" style="min-width:280px;">
+        <div class="chapter-text">
+          <p>2008年北京奥运会，21岁的梅西穿上了阿根廷的蓝白球衣，参加了他职业生涯中唯一一次奥运会。彼时的他已经是巴萨的核心，但他的奖杯柜里还没有国家队冠军。</p>
+          <p>在半决赛中，梅西一传一射帮助阿根廷3-0击败宿敌巴西——这场胜利的意义不亚于任何决赛。在最终的决赛中，阿根廷1-0击败尼日利亚，迪马利亚打入制胜球（助攻者正是梅西）。当金牌挂在脖子上的那一刻，年轻的梅西笑得像个孩子——那是他国家队生涯的第一座冠军，也是"梅西需要国家队冠军"这个故事的开始。</p>
+          <p>没人知道的是，巴萨最初拒绝放他去奥运会——因为奥运会与欧冠资格赛时间冲突。但梅西坚持了：<strong>"让我去。这是我欠阿根廷的。"</strong>新上任的主教练瓜迪奥拉最终同意了他的请求。后来的事实证明，那个决定是值得的——奥运会金牌为梅西的国家队信念埋下了种子，这颗种子在14年后长成了世界杯。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
